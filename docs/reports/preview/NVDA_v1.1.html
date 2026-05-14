@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NVDA — 2026-05-13 | Finance Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+      :root {
+        --color-bg-base: #0d1117;
+        --color-bg-surface: #161b22;
+        --color-bg-elevated: #1c2128;
+        --color-bg-hover: #21262d;
+        --color-border-subtle: #30363d;
+        --color-border-muted: #21262d;
+        --color-text-primary: #e6edf3;
+        --color-text-secondary: #8b949e;
+        --color-text-tertiary: #6e7681;
+        --color-accent: #58a6ff;
+        --color-bull: #26a69a;
+        --color-bear: #ef5350;
+        --color-warning: #d29922;
+        --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+        --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+        --space-5: 24px; --space-6: 32px; --space-7: 48px;
+        --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html, body {
+        background: var(--color-bg-base);
+        color: var(--color-text-primary);
+        font-family: var(--font-body);
+        font-size: 14px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: var(--space-6) var(--space-5);
+      }
+
+      /* Header */
+      header {
+        border-bottom: 1px solid var(--color-border-subtle);
+        padding-bottom: var(--space-5);
+        margin-bottom: var(--space-6);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+      }
+
+      .back-link {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--color-text-tertiary);
+        text-decoration: none;
+        margin-bottom: var(--space-2);
+        display: inline-block;
+      }
+      .back-link:hover { color: var(--color-accent); }
+
+      .symbol-badge {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--color-accent);
+        background: rgba(88, 166, 255, 0.1);
+        border: 1px solid rgba(88, 166, 255, 0.25);
+        border-radius: var(--radius-sm);
+        padding: 2px 8px;
+        display: inline-block;
+        margin-bottom: var(--space-2);
+      }
+
+      .report-title {
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .report-meta {
+        font-size: 12px;
+        color: var(--color-text-tertiary);
+        font-family: var(--font-mono);
+        margin-top: var(--space-1);
+      }
+
+      .header-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: var(--space-1);
+      }
+
+      .date-label {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--color-text-secondary);
+      }
+
+      .disclaimer {
+        font-size: 11px;
+        color: var(--color-text-tertiary);
+        font-style: italic;
+      }
+
+      /* Metrics Grid */
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: var(--space-3);
+        margin-bottom: var(--space-6);
+      }
+
+      .metric-card {
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-4);
+      }
+
+      .metric-label {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-text-tertiary);
+        margin-bottom: var(--space-1);
+      }
+
+      .metric-value {
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-text-primary);
+      }
+
+      .metric-sub {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        margin-top: 2px;
+      }
+
+      .bull { color: var(--color-bull); }
+      .bear { color: var(--color-bear); }
+      .warn { color: var(--color-warning); }
+
+      /* Chart Section */
+      .section {
+        margin-bottom: var(--space-6);
+      }
+
+      .section-title {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-text-tertiary);
+        margin-bottom: var(--space-4);
+        padding-bottom: var(--space-2);
+        border-bottom: 1px solid var(--color-border-muted);
+      }
+
+      .chart-wrapper {
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-4);
+        height: 260px;
+        position: relative;
+      }
+
+      /* Two-column layout */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-4);
+        margin-bottom: var(--space-6);
+      }
+
+      @media (max-width: 680px) {
+        .two-col { grid-template-columns: 1fr; }
+      }
+
+      /* Notes */
+      .notes-card {
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-4) var(--space-5);
+        height: 100%;
+      }
+
+      .notes-title {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--color-text-tertiary);
+        margin-bottom: var(--space-3);
+      }
+
+      .notes-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+      }
+
+      .notes-list li {
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        padding-left: var(--space-4);
+        position: relative;
+      }
+
+      .notes-list li::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: var(--color-accent);
+        font-family: var(--font-mono);
+      }
+
+      /* Sentiment bar */
+      .sentiment-section {
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-4) var(--space-5);
+        height: 100%;
+      }
+
+      .sentiment-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-2);
+        font-size: 12px;
+      }
+
+      .sentiment-label {
+        color: var(--color-text-tertiary);
+        font-family: var(--font-mono);
+      }
+
+      .sentiment-val {
+        font-family: var(--font-mono);
+        font-weight: 600;
+      }
+
+      .bar-track {
+        height: 6px;
+        background: var(--color-bg-elevated);
+        border-radius: 3px;
+        margin-bottom: var(--space-3);
+        overflow: hidden;
+      }
+
+      .bar-fill {
+        height: 100%;
+        border-radius: 3px;
+        transition: width 0.4s ease;
+      }
+
+      /* Footer */
+      footer {
+        margin-top: var(--space-7);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--color-border-subtle);
+        color: var(--color-text-tertiary);
+        font-size: 11px;
+        font-family: var(--font-mono);
+        text-align: center;
+      }
+
+      footer a { color: var(--color-text-tertiary); text-decoration: none; }
+      footer a:hover { color: var(--color-accent); }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a class="back-link" href="../index.html">← Finance Reports</a>
+
+      <header>
+        <div>
+          <div class="symbol-badge">NVDA</div>
+          <h1 class="report-title">NVIDIA Corporation</h1>
+          <div class="report-meta">NASDAQ: NVDA &nbsp;·&nbsp; 半導体 / AI インフラ</div>
+        </div>
+        <div class="header-right">
+          <div class="date-label">2026-05-13</div>
+          <div class="disclaimer">個人メモ・参考情報</div>
+        </div>
+      </header>
+
+      <!-- Key Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value" style="font-size:15px; letter-spacing:-0.01em;">Semiconductors</div>
+          <div class="metric-sub" style="color:var(--color-text-tertiary);">Technology</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">P/E (TTM, est.)</div>
+          <div class="metric-value">~35x</div>
+          <div class="metric-sub warn">高バリュエーション</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Growth</div>
+          <div class="metric-value bull">+122%</div>
+          <div class="metric-sub" style="color:var(--color-text-tertiary);">YoY (FY2025)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Gross Margin</div>
+          <div class="metric-value">~75%</div>
+          <div class="metric-sub bull">業界最高水準</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">主要製品</div>
+          <div class="metric-value" style="font-size:14px;">H100/B200</div>
+          <div class="metric-sub" style="color:var(--color-text-tertiary);">Blackwell世代</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">競合リスク</div>
+          <div class="metric-value warn">中〜高</div>
+          <div class="metric-sub" style="color:var(--color-text-tertiary);">AMD / 自社開発</div>
+        </div>
+      </div>
+
+      <!-- Price Chart -->
+      <div class="section">
+        <div class="section-title">株価推移イメージ（参考）</div>
+        <div class="chart-wrapper">
+          <canvas id="priceChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Notes + Sentiment -->
+      <div class="two-col">
+        <div class="notes-card">
+          <div class="notes-title">注目ポイント</div>
+          <ul class="notes-list">
+            <li>Blackwell（B200）の量産立ち上がりが収益の主ドライバー</li>
+            <li>データセンター向け需要は継続的に旺盛。主要CSPからの大型受注が続く</li>
+            <li>CUDA エコシステムの堀は依然として深く、AIソフトスタックでも優位</li>
+            <li>米中半導体規制による中国向け売上の制限が引き続きリスク</li>
+            <li>AMDのMI300・Intel Gaudi、さらにカスタムASIC（TPU等）との競争が激化</li>
+          </ul>
+        </div>
+
+        <div class="sentiment-section">
+          <div class="notes-title">評価スコア（主観）</div>
+
+          <div class="sentiment-row">
+            <span class="sentiment-label">成長性</span>
+            <span class="sentiment-val bull">9 / 10</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:90%; background:var(--color-bull);"></div>
+          </div>
+
+          <div class="sentiment-row">
+            <span class="sentiment-label">収益性</span>
+            <span class="sentiment-val bull">9 / 10</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:90%; background:var(--color-bull);"></div>
+          </div>
+
+          <div class="sentiment-row">
+            <span class="sentiment-label">競合優位</span>
+            <span class="sentiment-val bull">8 / 10</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:80%; background:var(--color-bull);"></div>
+          </div>
+
+          <div class="sentiment-row">
+            <span class="sentiment-label">バリュエーション</span>
+            <span class="sentiment-val warn">5 / 10</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:50%; background:var(--color-warning);"></div>
+          </div>
+
+          <div class="sentiment-row">
+            <span class="sentiment-label">地政学リスク</span>
+            <span class="sentiment-val bear">4 / 10</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:40%; background:var(--color-bear);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Memo -->
+      <div class="section">
+        <div class="section-title">メモ</div>
+        <div class="notes-card">
+          <ul class="notes-list">
+            <li>長期保有の観点では AI インフラ投資の主要受益者として引き続き注目。ただし株価はすでに高成長を織り込み済みで、バリュエーション面のバッファは薄い。</li>
+            <li>規制リスク（輸出規制強化・中国向け制限）と過剰在庫サイクルに注意。短期的な材料出尽くしも起こりうる。</li>
+            <li>新規エントリーは押し目を狙い、分散投資の一部として位置づけるのが無難。</li>
+          </ul>
+        </div>
+      </div>
+
+      <footer>
+        <a href="../index.html">← Finance Reports</a>
+        &nbsp;·&nbsp; Generated by Claude &nbsp;·&nbsp; 2026-05-13
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        const ctx = document.getElementById("priceChart").getContext("2d");
+
+        // Illustrative weekly price data (approx. trend, not real-time)
+        const labels = [
+          "2025-01","2025-03","2025-05","2025-07","2025-09","2025-11",
+          "2026-01","2026-03","2026-05",
+        ];
+        const prices = [590, 860, 1070, 990, 1160, 1340, 1290, 1450, 1380];
+
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: "NVDA (参考値)",
+                data: prices,
+                borderColor: "#58a6ff",
+                backgroundColor: "rgba(88,166,255,0.08)",
+                borderWidth: 2,
+                pointRadius: 3,
+                pointBackgroundColor: "#58a6ff",
+                tension: 0.35,
+                fill: true,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                labels: {
+                  color: "#8b949e",
+                  font: { family: "JetBrains Mono, monospace", size: 11 },
+                },
+              },
+              tooltip: {
+                backgroundColor: "#1c2128",
+                borderColor: "#30363d",
+                borderWidth: 1,
+                titleColor: "#e6edf3",
+                bodyColor: "#8b949e",
+                callbacks: {
+                  label: (ctx) => ` $${ctx.parsed.y.toLocaleString()}`,
+                },
+              },
+            },
+            scales: {
+              x: {
+                grid: { color: "#21262d" },
+                ticks: { color: "#6e7681", font: { family: "JetBrains Mono, monospace", size: 10 } },
+              },
+              y: {
+                grid: { color: "#21262d" },
+                ticks: {
+                  color: "#6e7681",
+                  font: { family: "JetBrains Mono, monospace", size: 10 },
+                  callback: (v) => "$" + v.toLocaleString(),
+                },
+              },
+            },
+          },
+        });
+      })();
+    </script>
+  </body>
+</html>

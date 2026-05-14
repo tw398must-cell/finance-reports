@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apple Inc. Financial Report</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+      :root {
+        /* Background tiers */
+        --color-bg-base: #0d1117;
+        --color-bg-surface: #161b22;
+        --color-bg-elevated: #1c2128;
+        --color-bg-hover: #21262d;
+
+        /* Borders & dividers */
+        --color-border-subtle: #30363d;
+        --color-border-muted: #21262d;
+
+        /* Text tiers */
+        --color-text-primary: #e6edf3;
+        --color-text-secondary: #8b949e;
+        --color-text-tertiary: #6e7681;
+
+        /* Semantic colors (TradingView-style) */
+        --color-accent: #58a6ff;
+        --color-bull: #26a69a;
+        --color-bear: #ef5350;
+        --color-warning: #d29922;
+        --color-neutral: #8b949e;
+
+        /* Role highlight */
+        --color-target-bg: rgba(88, 166, 255, 0.08);
+        --color-target-border: #58a6ff;
+
+        /* Typography */
+        --font-display:
+          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-body:
+          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+        /* Spacing */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 24px;
+        --space-6: 32px;
+        --space-7: 48px;
+
+        /* Radius */
+        --radius-sm: 4px;
+        --radius-md: 6px;
+        --radius-lg: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        background: var(--color-bg-base);
+        color: var(--color-text-primary);
+        font-family: var(--font-body);
+        font-size: 14px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: var(--space-6) var(--space-5);
+      }
+
+      /* === Header === */
+      header {
+        border-bottom: 1px solid var(--color-border-subtle);
+        padding-bottom: var(--space-5);
+        margin-bottom: var(--space-6);
+      }
+
+      .report-title {
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        color: var(--color-text-primary);
+        margin-bottom: var(--space-2);
+      }
+
+      .report-meta {
+        display: flex;
+        gap: var(--space-4);
+        align-items: center;
+        font-size: 12px;
+        color: var(--color-text-tertiary);
+        font-family: var(--font-mono);
+      }
+
+      .report-meta .badge {
+        display: inline-block;
+        padding: 2px var(--space-2);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      /* === Section === */
+      section {
+        margin-bottom: var(--space-7);
+      }
+
+      .section-title {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-text-tertiary);
+        margin-bottom: var(--space-4);
+        padding-bottom: var(--space-2);
+        border-bottom: 1px solid var(--color-border-muted);
+      }
+
+      /* === Overview === */
+      .market-description {
+        color: var(--color-text-secondary);
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: var(--space-5);
+      }
+
+      /* === Issues Table === */
+      .issues-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        margin-bottom: var(--space-5);
+      }
+
+      .issues-table th {
+        text-align: left;
+        padding: var(--space-3) var(--space-4);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-text-tertiary);
+        background: var(--color-bg-elevated);
+        border-bottom: 1px solid var(--color-border-subtle);
+      }
+
+      .issues-table td {
+        padding: var(--space-3) var(--space-4);
+        border-bottom: 1px solid var(--color-border-muted);
+        font-size: 13px;
+        vertical-align: top;
+      }
+
+      .issues-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .issues-table tr.role-target {
+        background: var(--color-target-bg);
+        border-left: 2px solid var(--color-target-border);
+      }
+
+      .issues-table tr.role-target td:first-child {
+        font-weight: 600;
+      }
+
+      .role-tag {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 3px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .role-tag.target {
+        background: var(--color-accent);
+        color: var(--color-bg-base);
+      }
+      .role-tag.peer {
+        background: var(--color-bg-elevated);
+        color: var(--color-text-tertiary);
+        border: 1px solid var(--color-border-subtle);
+      }
+
+      .symbol-mono {
+        font-family: var(--font-mono);
+        color: var(--color-text-secondary);
+        font-size: 12px;
+      }
+
+      .num-mono {
+        font-family: var(--font-mono);
+        text-align: right;
+        color: var(--color-text-primary);
+      }
+
+      .features-cell {
+        color: var(--color-text-secondary);
+        max-width: 380px;
+      }
+
+      /* === Notes === */
+      .notes {
+        background: var(--color-bg-surface);
+        border-left: 2px solid var(--color-warning);
+        border-radius: var(--radius-sm);
+        padding: var(--space-3) var(--space-4);
+      }
+
+      .notes ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .notes li {
+        color: var(--color-text-secondary);
+        font-size: 13px;
+        padding: 2px 0;
+        position: relative;
+        padding-left: var(--space-4);
+      }
+
+      .notes li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--color-warning);
+      }
+
+      /* === InfoGraph Grid === */
+      .panels-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--space-4);
+      }
+
+      .panel {
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-4) var(--space-5);
+      }
+
+      .panel-title {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-tertiary);
+        margin-bottom: var(--space-4);
+      }
+
+      .panel-metric-cards {
+        grid-column: span 12;
+      }
+      .panel-revenue {
+        grid-column: span 7;
+      }
+      .panel-radar {
+        grid-column: span 5;
+      }
+      .panel-price {
+        grid-column: span 12;
+      }
+
+      @media (max-width: 880px) {
+        .panel-revenue,
+        .panel-radar,
+        .panel-metric-cards,
+        .panel-price {
+          grid-column: span 12;
+        }
+      }
+
+      /* === Metric Cards === */
+      .metric-cards-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: var(--space-3);
+      }
+
+      .metric-card {
+        background: var(--color-bg-elevated);
+        border-radius: var(--radius-sm);
+        padding: var(--space-3) var(--space-4);
+      }
+
+      .metric-label {
+        font-size: 11px;
+        color: var(--color-text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: var(--space-1);
+      }
+
+      .metric-value {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--color-text-primary);
+      }
+
+      .metric-unit {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--color-text-tertiary);
+        margin-left: 2px;
+      }
+
+      /* === Chart containers === */
+      .chart-container {
+        position: relative;
+        height: 280px;
+      }
+
+      .chart-container.radar {
+        height: 280px;
+      }
+
+      /* === Price Markers === */
+      .price-markers {
+        display: flex;
+        align-items: center;
+        gap: var(--space-5);
+        padding: var(--space-4) 0;
+      }
+
+      .price-marker {
+        flex: 1;
+        text-align: center;
+      }
+
+      .price-marker .label {
+        font-size: 11px;
+        color: var(--color-text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: var(--space-2);
+      }
+
+      .price-marker .value {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .price-marker.bull .value {
+        color: var(--color-bull);
+      }
+      .price-marker.current .value {
+        color: var(--color-text-primary);
+      }
+      .price-marker.bear .value {
+        color: var(--color-bear);
+      }
+
+      .price-marker .currency {
+        font-size: 12px;
+        color: var(--color-text-tertiary);
+        margin-left: 4px;
+      }
+
+      /* === Descriptions === */
+      .description-card {
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-md);
+        padding: var(--space-5);
+        margin-bottom: var(--space-4);
+      }
+
+      .description-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: var(--space-4);
+        padding-bottom: var(--space-3);
+        border-bottom: 1px solid var(--color-border-muted);
+      }
+
+      .description-name {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .description-name .symbol {
+        color: var(--color-text-tertiary);
+        font-size: 14px;
+        font-weight: 400;
+        font-family: var(--font-mono);
+        margin-left: var(--space-2);
+      }
+
+      .star-rate {
+        font-family: var(--font-mono);
+        color: var(--color-warning);
+        font-size: 16px;
+        letter-spacing: 2px;
+      }
+
+      .desc-row {
+        display: flex;
+        gap: var(--space-4);
+        margin-bottom: var(--space-3);
+        align-items: flex-start;
+      }
+
+      .desc-label {
+        flex: 0 0 100px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-tertiary);
+        padding-top: 2px;
+      }
+
+      .desc-value {
+        flex: 1;
+        color: var(--color-text-primary);
+      }
+
+      .desc-value.muted {
+        color: var(--color-text-secondary);
+      }
+
+      .strategy-grid {
+        display: grid;
+        grid-template-columns: 100px 1fr 1fr;
+        gap: var(--space-3);
+        align-items: center;
+      }
+
+      .strategy-cell {
+        background: var(--color-bg-elevated);
+        border-radius: var(--radius-sm);
+        padding: var(--space-2) var(--space-3);
+      }
+
+      .strategy-cell .label {
+        font-size: 10px;
+        color: var(--color-text-tertiary);
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+
+      .strategy-cell .value {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .strategy-cell.bull .value {
+        color: var(--color-bull);
+      }
+      .strategy-cell.bear .value {
+        color: var(--color-bear);
+      }
+      .strategy-cell.term .value {
+        color: var(--color-text-primary);
+      }
+
+      /* === Reference === */
+      .reference-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .reference-list li {
+        padding: var(--space-2) 0;
+        border-bottom: 1px solid var(--color-border-muted);
+        font-size: 13px;
+        color: var(--color-text-secondary);
+      }
+
+      .reference-list li:last-child {
+        border-bottom: none;
+      }
+
+      .reference-list a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      .reference-list a:hover {
+        text-decoration: underline;
+      }
+
+      .reference-list .source-type {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        padding: 1px 6px;
+        border: 1px solid var(--color-border-subtle);
+        border-radius: 3px;
+        color: var(--color-text-tertiary);
+        margin-right: var(--space-2);
+        text-transform: uppercase;
+      }
+
+      /* === Footer === */
+      footer {
+        margin-top: var(--space-7);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--color-border-subtle);
+        color: var(--color-text-tertiary);
+        font-size: 11px;
+        font-family: var(--font-mono);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- === Header === -->
+      <header>
+        <h1 class="report-title">Apple Inc. Financial Report</h1>
+        <div class="report-meta">
+          <span class="badge">stock</span>
+          <span>AAPL</span>
+          <span>·</span>
+          <span>2026-05-13T15:30:00+09:00</span>
+          <span>·</span>
+          <span>USD</span>
+        </div>
+      </header>
+
+      <!-- === Overview === -->
+      <section>
+        <div class="section-title">Overview</div>
+
+        <p class="market-description">
+          米国大型テックは2026年に入り、AI関連投資の収益化を市場が厳しく見極める局面に入っている。直近のFRB金利政策とドル円の動向も、輸入比率の高い企業に影響を及ぼしていると見られる。
+        </p>
+
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right">Price</th>
+              <th style="text-align: right">Market Cap</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">target</span>
+                Apple Inc.
+              </td>
+              <td class="symbol-mono">AAPL</td>
+              <td class="num-mono">
+                185.2
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="num-mono">
+                2850
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="features-cell">
+                iPhone収益依存、サービス事業拡大中。AI機能搭載端末の本格立ち上げ期
+              </td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>
+                Microsoft
+              </td>
+              <td class="symbol-mono">MSFT</td>
+              <td class="num-mono">
+                415.3
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="num-mono">
+                3100
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="features-cell">
+                Azure・OpenAI連携でクラウド首位を狙う。法人向けAI需要が業績を牽引
+              </td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>
+                NVIDIA
+              </td>
+              <td class="symbol-mono">NVDA</td>
+              <td class="num-mono">
+                925.0
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="num-mono">
+                2600
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="features-cell">
+                AI半導体で独占的地位、データセンタ需要が牽引
+              </td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>
+                Alphabet
+              </td>
+              <td class="symbol-mono">GOOGL</td>
+              <td class="num-mono">
+                168.2
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="num-mono">
+                2100
+                <span class="metric-unit">USD</span>
+              </td>
+              <td class="features-cell">
+                検索広告は安定、Geminiで生成AI市場へ参戦
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="notes">
+          <ul>
+            <li>
+              AI機能搭載iPhone17に対する市場期待が高いが、実需未確認の段階
+            </li>
+            <li>
+              中国市場での競争激化リスクとサプライチェーンの地政学的リスク
+            </li>
+            <li>ドル高局面の継続が海外売上比重の高い企業に逆風となる可能性</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- === InfoGraph === -->
+      <section>
+        <div class="section-title">Info Graph</div>
+
+        <div class="panels-grid">
+          <div class="panel panel-metric-cards">
+            <div class="panel-title">Valuation Metrics</div>
+            <div class="metric-cards-row">
+              <div class="metric-card">
+                <div class="metric-label">PER</div>
+                <div class="metric-value">28.5</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">PBR</div>
+                <div class="metric-value">45.2</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">ROE</div>
+                <div class="metric-value">
+                  145.2<span class="metric-unit">%</span>
+                </div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-label">Dividend Yield</div>
+                <div class="metric-value">
+                  0.52<span class="metric-unit">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-revenue">
+            <div class="panel-title">Revenue Trend (billion USD)</div>
+            <div class="chart-container">
+              <canvas id="revenueChart"></canvas>
+            </div>
+          </div>
+
+          <div class="panel panel-radar">
+            <div class="panel-title">Multi-Dimensional Analysis</div>
+            <div class="chart-container radar">
+              <canvas id="radarChart"></canvas>
+            </div>
+          </div>
+
+          <div class="panel panel-price">
+            <div class="panel-title">Price Outlook</div>
+            <div class="price-markers">
+              <div class="price-marker bear">
+                <div class="label">Bear</div>
+                <div class="value">165<span class="currency">USD</span></div>
+              </div>
+              <div class="price-marker current">
+                <div class="label">Current</div>
+                <div class="value">185<span class="currency">USD</span></div>
+              </div>
+              <div class="price-marker bull">
+                <div class="label">Bull</div>
+                <div class="value">210<span class="currency">USD</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- === Descriptions === -->
+      <section>
+        <div class="section-title">Analysis</div>
+
+        <div class="description-card">
+          <div class="description-header">
+            <div class="description-name">
+              Apple Inc.<span class="symbol">AAPL</span>
+            </div>
+            <div class="star-rate" title="Rate: 4/5">★★★★☆</div>
+          </div>
+
+          <div class="desc-row">
+            <div class="desc-label">Point</div>
+            <div class="desc-value">AI機能搭載端末の本格立ち上げ局面</div>
+          </div>
+
+          <div class="desc-row">
+            <div class="desc-label">Strategy</div>
+            <div class="desc-value">
+              <div class="strategy-grid">
+                <div class="strategy-cell term">
+                  <div class="label">Term</div>
+                  <div class="value">Mid</div>
+                </div>
+                <div class="strategy-cell bull">
+                  <div class="label">Bull</div>
+                  <div class="value">
+                    210
+                    <span
+                      style="font-size: 11px; color: var(--color-text-tertiary)"
+                      >USD</span
+                    >
+                  </div>
+                </div>
+                <div class="strategy-cell bear">
+                  <div class="label">Bear</div>
+                  <div class="value">
+                    165
+                    <span
+                      style="font-size: 11px; color: var(--color-text-tertiary)"
+                      >USD</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="desc-row">
+            <div class="desc-label">Reason</div>
+            <div class="desc-value muted">
+              iPhone 17
+              ProのAI機能が買い替え需要を喚起すると見られる。サービス事業の安定収益も下支え要因となる可能性が高い。
+            </div>
+          </div>
+
+          <div class="desc-row">
+            <div class="desc-label">Other</div>
+            <div class="desc-value muted">
+              中国市場の動向に注意。地政学リスクが顕在化すると下振れリスクあり
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- === Reference === -->
+      <section>
+        <div class="section-title">Reference</div>
+        <ul class="reference-list">
+          <li>
+            <span class="source-type">user_provided</span>
+            ユーザー貼り付けデータ
+          </li>
+          <li>
+            <span class="source-type">web</span>
+            <a
+              href="https://example.com/apple-ir"
+              target="_blank"
+              rel="noopener"
+              >Apple IR Q1 FY26</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <!-- === Footer === -->
+      <footer>AAPL_20260513 · Generated 2026-05-13T15:30:00+09:00</footer>
+    </div>
+
+    <!-- === Chart.js data (safe JSON embed) === -->
+    <script id="infograph-data" type="application/json">
+      {
+        "enabled": true,
+        "panels": [
+          {
+            "type": "metric_cards",
+            "title": "Valuation Metrics",
+            "cards": [
+              { "label": "PER", "value": 28.5, "unit": null },
+              { "label": "PBR", "value": 45.2, "unit": null },
+              { "label": "ROE", "value": 145.2, "unit": "%" },
+              { "label": "Dividend Yield", "value": 0.52, "unit": "%" }
+            ]
+          },
+          {
+            "type": "revenue_chart",
+            "title": "Revenue Trend",
+            "chart_type": "bar",
+            "labels": ["FY22", "FY23", "FY24"],
+            "datasets": [
+              { "label": "Revenue", "data": [394, 383, 391] },
+              { "label": "Operating Income", "data": [119, 114, 123] },
+              { "label": "Net Income", "data": [99, 97, 94] }
+            ],
+            "unit": "billion USD"
+          },
+          {
+            "type": "radar_chart",
+            "title": "Multi-Dimensional Analysis",
+            "indicators": [
+              "Growth",
+              "Profitability",
+              "Stability",
+              "Valuation",
+              "Momentum"
+            ],
+            "values": [3, 5, 4, 2, 4],
+            "scale_max": 5
+          },
+          {
+            "type": "price_markers",
+            "title": "Price Outlook",
+            "current": 185,
+            "bull": 210,
+            "bear": 165,
+            "currency": "USD"
+          }
+        ]
+      }
+    </script>
+
+    <script>
+      (function () {
+        const dataEl = document.getElementById("infograph-data");
+        if (!dataEl) return;
+
+        const infograph = JSON.parse(dataEl.textContent);
+        if (!infograph.enabled || !infograph.panels) return;
+
+        // TradingView-inspired chart defaults
+        const textColor = "#8b949e";
+        const gridColor = "#21262d";
+        const tooltipBg = "#1c2128";
+
+        Chart.defaults.color = textColor;
+        Chart.defaults.borderColor = gridColor;
+        Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
+
+        infograph.panels.forEach((panel) => {
+          if (panel.type === "revenue_chart") {
+            const ctx = document.getElementById("revenueChart");
+            if (!ctx) return;
+
+            const colors = ["#58a6ff", "#26a69a", "#d29922"];
+
+            new Chart(ctx, {
+              type: panel.chart_type || "bar",
+              data: {
+                labels: panel.labels,
+                datasets: panel.datasets.map((ds, i) => ({
+                  label: ds.label,
+                  data: ds.data,
+                  backgroundColor: colors[i % colors.length],
+                  borderColor: colors[i % colors.length],
+                  borderRadius: 2,
+                  barPercentage: 0.7,
+                  categoryPercentage: 0.75,
+                })),
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: "top",
+                    align: "end",
+                    labels: {
+                      boxWidth: 10,
+                      boxHeight: 10,
+                      padding: 12,
+                      font: { size: 11 },
+                    },
+                  },
+                  tooltip: {
+                    backgroundColor: tooltipBg,
+                    borderColor: gridColor,
+                    borderWidth: 1,
+                    titleColor: "#e6edf3",
+                    bodyColor: "#e6edf3",
+                    padding: 10,
+                  },
+                },
+                scales: {
+                  x: {
+                    grid: { display: false },
+                    ticks: { color: textColor },
+                  },
+                  y: {
+                    grid: { color: gridColor, drawBorder: false },
+                    ticks: { color: textColor },
+                  },
+                },
+              },
+            });
+          }
+
+          if (panel.type === "radar_chart") {
+            const ctx = document.getElementById("radarChart");
+            if (!ctx) return;
+
+            new Chart(ctx, {
+              type: "radar",
+              data: {
+                labels: panel.indicators,
+                datasets: [
+                  {
+                    data: panel.values,
+                    backgroundColor: "rgba(88, 166, 255, 0.15)",
+                    borderColor: "#58a6ff",
+                    borderWidth: 2,
+                    pointBackgroundColor: "#58a6ff",
+                    pointBorderColor: "#0d1117",
+                    pointBorderWidth: 1.5,
+                    pointRadius: 4,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                  r: {
+                    suggestedMin: 0,
+                    suggestedMax: panel.scale_max || 5,
+                    ticks: { display: false, stepSize: 1 },
+                    grid: { color: gridColor },
+                    angleLines: { color: gridColor },
+                    pointLabels: {
+                      color: textColor,
+                      font: { size: 11 },
+                    },
+                  },
+                },
+              },
+            });
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
