@@ -388,7 +388,7 @@
               <span class="score-label">{{ score.label }}</span>
               <span class="score-val{% if score.tone %} {{ score.tone }}{% endif %}">{{ score.value }} / {{ score.scale_max }}</span>
             </div>
-            <div class="bar-track"><div class="bar-fill" style="{{ 'width:' + (pct | string) + '%; background: var(' + color_var + ');' }}"></div></div>
+            <div class="bar-track"><div class="bar-fill" data-width="{{ pct }}" data-color-var="{{ color_var }}"></div></div>
             {% endfor %}
           </div>
           <div>
@@ -402,7 +402,7 @@
               <span class="score-label">{{ score.label }}</span>
               <span class="score-val{% if score.tone %} {{ score.tone }}{% endif %}">{{ score.value }} / {{ score.scale_max }}</span>
             </div>
-            <div class="bar-track"><div class="bar-fill" style="{{ 'width:' + (pct | string) + '%; background: var(' + color_var + ');' }}"></div></div>
+            <div class="bar-track"><div class="bar-fill" data-width="{{ pct }}" data-color-var="{{ color_var }}"></div></div>
             {% endfor %}
           </div>
         </div>
@@ -502,6 +502,17 @@
 <script id="charts-data" type="application/json">{{ charts_json | safe }}</script>
 
 <script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
 (function() {
   const dataEl = document.getElementById('charts-data');
   if (!dataEl) return;
