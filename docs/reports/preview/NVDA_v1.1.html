@@ -20,16 +20,29 @@
         --color-bull: #26a69a;
         --color-bear: #ef5350;
         --color-warning: #d29922;
-        --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-body:
+          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-        --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
-        --space-5: 24px; --space-6: 32px; --space-7: 48px;
-        --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 24px;
+        --space-6: 32px;
+        --space-7: 48px;
+        --radius-sm: 4px;
+        --radius-md: 6px;
+        --radius-lg: 8px;
       }
 
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-      html, body {
+      html,
+      body {
         background: var(--color-bg-base);
         color: var(--color-text-primary);
         font-family: var(--font-body);
@@ -65,7 +78,9 @@
         margin-bottom: var(--space-2);
         display: inline-block;
       }
-      .back-link:hover { color: var(--color-accent); }
+      .back-link:hover {
+        color: var(--color-accent);
+      }
 
       .symbol-badge {
         font-family: var(--font-mono);
@@ -150,9 +165,15 @@
         margin-top: 2px;
       }
 
-      .bull { color: var(--color-bull); }
-      .bear { color: var(--color-bear); }
-      .warn { color: var(--color-warning); }
+      .bull {
+        color: var(--color-bull);
+      }
+      .bear {
+        color: var(--color-bear);
+      }
+      .warn {
+        color: var(--color-warning);
+      }
 
       /* Chart Section */
       .section {
@@ -188,7 +209,9 @@
       }
 
       @media (max-width: 680px) {
-        .two-col { grid-template-columns: 1fr; }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
       }
 
       /* Notes */
@@ -283,8 +306,13 @@
         text-align: center;
       }
 
-      footer a { color: var(--color-text-tertiary); text-decoration: none; }
-      footer a:hover { color: var(--color-accent); }
+      footer a {
+        color: var(--color-text-tertiary);
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: var(--color-accent);
+      }
     </style>
   </head>
   <body>
@@ -295,7 +323,9 @@
         <div>
           <div class="symbol-badge">NVDA</div>
           <h1 class="report-title">NVIDIA Corporation</h1>
-          <div class="report-meta">NASDAQ: NVDA &nbsp;·&nbsp; 半導体 / AI インフラ</div>
+          <div class="report-meta">
+            NASDAQ: NVDA &nbsp;·&nbsp; 半導体 / AI インフラ
+          </div>
         </div>
         <div class="header-right">
           <div class="date-label">2026-05-13</div>
@@ -307,8 +337,15 @@
       <div class="metrics-grid">
         <div class="metric-card">
           <div class="metric-label">Sector</div>
-          <div class="metric-value" style="font-size:15px; letter-spacing:-0.01em;">Semiconductors</div>
-          <div class="metric-sub" style="color:var(--color-text-tertiary);">Technology</div>
+          <div
+            class="metric-value"
+            style="font-size: 15px; letter-spacing: -0.01em"
+          >
+            Semiconductors
+          </div>
+          <div class="metric-sub" style="color: var(--color-text-tertiary)">
+            Technology
+          </div>
         </div>
         <div class="metric-card">
           <div class="metric-label">P/E (TTM, est.)</div>
@@ -318,7 +355,9 @@
         <div class="metric-card">
           <div class="metric-label">Revenue Growth</div>
           <div class="metric-value bull">+122%</div>
-          <div class="metric-sub" style="color:var(--color-text-tertiary);">YoY (FY2025)</div>
+          <div class="metric-sub" style="color: var(--color-text-tertiary)">
+            YoY (FY2025)
+          </div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Gross Margin</div>
@@ -327,13 +366,17 @@
         </div>
         <div class="metric-card">
           <div class="metric-label">主要製品</div>
-          <div class="metric-value" style="font-size:14px;">H100/B200</div>
-          <div class="metric-sub" style="color:var(--color-text-tertiary);">Blackwell世代</div>
+          <div class="metric-value" style="font-size: 14px">H100/B200</div>
+          <div class="metric-sub" style="color: var(--color-text-tertiary)">
+            Blackwell世代
+          </div>
         </div>
         <div class="metric-card">
           <div class="metric-label">競合リスク</div>
           <div class="metric-value warn">中〜高</div>
-          <div class="metric-sub" style="color:var(--color-text-tertiary);">AMD / 自社開発</div>
+          <div class="metric-sub" style="color: var(--color-text-tertiary)">
+            AMD / 自社開発
+          </div>
         </div>
       </div>
 
@@ -351,10 +394,16 @@
           <div class="notes-title">注目ポイント</div>
           <ul class="notes-list">
             <li>Blackwell（B200）の量産立ち上がりが収益の主ドライバー</li>
-            <li>データセンター向け需要は継続的に旺盛。主要CSPからの大型受注が続く</li>
-            <li>CUDA エコシステムの堀は依然として深く、AIソフトスタックでも優位</li>
+            <li>
+              データセンター向け需要は継続的に旺盛。主要CSPからの大型受注が続く
+            </li>
+            <li>
+              CUDA エコシステムの堀は依然として深く、AIソフトスタックでも優位
+            </li>
             <li>米中半導体規制による中国向け売上の制限が引き続きリスク</li>
-            <li>AMDのMI300・Intel Gaudi、さらにカスタムASIC（TPU等）との競争が激化</li>
+            <li>
+              AMDのMI300・Intel Gaudi、さらにカスタムASIC（TPU等）との競争が激化
+            </li>
           </ul>
         </div>
 
@@ -366,7 +415,10 @@
             <span class="sentiment-val bull">9 / 10</span>
           </div>
           <div class="bar-track">
-            <div class="bar-fill" style="width:90%; background:var(--color-bull);"></div>
+            <div
+              class="bar-fill"
+              style="width: 90%; background: var(--color-bull)"
+            ></div>
           </div>
 
           <div class="sentiment-row">
@@ -374,7 +426,10 @@
             <span class="sentiment-val bull">9 / 10</span>
           </div>
           <div class="bar-track">
-            <div class="bar-fill" style="width:90%; background:var(--color-bull);"></div>
+            <div
+              class="bar-fill"
+              style="width: 90%; background: var(--color-bull)"
+            ></div>
           </div>
 
           <div class="sentiment-row">
@@ -382,7 +437,10 @@
             <span class="sentiment-val bull">8 / 10</span>
           </div>
           <div class="bar-track">
-            <div class="bar-fill" style="width:80%; background:var(--color-bull);"></div>
+            <div
+              class="bar-fill"
+              style="width: 80%; background: var(--color-bull)"
+            ></div>
           </div>
 
           <div class="sentiment-row">
@@ -390,7 +448,10 @@
             <span class="sentiment-val warn">5 / 10</span>
           </div>
           <div class="bar-track">
-            <div class="bar-fill" style="width:50%; background:var(--color-warning);"></div>
+            <div
+              class="bar-fill"
+              style="width: 50%; background: var(--color-warning)"
+            ></div>
           </div>
 
           <div class="sentiment-row">
@@ -398,7 +459,10 @@
             <span class="sentiment-val bear">4 / 10</span>
           </div>
           <div class="bar-track">
-            <div class="bar-fill" style="width:40%; background:var(--color-bear);"></div>
+            <div
+              class="bar-fill"
+              style="width: 40%; background: var(--color-bear)"
+            ></div>
           </div>
         </div>
       </div>
@@ -408,9 +472,16 @@
         <div class="section-title">メモ</div>
         <div class="notes-card">
           <ul class="notes-list">
-            <li>長期保有の観点では AI インフラ投資の主要受益者として引き続き注目。ただし株価はすでに高成長を織り込み済みで、バリュエーション面のバッファは薄い。</li>
-            <li>規制リスク（輸出規制強化・中国向け制限）と過剰在庫サイクルに注意。短期的な材料出尽くしも起こりうる。</li>
-            <li>新規エントリーは押し目を狙い、分散投資の一部として位置づけるのが無難。</li>
+            <li>
+              長期保有の観点では AI
+              インフラ投資の主要受益者として引き続き注目。ただし株価はすでに高成長を織り込み済みで、バリュエーション面のバッファは薄い。
+            </li>
+            <li>
+              規制リスク（輸出規制強化・中国向け制限）と過剰在庫サイクルに注意。短期的な材料出尽くしも起こりうる。
+            </li>
+            <li>
+              新規エントリーは押し目を狙い、分散投資の一部として位置づけるのが無難。
+            </li>
           </ul>
         </div>
       </div>
@@ -427,8 +498,15 @@
 
         // Illustrative weekly price data (approx. trend, not real-time)
         const labels = [
-          "2025-01","2025-03","2025-05","2025-07","2025-09","2025-11",
-          "2026-01","2026-03","2026-05",
+          "2025-01",
+          "2025-03",
+          "2025-05",
+          "2025-07",
+          "2025-09",
+          "2025-11",
+          "2026-01",
+          "2026-03",
+          "2026-05",
         ];
         const prices = [590, 860, 1070, 990, 1160, 1340, 1290, 1450, 1380];
 
@@ -474,7 +552,10 @@
             scales: {
               x: {
                 grid: { color: "#21262d" },
-                ticks: { color: "#6e7681", font: { family: "JetBrains Mono, monospace", size: 10 } },
+                ticks: {
+                  color: "#6e7681",
+                  font: { family: "JetBrains Mono, monospace", size: 10 },
+                },
               },
               y: {
                 grid: { color: "#21262d" },
