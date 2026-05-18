@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAPL — Apple Inc.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">AAPL</div>
+      <h1 class="report-title">Apple Inc.</h1>
+      <div class="report-meta">
+NASDAQ: AAPL &nbsp;·&nbsp; Consumer Electronics / Services / AI Ecosystem      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-label">2026-05-18 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">AppleはiPhone・Mac・iPad等のハードウェアと、App Store・iCloud・Apple TV+・Apple Pay等のサービス事業を掛け合わせた世界最大のエコシステム企業。時価総額は2026年5月に史上初の4兆ドル超えを達成（過去に超えたこともあるが再到達）。Q2 FY2026は過去最高の3月期売上を記録し、iPhone 17ラインナップ・サービス事業・Greater China（+28%）の三拍子が揃った。CEOはティム・クック氏から2026年9月にジョン・テルナス氏（ハードウェアエンジニアリング責任者）へ移行予定。次の最大カタリストはWWDC 2026（6月8〜12日）でのApple Intelligence・Siri刷新発表。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">客観データ・実績値</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            Consumer Electronics / Services          </div>
+<div class="metric-sub">Technology / AI Ecosystem</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">株価 (2026/05/15 ATH)</div>
+          <div class="metric-value">
+            $303.20          </div>
+<div class="metric-sub">52週レンジ: ~$168–$303（史上最高値更新）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">時価総額</div>
+          <div class="metric-value">
+            ~$4.4T          </div>
+<div class="metric-sub">約640兆円（史上最大規模）</div>          <div class="metric-comparison">
+            <span class="comparison-label">Microsoft</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~$3.2T</span>
+<span class="comparison-delta bull">+37% 大きい</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Q2 FY2026</div>
+          <div class="metric-value">
+            $111.2B          </div>
+<div class="metric-sub">YoY +17%・過去最高の3月期</div>          <div class="metric-comparison">
+            <span class="comparison-label">コンセンサス</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">$109.5B</span>
+<span class="comparison-delta bull">+1.5B 上回り</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">iPhone 売上 Q2</div>
+          <div class="metric-value">
+            $57.0B          </div>
+<div class="metric-sub">YoY +22%・3月期最高記録</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Services 売上 Q2</div>
+          <div class="metric-value">
+            $31.0B          </div>
+<div class="metric-sub">YoY +16%・過去最高</div>          <div class="metric-comparison">
+            <span class="comparison-label">粗利益率（Services）</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~75%+</span>
+<span class="comparison-delta bull">ハードウェア（~35%）の2倍超</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">粗利益率 Q2</div>
+          <div class="metric-value">
+            49.3%          </div>
+<div class="metric-sub">前四半期48.2%から+1.1pp改善</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">EPS（希薄化後）Q2</div>
+          <div class="metric-value">
+            $2.01          </div>
+<div class="metric-sub">YoY +22%・コンセンサス$1.95を+3.1%上回り</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Greater China 売上</div>
+          <div class="metric-value">
+            $20.5B          </div>
+<div class="metric-sub">YoY +28%（前年の不振から急回復）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">自社株買い追加枠</div>
+          <div class="metric-value">
+            $100B          </div>
+<div class="metric-sub">14年連続増配（$0.27/株、+4%）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Q3 FY2026 ガイダンス</div>
+          <div class="metric-value">
+            +14%–+17% YoY          </div>
+<div class="metric-sub">コンセンサス+9.5%を大幅上回る。供給制約（Mac Mini/Studio）を吸収</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">Price Trend (Last 1Y, 月次概算)</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">Revenue Trend (billion USD, 通期)</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>Apple
+              </td>
+              <td class="symbol-mono">AAPL</td>
+              <td class="num-mono">~294<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~4,400B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +17%
+              </td>
+              <td class="products-cell">iPhone 17シリーズ, MacBook Neo, M4 iPad Air, Apple Intelligence, App Store, iCloud, Apple TV+, Apple Pay, Vision Pro</td>
+              <td class="features-cell">25億台のアクティブデバイス基盤を持つエコシステム企業。粗利益率49.3%・1000億ドルの自社株買い枠追加・14年連続増配</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Samsung
+              </td>
+              <td class="symbol-mono">005930.KS</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~250B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell">
+                +非開示
+              </td>
+              <td class="products-cell">Galaxy S25, Galaxy AI, Exynos/Snapdragon</td>
+              <td class="features-cell">スマートフォン出荷台数ではAppleと首位を争う。Androidエコシステム最大手。AIスマートフォンでAppleに対抗</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Alphabet / Google
+              </td>
+              <td class="symbol-mono">GOOGL</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~2,100B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +12%
+              </td>
+              <td class="products-cell">Pixel, Android, Google Assistant / Gemini, Google Play</td>
+              <td class="features-cell">AppleのサービスビジネスにおけるGoogleとの関係（検索デフォルト契約）は独禁審査の焦点。Geminiを通じてApple Intelligenceにも技術提供</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Microsoft
+              </td>
+              <td class="symbol-mono">MSFT</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~3,200B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +13%
+              </td>
+              <td class="products-cell">Surface, Microsoft 365, Copilot, Azure AI</td>
+              <td class="features-cell">企業向けエコシステムで競合。Copilot統合でAIアシスタント競争に参入。時価総額・規模で最も近い競合</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → スクロールで全列表示</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">事実観察・複合的解釈</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">AI戦略の遅れ・WWDC依存:</span>          <span class="highlight-text">Apple IntelligenceとSiriの刷新はライバル（ChatGPT・Gemini）と比べて明確に後手に回っており、WWDC 2026（6月8日〜）がAppleのAI競争力を証明できるかの正念場。「失望」に終わればバリュエーションへの圧力が生じる。現在株価はこの成功を相当程度織り込んでいる状態（憶測含む）</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">Google検索契約・独禁リスク:</span>          <span class="highlight-text">AppleのServices売上の相当部分はGoogleとのデフォルト検索契約に依存していると見られる（年間200億ドル超とも）。米司法省の独禁訴訟でこの契約が解消された場合、Services収益への影響は甚大。この点は詳細が非開示であり憶測を含む</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">CEO交代リスク:</span>          <span class="highlight-text">2026年9月にティム・クック氏からジョン・テルナス氏（ハードウェアエンジニアリング責任者）へのCEO交代が発表済み。製品戦略・AI戦略・資本配分の継続性については「変化なし」と会社は説明しているが、市場はその実力を見極める段階にある</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">Apple:</span>          <span class="highlight-text">25億台のアクティブデバイス基盤とiOSエコシステムのスイッチングコストは、いかなるAI企業も短期間で複製できない。「AI機能の配布チャネル」として世界最大のプラットフォームを保有しており、ChatGPT・Geminiの消費者向け窓口になりうる逆説的な強さがある</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">Apple Services:</span>          <span class="highlight-text">Services売上は粗利益率75%超で、Appleの収益構造を年々安定させている。iPhone 17ラインナップが過去最強と評されるサイクルに入っており、2025年度から2026年度にかけてのアップグレード需要は想定より強い。Greater China +28%の急回復も中期的な地政学リスク軽減の兆候</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">主観的評価・予想（参考）</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Business Quality / Moat</span>
+              <span class="score-val bull">10 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="100" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Services Growth</span>
+              <span class="score-val bull">8 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="80" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">AI Strategy Execution</span>
+              <span class="score-val warn">4 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="40" data-color-var="--color-accent"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">Valuation (Premium)</span>
+              <span class="score-val warn">4 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="40" data-color-var="--color-accent"></div></div>
+            <div class="score-row">
+              <span class="score-label">CEO Transition Risk</span>
+              <span class="score-val warn">6 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="60" data-color-var="--color-accent"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">Apple<span class="symbol">AAPL</span></div>
+          <div class="star-rate" title="Rate: 4/5">
+★★★★☆          </div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Mid-Long (6–18m)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">230<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>WWDC 2026でのAI発表が市場の期待を下回り、Google検索契約の独禁解消が確定。CEO交代に伴う戦略的不確実性が加わり、Servicesバリュエーションが圧縮されるシナリオ
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">300<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>WWDC 2026でSiri刷新がポジティブ評価され、iPhone 18サイクルへの期待が高まる。FY2026通期売上480億ドル到達・Services成長継続
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">380–400<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>Apple IntelligenceがAIアシスタント市場で存在感を確立し、Webushアナリスト目標$400のシナリオ（AI機能がiPhoneアップグレードサイクルを加速、Services収益がさらに拡大）が実現
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">Appleの競争優位の本質は「エコシステムの粘着性」であり、AIの遅れは短期的なネガティブ要因だが、25億台のデバイスという配布基盤の価値は揺るがない。Siri刷新が成功すれば、世界最大の「AIエージェント端末」としての再評価が起きる。</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">Q2 FY2026の実績（売上+17%・EPS+22%・粗利益率49.3%・Services+16%）はビジネスの質が依然として世界最高水準にあることを証明。1000億ドルの自社株買いと14年連続増配という株主還元は、財務的な余力の大きさを示している。</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">① WWDC 2026のAI発表失望リスク ② Google検索契約の独禁解消（年間200億ドル超の収益に影響の可能性）③ CEO交代後の戦略的不確実性 ④ 現在の株価（~$294）はPER約32倍とハードウェア企業としては割高 ⑤ 関税・供給制約（メモリコスト上昇）による粗利益率圧迫</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.cnbc.com/2026/04/30/apple-aapl-q2-2026-earnings-report.html" target="_blank" rel="noopener">Apple Q2 FY2026 決算 – CNBC (2026/04/30)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.apple.com/newsroom/2026/04/apple-reports-second-quarter-results/" target="_blank" rel="noopener">Apple Q2 2026 公式プレスリリース</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://appleinsider.com/articles/26/05/15/apple-shares-climbed-to-a-record-high-as-investors-look-past-ai-concerns" target="_blank" rel="noopener">AAPL史上最高値更新・WWDC展望 (AppleInsider, 2026/05/15)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.ebc.com/forex/apple-stock-nears-record-high-as-ai-momentum-builds-ahead-of-wwdc-2026" target="_blank" rel="noopener">WWDC 2026前のAIモメンタム分析 (EBC Financial)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.tradingkey.com/analysis/stocks/us-stocks/261855430-apple-earnings-aapl-tradingkey" target="_blank" rel="noopener">Apple Q2 2026 決算詳細分析・CEO交代 (TradingKey)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.computerworld.com/article/4168225/wwdc-2026-how-apple-can-take-a-great-leap-in-ai.html" target="_blank" rel="noopener">WWDC 2026 Apple AI戦略予測 (Computerworld)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" target="_blank" rel="noopener">AAPL 株価・市場データ (TradingView, 2026/05/18)</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; AAPL_20260518 &nbsp;·&nbsp; Generated 2026-05-18 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "Price Trend (Last 1Y, 月次概算)", "dataset_label": "AAPL (USD)", "labels": ["2025-04", "2025-06", "2025-07", "2025-09", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-05"], "data": [168, 195, 215, 225, 240, 255, 245, 255, 270, 295], "currency_prefix": "$", "currency_suffix": ""}, "revenue_chart": {"title": "Revenue Trend (billion USD, 通期)", "labels": ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026E"], "datasets": [{"label": "Total Revenue", "data": [394, 383, 391, 436, 480]}, {"label": "Services Revenue", "data": [78, 85, 96, 108, 126]}, {"label": "Net Income", "data": [100, 97, 94, 105, 125]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
