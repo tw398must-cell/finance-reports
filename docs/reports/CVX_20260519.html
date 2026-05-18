@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CVX — Chevron Corporation</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">CVX</div>
+      <h1 class="report-title">Chevron Corporation</h1>
+      <div class="report-meta">
+NYSE: CVX &nbsp;·&nbsp; Integrated Energy / Oil &amp; Gas      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-label">2026-05-19 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">Chevronは世界第2位の米国系石油メジャー。2025年7月のHess買収完了により、ガイアナStabroekブロック（30%権益）・バッケン・メキシコ湾を加え、生産量は年産3,858 MBOED（千バレル/日換算）と過去最高を達成。パーミアン盆地での生産量は日量100万BOEに到達し、WTI原油価格が2026年初の60ドル台から4月に100ドル超へ急騰した恩恵を直接受けた。同時にAIを活用した掘削コスト削減・MSとの西テキサスデータセンター電力供給契約という「エネルギーのAIシフト」という新軸も加わり、従来の「資源企業」の枠を超えた存在感を示しつつある。YTD株価+22%・38年連続増配という堅固な株主還元実績を持つ「エネルギーセクターの守備的核心銘柄」。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">客観データ・実績値</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            Integrated Energy / Oil &amp; Gas          </div>
+<div class="metric-sub">NYSE上場 / 配当貴族（38年連続増配）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">株価 (2026/05/18頃)</div>
+          <div class="metric-value">
+            ~$197          </div>
+<div class="metric-sub">52週レンジ: $133.77–$214.71 / YTD +22%</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">時価総額</div>
+          <div class="metric-value">
+            ~$380B          </div>
+<div class="metric-sub">約55兆円</div>          <div class="metric-comparison">
+            <span class="comparison-label">ExxonMobil</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~$460B</span>
+<span class="comparison-delta warn">Exxonの約83%規模</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Q1 2026</div>
+          <div class="metric-value">
+            $47.6B          </div>
+<div class="metric-sub">YoY +3.2%（原油高の恩恵）</div>          <div class="metric-comparison">
+            <span class="comparison-label">コンセンサス</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">$52.7B</span>
+<span class="comparison-delta warn">-9.8% 下回り（原油価格変動の影響）</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">調整後 EPS Q1</div>
+          <div class="metric-value">
+            $1.41          </div>
+<div class="metric-sub">コンセンサス$0.97を+45.4%上回り・6期連続Beat</div>          <div class="metric-comparison">
+            <span class="comparison-label">前年同期 EPS</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">$2.18</span>
+<span class="comparison-delta warn">YoY -35%（低油価の影響）</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">世界生産量 Q1</div>
+          <div class="metric-value">
+            3,858 MBOED          </div>
+<div class="metric-sub">YoY +15%（Hess統合効果）</div>          <div class="metric-comparison">
+            <span class="comparison-label">ExxonMobil 生産量</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">4,700 MBOED</span>
+<span class="comparison-delta warn">Exxonの約82%</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">営業 CF Q1</div>
+          <div class="metric-value">
+            $7.1B          </div>
+<div class="metric-sub">法的引当金3.6億ドル・為替損失2.2億ドルを含む</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">調整後 FCF Q1</div>
+          <div class="metric-value">
+            $4.1B          </div>
+<div class="metric-sub">2026年通期FCF改善目標を維持</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">配当利回り</div>
+          <div class="metric-value">
+            ~3.6%          </div>
+<div class="metric-sub">38年連続増配（直近+4%）</div>          <div class="metric-comparison">
+            <span class="comparison-label">ExxonMobil 配当利回り</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~2.6%</span>
+<span class="comparison-delta bull">CVXの方が1%高い</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">フォワード PE</div>
+          <div class="metric-value">
+            ~18.8x          </div>
+<div class="metric-sub">業界平均より高め</div>          <div class="metric-comparison">
+            <span class="comparison-label">ExxonMobil / ConocoPhillips</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">15.2x / 13.5x</span>
+<span class="comparison-delta warn">CVXはプレミアム評価</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">2026年 CapEx ガイダンス</div>
+          <div class="metric-value">
+            $18–19B          </div>
+<div class="metric-sub">維持（コスト削減と並行）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">損益分岐点（Permian）</div>
+          <div class="metric-value">
+            &lt; $40/bbl          </div>
+<div class="metric-sub">現在WTI ~$80台で十分なマージン</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">Price Trend (Last 1Y, 月次概算)</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">Revenue &amp; FCF Trend (billion USD, 通期)</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>Chevron
+              </td>
+              <td class="symbol-mono">CVX</td>
+              <td class="num-mono">~197<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~380B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +3.2%
+              </td>
+              <td class="products-cell">原油・天然ガス（Upstream）, 精製・石化（Downstream）, Permian Basin, Guyana Stabroek, LNG（Gorgon・Wheatstone）, 再生可能燃料</td>
+              <td class="features-cell">統合型エネルギーメジャー。38年連続増配・パーミアン日量100万BOE・Hess完全統合済み・2026年末までに30〜40億ドルのコスト削減目標</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>ExxonMobil
+              </td>
+              <td class="symbol-mono">XOM</td>
+              <td class="num-mono">~115<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~460B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +4%
+              </td>
+              <td class="products-cell">原油・LNG・石化・Pioneer資産（Permian）</td>
+              <td class="features-cell">Chevronより規模大（日量470万BOE）・配当カバレッジ3.02x（CVXの1.30xを大きく上回る）・コスト削減151億ドル達成済み。フォワードPE 15.2x（CVXより割安）</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Shell
+              </td>
+              <td class="symbol-mono">SHEL</td>
+              <td class="num-mono">~85<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~200B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +2%
+              </td>
+              <td class="products-cell">原油・LNG・再生可能エネルギー</td>
+              <td class="features-cell">欧州系メジャー。エネルギー転換戦略を積極採用。CVXより低バリュエーション。LNG市場での競合</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>ConocoPhillips
+              </td>
+              <td class="symbol-mono">COP</td>
+              <td class="num-mono">~100<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~120B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell">
+                横ばい
+              </td>
+              <td class="products-cell">原油・天然ガス（純粋上流）</td>
+              <td class="features-cell">純粋上流特化でROCE約23%とメジャー中最高水準。フォワードPE 13.5x（CVXより割安）。精製部門を持たないため原油価格感応度が最大</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → スクロールで全列表示</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">事実観察・複合的解釈</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">原油価格依存リスク:</span>          <span class="highlight-text">Chevronの収益は原油・天然ガス価格に直接連動する。WTI原油が2026年初の60ドル/bbl台から4月に100ドル超へ急騰した恩恵でYTD+22%を達成したが、この要因が逆に動けば株価も連動して下落する。Brentの2026年通年平均は65ドル前後と予測するアナリストも多く、油価次第で2026年純利益が前年比大幅減となるシナリオも否定できない</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">配当カバレッジの薄さ:</span>          <span class="highlight-text">FY2025のFCF（166億ドル）に対し配当支払い（127億ドル）のカバレッジは1.30倍と、ExxonMobilの3.02倍と比べて脆弱。Hess買収で純負債比率が10.4%→15.6%に上昇しており、油価が60ドル台に長期定着した場合は配当維持の圧力が高まる。2026年末までに30〜40億ドルのコスト削減を完遂することが配当の持続性の鍵</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">バリュエーション割高懸念:</span>          <span class="highlight-text">フォワードPE 18.8xはExxonMobil（15.2x）・ConocoPhillips（13.5x）より高い。Hess統合・ガイアナ成長・コスト削減というポジティブな材料はある程度織り込まれており、24/7 Wall St.の目標株価163ドルは現在株価から11%の下振れ余地を示している。原油が90ドル以上を持続しなければ、このプレミアムの正当化は難しいとの見方も</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">ガイアナ・Stabroek Block:</span>          <span class="highlight-text">Hess買収で取得した30%権益を持つStabroekブロックは「21世紀最大の石油発見」の一つとされ、Yellowtail生産開始・Hammerhead最終投資決定（FID）が2026年に進行中。推定10年以上にわたる生産成長の基盤であり、長期的なFCF拡大の核心的資産</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">AI × エネルギーの新軸:</span>          <span class="highlight-text">MicrosoftのEngine No.1とパートナーシップを結び、西テキサスのデータセンターへの電力供給契約を締結。AIドリル解析・フラッキング最適化・メタン漏洩削減にAIを活用するコスト削減プログラム（目標30〜40億ドル）も進行中。「エネルギーをAIインフラに供給する」という新たな収益軸が加わりつつある</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">主観的評価・予想（参考）</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Production Growth (2026)</span>
+              <span class="score-val bull">8 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="80" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Dividend Reliability (38yr)</span>
+              <span class="score-val bull">8 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="80" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Guyana Long-Term Asset</span>
+              <span class="score-val bull">8 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="80" data-color-var="--color-bull"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">Oil Price Sensitivity</span>
+              <span class="score-val bear">3 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="30" data-color-var="--color-bear"></div></div>
+            <div class="score-row">
+              <span class="score-label">Valuation vs Peers</span>
+              <span class="score-val warn">4 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="40" data-color-var="--color-accent"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">Chevron<span class="symbol">CVX</span></div>
+          <div class="star-rate" title="Rate: 4/5">
+★★★★☆          </div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Mid-Long (1–3y)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">145<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>WTI原油が60ドル台に長期定着。グローバル景気後退でエネルギー需要が縮小し、FCFが配当支払いを下回るリスクが意識される。Tengizプロジェクト（カザフスタン）の遅延・コスト超過が重なるシナリオ
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">210<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>WTI原油80〜90ドル台で推移。Hess統合シナジー10億ドル超が実現し、コスト削減30〜40億ドルの達成が確認される。ガイアナの生産増・Permianの100万BOE/日を維持。配当+4%増配が継続
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">270<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>WTI原油100ドル超が持続。ガイアナStabroekの追加発見・生産加速、データセンター電力供給という新収益軸が評価される。AIコスト削減効果がROCE改善として数字に現れ、ExxonMobil並みの評価倍率へ再評価される
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">「物理的な石油不足が始まっている」とChevron CEOが2026年5月に発言。AIデータセンターの電力需要急増により、天然ガス・原油の長期的な需要消滅は現実的ではなく、エネルギー転換期においても統合型メジャーは不可欠なインフラ役割を担い続ける。</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">パーミアン損益分岐点40ドル以下・Stabroek資産の数十年規模の生産見通し・38年連続増配という三重の安全網は、石油業界で最も強固な株主還元の土台の一つ。6期連続EPS Beatと7〜10%の生産成長ガイダンスは事業執行力の高さを示している。</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">① WTI原油価格の急落（最大かつ最直接的なリスク）② Hess統合コスト・Tengizプロジェクト遅延 ③ 配当カバレッジ1.30xの脆弱さ ④ 気候訴訟（米最高裁の焦点）による多額の和解リスク ⑤ ExxonMobil・ConocoPhillipsと比較したバリュエーション割高 ⑥ エネルギー転換加速による長期的な化石燃料需要縮小</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.cnbc.com/2026/05/01/exxon-xom-chevron-cvx-q1-2026-earnings.html" target="_blank" rel="noopener">Chevron &amp; ExxonMobil Q1 2026 決算 – CNBC (2026/05/01)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.gurufocus.com/news/8837898/chevron-cvx-reports-strong-q1-2026-earnings-and-production-growth" target="_blank" rel="noopener">Chevron Q1 2026 業績分析 (GuruFocus, 2026/05/01)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://247wallst.com/investing/2026/05/12/is-chevron-a-safe-bet-in-the-energy-sector/" target="_blank" rel="noopener">CVX は安全な賭けか？ 目標株価163ドル分析 (24/7 Wall St., 2026/05/12)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://247wallst.com/investing/2026/04/02/chevron-vs-exxonmobil-which-energy-stock-will-win-in-the-new-oil-landscape/" target="_blank" rel="noopener">CVX vs XOM: どちらが勝つ？配当カバレッジ比較 (24/7 Wall St., 2026/04)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.fool.com/investing/2026/05/04/prediction-where-chevron-stock-will-be-in-1-year/" target="_blank" rel="noopener">CVX 1年後予測：7〜10%生産成長・配当持続性 (Motley Fool, 2026/05/04)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://markets.financialcontent.com/stocks/article/finterra-2026-4-13-chevron-cvx-in-2026-the-new-era-of-energy-addition-and-the-guyana-catalyst" target="_blank" rel="noopener">Chevron 2026：ガイアナ・AI活用戦略詳細 (FinancialContent, 2026/04)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://koalagains.com/stocks/NYSE/CVX" target="_blank" rel="noopener">CVX 包括的競合分析・Buffett型評価 (KoalaGains, 2026/04)</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; CVX_20260519 &nbsp;·&nbsp; Generated 2026-05-19 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "Price Trend (Last 1Y, 月次概算)", "dataset_label": "CVX (USD)", "labels": ["2025-05", "2025-07", "2025-09", "2025-10", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05"], "data": [145, 150, 155, 160, 155, 162, 175, 188, 197, 193], "currency_prefix": "$", "currency_suffix": ""}, "revenue_chart": {"title": "Revenue & FCF Trend (billion USD, 通期)", "labels": ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026E"], "datasets": [{"label": "Total Revenue", "data": [246, 206, 193, 200, 210]}, {"label": "Free Cash Flow", "data": [20.0, 14.9, 13.0, 16.6, 18.0]}, {"label": "Net Income", "data": [35.5, 21.4, 17.7, 20.0, 16.0]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
