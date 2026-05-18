@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM — International Business Machines Corp.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">IBM</div>
+      <h1 class="report-title">International Business Machines Corp.</h1>
+      <div class="report-meta">
+NYSE: IBM &nbsp;·&nbsp; Enterprise AI Software / Hybrid Cloud / Consulting      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-label">2026-05-18 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">IBMは創業115年超の老舗IT企業でありながら、watsonx AIプラットフォーム・Red Hat（ハイブリッドクラウドOS）・IBM Z（メインフレーム）・IBM Consultingという4本柱で「エンタープライズAIの実行基盤」へ転換を図る。2026年初頭時点でwatsonxを基盤としたジェネレーティブAI事業の累計受注・収益は125億ドルを超え、企業が「AI試験段階」から「本番稼働段階」へ移行する恩恵を直接受けている。時価総額約2,340億ドルは今回分析した銘柄の中で最も控えめで、PERは最も割安水準。30年連続増配という稀有な株主還元実績を持つ「AIへ転換する守備型配当株」としての側面が特徴的。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">客観データ・実績値</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            Enterprise AI / Hybrid Cloud          </div>
+<div class="metric-sub">Technology / IT Services / Software</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">株価 (2026/05/18頃)</div>
+          <div class="metric-value">
+            ~$240          </div>
+<div class="metric-sub">52週レンジ: ~$170–$265 / YTD -14%</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">時価総額</div>
+          <div class="metric-value">
+            ~$234B          </div>
+<div class="metric-sub">約34兆円（今回8銘柄中 最小）</div>          <div class="metric-comparison">
+            <span class="comparison-label">Palantir</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~$321B</span>
+<span class="comparison-delta bull">売上はIBMの20倍以上なのに時価総額は逆転</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Q1 2026</div>
+          <div class="metric-value">
+            $15.92B          </div>
+<div class="metric-sub">YoY +9.5%・コンセンサス$15.63Bを上回り</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Software 売上 Q1</div>
+          <div class="metric-value">
+            $7.05B          </div>
+<div class="metric-sub">YoY +11%（Red Hat +13%・Data +19%）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Infrastructure 売上 Q1</div>
+          <div class="metric-value">
+            $3.33B          </div>
+<div class="metric-sub">YoY +15%（IBM Z /z17 メインフレーム +51%）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Non-GAAP EPS Q1</div>
+          <div class="metric-value">
+            $1.91          </div>
+<div class="metric-sub">コンセンサス$1.81を+5.5%上回り・4期連続Beat</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">フリーキャッシュフロー Q1</div>
+          <div class="metric-value">
+            $2.22B          </div>
+<div class="metric-sub">10年ぶり最高水準・前年比+13%</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">生成AI 累計受注・収益</div>
+          <div class="metric-value">
+            $12.5B+          </div>
+<div class="metric-sub">watsonx 2023年ローンチ以来の累計</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">配当利回り</div>
+          <div class="metric-value">
+            ~2.7%          </div>
+<div class="metric-sub">30年連続増配（配当貴族）</div>          <div class="metric-comparison">
+            <span class="comparison-label">Apple 配当利回り</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~0.35%</span>
+<span class="comparison-delta bull">IBMは約7.7倍の配当水準</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">通期 FY2026 ガイダンス</div>
+          <div class="metric-value">
+            定数通貨+5%超          </div>
+<div class="metric-sub">FCFを前年比+10億ドル改善（据え置き）</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">Price Trend (Last 1Y, 月次概算)</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">Revenue Trend (billion USD, 通期)</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>IBM
+              </td>
+              <td class="symbol-mono">IBM</td>
+              <td class="num-mono">~240<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~234B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +9%
+              </td>
+              <td class="products-cell">watsonx（AI Platform）, Red Hat OpenShift, IBM Z / z17（メインフレーム）, IBM Consulting, IBM Cloud</td>
+              <td class="features-cell">エンタープライズAI・ハイブリッドクラウドの実装支援。生成AI累計受注125億ドル超。30年連続増配・配当利回り約2.7%</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Accenture
+              </td>
+              <td class="symbol-mono">ACN</td>
+              <td class="num-mono">~320<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~200B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +5%
+              </td>
+              <td class="products-cell">AI Consulting, Digital Transformation, Cloud Services</td>
+              <td class="features-cell">AI・デジタル変革コンサルで世界最大手。生成AI受注36億ドル。8万人規模のAI人材整備計画。IBM Consultingの最大競合</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Microsoft
+              </td>
+              <td class="symbol-mono">MSFT</td>
+              <td class="num-mono">~460<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~3,200B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +13%
+              </td>
+              <td class="products-cell">Azure AI, Copilot for Enterprise, M365</td>
+              <td class="features-cell">OpenAIとの独占連携でエンタープライズAIに最大規模で進出。IBMのwatsonxと最も直接的に競合する。同時にIBM ConsultingとはCopilot統合パートナーでもある「競協関係」</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Palantir
+              </td>
+              <td class="symbol-mono">PLTR</td>
+              <td class="num-mono">~133<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~321B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +85%
+              </td>
+              <td class="products-cell">AIP（AI Platform）, Foundry, Gotham</td>
+              <td class="features-cell">エンタープライズAI実行基盤で最も高成長な競合。IBMより時価総額は大きいが売上はまだ小さい。政府・防衛セクターでIBMと競合</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → スクロールで全列表示</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">事実観察・複合的解釈</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">成長速度の限界:</span>          <span class="highlight-text">今回分析した8銘柄中、唯一の一桁台売上成長（+9%）。GOOGL（+22%）・AMD（+38%）・Palantir（+85%）と比較すると、AIブームの恩恵を受けながらも「成熟企業の変革速度」という構造的制約は明白。Consulting部門の回復も限定的で、Accentureとの規模差が拡大しつつある</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">Consulting 低迷:</span>          <span class="highlight-text">Q1 2026のConsulting売上は前年比ほぼ横ばい〜微増に留まり、AIブームが直接Consulting受注に反映されていない。通期ガイダンス（定数通貨+5%超）を引き上げなかったことが株価の-9.6%下落を招いた。マクロ環境の不確実性とAccentureとの競争激化が顧客のAI案件意思決定を遅らせている可能性がある（憶測含む）</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">メインフレーム依存のサイクリカルリスク:</span>          <span class="highlight-text">z17メインフレーム売上+51%はIBMのQ1を大きく支えたが、メインフレームの更新サイクルは数年に一度。次のアップグレードサイクルが始まるまでのInfrastructure部門は反動減のリスクがある（サイクル後半は逆風）</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">IBM watsonx:</span>          <span class="highlight-text">2026年初頭時点で生成AI関連の累計受注・収益が125億ドルを超え、企業が「パイロット疲れ」を脱し本番稼働へ移行するフェーズの恩恵が顕在化。「AIの実行基盤（Rails）」としてwatsonxを位置付け、エージェントAI時代のオーケストレーション層を狙う戦略が明確化している</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">IBM:</span>          <span class="highlight-text">Red Hat +13%・フリーキャッシュフロー+13%（10年ぶり最高）・EPS 4期連続Beat・30年連続増配という四重奏は「地味だが盤石」な財務基盤を示している。フォワードPERは約20倍前後と、今回分析した8銘柄中 最も保守的なバリュエーション。配当込みトータルリターンで評価するなら一定の魅力がある</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">主観的評価・予想（参考）</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Business Stability</span>
+              <span class="score-val bull">8 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="80" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Dividend / Shareholder Return</span>
+              <span class="score-val bull">9 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="90" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">AI Revenue (watsonx)</span>
+              <span class="score-val bull">6 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="60" data-color-var="--color-bull"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">Revenue Growth Rate</span>
+              <span class="score-val warn">4 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="40" data-color-var="--color-accent"></div></div>
+            <div class="score-row">
+              <span class="score-label">Competitive Positioning vs AI Natives</span>
+              <span class="score-val warn">4 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="40" data-color-var="--color-accent"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">IBM<span class="symbol">IBM</span></div>
+          <div class="star-rate" title="Rate: 3/5">
+★★★☆☆          </div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Long (1–3y)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">170<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>Consulting部門が通年マイナス成長。Accenture・Microsoft Copilotにwatsonx市場が侵食され、生成AI受注の成長が失速。メインフレームサイクルの谷間が重なり売上・FCFが2025年水準を下回る
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">260<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>FY2026ガイダンス（定数通貨+5%超）を達成。Software+11%・watsonx受注の継続拡大。FCF増加により増配継続。メインフレームサイクルのピークアウト後もSoftwareが下支え
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">330<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>watsonxがエンタープライズAIの「実質標準」として企業の本番稼働段階で採用拡大。Consulting回復とSoftware高成長が同時達成。2027年にかけてFCF200億ドル超を視野に入れ、割安感が修正される
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">企業のAI導入が「実験」から「実装・運用」フェーズに移行する2026〜2028年は、理論的にはIBMのwatsonx・Consulting・ハイブリッドクラウドという強みが最も活きる局面。ただし同じ市場をPalantir・Microsoft・Accentureも狙っており、成長率格差が株価評価の足かせになりやすい。</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">フリーキャッシュフロー2,220億円（Q1単体）・EPS 4期連続Beat・30年連続増配という財務の盤石さはNVIDIA・AMD等には真似できない「成熟企業の稼ぐ力」の証明。配当利回り約2.7%は金利環境が落ち着いた局面でインカム投資家に評価される。</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">① AIネイティブ企業（Palantir・Salesforce等）との成長格差が株価評価倍率を抑制 ② Consulting部門の回復遅れ ③ メインフレームのサイクリカルリスク（z17の反動減） ④ Accenture・Microsoft Copilotとの競争激化 ⑤ 為替ヘッドウィンド（ドル高がConstant Currencyとの乖離を生む）</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.cnbc.com/2026/04/22/ibm-q1-earnings-report-2026.html" target="_blank" rel="noopener">IBM Q1 2026 決算 – CNBC (2026/04/22)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://finance.yahoo.com/markets/stocks/articles/ibm-q1-2026-earnings-beat-132710855.html" target="_blank" rel="noopener">IBM Q1 2026 決算Beat・ガイダンス据置で株価下落 (Yahoo Finance)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://247wallst.com/companies/ibm/earnings" target="_blank" rel="noopener">IBM Q1 2026 詳細分析 (24/7 Wall St.)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://simplywall.st/community/narratives/us/software/nyse-ibm/international-business-machines/9nxcgjmg-international-business-machines-ibm-the-blue-chip-transformation-into-the-ai-hybrid-backbone" target="_blank" rel="noopener">IBM watsonx 生成AI 125億ドル超・エンタープライズAI戦略分析</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.ainvest.com/news/ibm-consulting-rebounds-slightly-ai-fuel-durable-growth-2603/" target="_blank" rel="noopener">IBM Consulting回復分析・競合比較 (AI Invest, 2026/03)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.investing.com/equities/ibm-earnings" target="_blank" rel="noopener">IBM 決算・株価データ (Investing.com)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://matrixbcg.com/blogs/competitors/ibm" target="_blank" rel="noopener">IBM 競合分析 2026 (MatrixBCG)</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; IBM_20260518 &nbsp;·&nbsp; Generated 2026-05-18 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "Price Trend (Last 1Y, 月次概算)", "dataset_label": "IBM (USD)", "labels": ["2025-05", "2025-07", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-05"], "data": [220, 235, 245, 260, 265, 280, 265, 255, 250, 240], "currency_prefix": "$", "currency_suffix": ""}, "revenue_chart": {"title": "Revenue Trend (billion USD, 通期)", "labels": ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026E"], "datasets": [{"label": "Total Revenue", "data": [60.5, 61.9, 63.0, 65.0, 70.0]}, {"label": "Software Revenue", "data": [23.0, 25.0, 27.0, 29.0, 32.0]}, {"label": "Free Cash Flow", "data": [9.3, 11.0, 12.0, 13.5, 15.0]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
