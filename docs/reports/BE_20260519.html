@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BE — Bloom Energy Corporation</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">BE</div>
+      <h1 class="report-title">Bloom Energy Corporation</h1>
+      <div class="report-meta">
+NYSE: BE &nbsp;·&nbsp; Clean Energy / Solid Oxide Fuel Cell / AI Data Center Power      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-label">2026-05-19 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">Bloom Energyは固体酸化物型燃料電池（SOFC）を製造・販売・メンテナンスするクリーンエネルギー企業。AIデータセンターの電力需要急増という「想定外の追い風」が2025〜2026年に到来し、1年で株価+1,400%超という今回分析した全銘柄中でも屈指の騰落率を記録。Oracleとの2.8GW・AEPとの1GW・Brookfieldとの50億ドル・Equinixとの100MW超という巨大パイプラインが相次いで成立。SOFCは「自然ガス・バイオガス・水素で動く・電力網不要の現場発電機」という特性がグリッド逼迫の時代に刺さった。Q1 2026は売上+130% YoY・GAAPで初の黒字転換。通期ガイダンスを3.4〜3.8億ドルへ大幅引き上げ。1年+1,233〜1,400%という数字は本物の事業変化に基づくが、現在株価（~$290）はアナリスト平均目標株価（$237）を大きく上回っており、期待値の先行が著しい。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">客観データ・実績値</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            SOFC / AI Data Center Power          </div>
+<div class="metric-sub">Clean Energy / On-site Power Generation</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">株価 (2026/05/19頃)</div>
+          <div class="metric-value">
+            ~$290          </div>
+<div class="metric-sub">52週レンジ: ~$19–$325 / 1年 +1,400%超</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">時価総額</div>
+          <div class="metric-value">
+            ~$29B          </div>
+<div class="metric-sub">約4.2兆円（MTZと同水準）</div>          <div class="metric-comparison">
+            <span class="comparison-label">アナリスト平均目標株価</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">$237（-18%）</span>
+<span class="comparison-delta warn">現在株価が目標を上回る</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Q1 2026</div>
+          <div class="metric-value">
+            $751M          </div>
+<div class="metric-sub">YoY +130.4%・過去最高</div>          <div class="metric-comparison">
+            <span class="comparison-label">前年同期</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">$326M</span>
+<span class="comparison-delta bull">1年で2.3倍に拡大</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">GAAP 純利益 Q1</div>
+          <div class="metric-value">
+            $70.7M          </div>
+<div class="metric-sub">前年同期 -$23.8M から黒字転換</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Non-GAAP EPS Q1</div>
+          <div class="metric-value">
+            $0.44          </div>
+<div class="metric-sub">GAAP 営業利益 $72.2M（前年は損失）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">通期 FY2026 ガイダンス（引上げ後）</div>
+          <div class="metric-value">
+            $3.4B–$3.8B          </div>
+<div class="metric-sub">前回 $3.0B–$3.4B から +4億ドル引き上げ</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Non-GAAP 営業利益 ガイダンス</div>
+          <div class="metric-value">
+            前回比 +$225M 引き上げ          </div>
+<div class="metric-sub">Q1 1回の決算で収益見通しが激変</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Oracle 契約</div>
+          <div class="metric-value">
+            最大 2.8GW          </div>
+<div class="metric-sub">AIデータセンター向けSOFC・Oracleに株式購入ワラント付与</div>          <div class="metric-comparison">
+            <span class="comparison-label">Bloom 年産能力</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~1GW（拡張中）</span>
+<span class="comparison-delta warn">Oracle分だけで数年分の生産量</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">AEP 契約</div>
+          <div class="metric-value">
+            最大 1GW          </div>
+<div class="metric-sub">$26.5億ドル・オフグリッドAIデータセンター向け</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Brookfield 契約</div>
+          <div class="metric-value">
+            $50億ドル          </div>
+<div class="metric-sub">AI複数データセンターへのSOFC展開</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">製品バックログ</div>
+          <div class="metric-value">
+            $60億ドル          </div>
+<div class="metric-sub">サービスバックログ $240億ドル（合計$300億ドル）</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">Price Trend (Last 1Y, 月次概算)</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">Revenue &amp; Operating Income Trend (billion USD)</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>Bloom Energy
+              </td>
+              <td class="symbol-mono">BE</td>
+              <td class="num-mono">~290<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~29B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +130%
+              </td>
+              <td class="products-cell">Energy Server（SOFC 固体酸化物型燃料電池）, Bloom Electrolyzer（水素製造）, 800V DC出力システム, O&amp;Mサービス</td>
+              <td class="features-cell">AIデータセンター向けオンサイト電力。800V DC出力が業界唯一。Oracle 2.8GW・AEP 1GW・Brookfield 50億ドル。製品バックログ60億ドル・サービスバックログ240億ドル</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>FuelCell Energy
+              </td>
+              <td class="symbol-mono">FCEL</td>
+              <td class="num-mono">~3<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~1.5B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bear">
+                低水準
+              </td>
+              <td class="products-cell">MCFC（溶融炭酸塩型燃料電池）</td>
+              <td class="features-cell">Bloomより規模・技術成熟度で劣後。AI電力需要の恩恵は限定的</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>自然ガスタービン（GE Vernova等）
+              </td>
+              <td class="symbol-mono">GEV</td>
+              <td class="num-mono">~380<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~390B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +15%
+              </td>
+              <td class="products-cell">ガスタービン発電機, 風力, 電力網ソリューション</td>
+              <td class="features-cell">Bloomの「従来型競合」。ガスタービンはグリッド接続が必要・設置に18ヶ月以上かかる点でBloomに劣る。AIデータセンターの「今すぐ電力」需要でBloomが優位</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>NextEra Energy（再生可能電力）
+              </td>
+              <td class="symbol-mono">NEE</td>
+              <td class="num-mono">~65<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~130B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +7%
+              </td>
+              <td class="products-cell">太陽光・風力・蓄電池</td>
+              <td class="features-cell">再エネの絶対的王者だが24時間安定電力の提供に蓄電池が必要。AIデータセンターの「99.999%稼働率」ニーズにはBloomのSOFCが直接的に応える</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → スクロールで全列表示</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">事実観察・複合的解釈</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">株価が目標株価を-18%上回る「期待値の先行」:</span>          <span class="highlight-text">現在株価~$290に対しアナリスト平均目標株価は$237（-18%下）。Simply Wall St.のフェアバリューは$218（現在値の-25%下）と評価。1年+1,400%の急騰後、今後の成長を相当程度先食いしている状態。Morgan Stanley $310・RBC $335という強気目標もあるが、Baird $260・Cowen $236・Roth $225という保守的目標との乖離が大きい。「2030年$825」というBullシナリオも存在するが、それはあくまで4〜5年後の話（憶測含む）</span>
+        </li>
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">Oracle 2.8GW vs 現在の生産能力 ~1GW の矛盾:</span>          <span class="highlight-text">Oracleとの最大2.8GW契約はBloomの現在の年産能力を大幅に超える。製造能力の拡大（設備投資・人材・部材調達）が追いつかなければ納期遅延・顧客離れが発生しうる。「最大（up to）」という条件付き表現は確定受注ではない点にも注意が必要</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">天然ガス依存と脱炭素規制リスク:</span>          <span class="highlight-text">現在のSOFCは主に天然ガスを燃料とする。将来の脱炭素規制強化・炭素税導入・ガス価格高騰は事業コストに直接影響する。水素燃料への移行を計画しているが、グリーン水素の経済性はまだ不確か（憶測含む）。「クリーンエネルギー」と位置付けているが、ガスを燃焼させる点では在来型との違いが限定的とも言える</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">800V DC出力：AIラック向け業界唯一の技術:</span>          <span class="highlight-text">次世代AIラックは従来のCPUラックの約100倍の電力を消費し、800V DCの直接供給が効率的。CEOスリダー氏によれば「800V DC出力をネイティブに実現できる競合は存在しない」。この技術優位がOracleのような大手AIプレイヤーがBloomを選ぶ決定的理由の一つ</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">グリッド不要・設置速度の優位性:</span>          <span class="highlight-text">電力網接続が不要で「電力会社の承認なしにデータセンター横に設置できる」という特性は、送電網の整備が追いつかない2026年の米国でオンサイト電力として最大の差別化。Equinixの19データセンター展開・AEPとのオフグリッド協定がこの優位を証明する実績</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">主観的評価・予想（参考）</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Revenue Growth (Q1 +130%)</span>
+              <span class="score-val bull">10 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="100" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Contract Pipeline (Oracle/AEP/Brookfield)</span>
+              <span class="score-val bull">9 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="90" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Technology Differentiation (800V DC)</span>
+              <span class="score-val bull">8 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="80" data-color-var="--color-bull"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">Valuation vs Analyst Targets</span>
+              <span class="score-val bear">2 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="20" data-color-var="--color-bear"></div></div>
+            <div class="score-row">
+              <span class="score-label">Manufacturing Scale Risk</span>
+              <span class="score-val bear">3 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="30" data-color-var="--color-bear"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">Bloom Energy<span class="symbol">BE</span></div>
+          <div class="star-rate" title="Rate: 3/5">
+★★★☆☆          </div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Mid-Long (1–3y)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">150<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>Oracle 2.8GW契約が「最大（up to）」の条件通りに縮小・延期。製造能力の拡大が遅れ、FY2026ガイダンス（$3.4B–$3.8B）を大幅下回る。天然ガス価格高騰・脱炭素規制強化がコスト圧迫。アナリスト目標株価$237を大きく割り込むシナリオ
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">310<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>FY2026ガイダンス（$3.4B–$3.8B）を達成。Oracle・AEP・Brookfield契約が計画通り進捗し、2027年に向けた製造能力拡張が確認される。Morgan Stanley $310目標への収束
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">825<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>2030年までに水素燃料への完全移行が実現し「真のゼロエミッション電力」として再評価。AIデータセンター市場での独占的地位確立。RBC $335→さらに上方修正が続くシナリオ（TIKRの2030年試算$825ベース、憶測含む）
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">AIデータセンターの電力需要は2026〜2030年に爆発的に拡大し、電力網が追いつかない局面が続く。「グリッド不要・即設置可能・800V DC直接出力」というSOFCの特性は、この局面で代替困難な価値を持つ。</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">Q1 2026の+130%成長・GAAP初黒字・ガイダンス大幅引き上げという三点は事業の構造的変化を示す確定データ。製品バックログ60億ドル・サービスバックログ240億ドルの合計300億ドルは今後の収益基盤として具体的。CEOがIBM・GE等の大手出身者であり、スケールアップ実績への信任がある。</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">① 現在株価がアナリスト平均目標を-18%上回る期待値先行 ② Oracle 2.8GW契約の「最大（up to）」という不確実性 ③ 製造能力拡張の実行リスク ④ 天然ガス依存・脱炭素規制リスク ⑤ 1年+1,400%急騰後の利益確定売り圧力・Beta 2.84の高ボラティリティ ⑥ GE Vernova等のガスタービン大手が対抗策を強化</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.tikr.com/blog/bloom-energy-stock-is-up-over-1400-in-one-year-heres-what-the-valuation-says-now" target="_blank" rel="noopener">Bloom Energy 1年+1,400%・2030年$825バリュエーション分析 (TIKR, 2026/05/15)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://stockanalysis.com/stocks/be/" target="_blank" rel="noopener">BE Q1 2026 +130%・Morgan Stanley $310・RBC $335目標 (StockAnalysis)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://simplywall.st/stocks/us/capital-goods/nyse-be/bloom-energy" target="_blank" rel="noopener">BE フェアバリュー$218・製品バックログ$60B・サービス$240B (SimplyWallSt, 2026/05)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://247wallst.com/investing/2026/04/14/bloom-energy-rockets-23-as-fuel-cell-tech-becomes-the-ai-data-center-power-play-of-2026/" target="_blank" rel="noopener">Oracle 2.8GW拡大契約・800V DC出力の技術優位 (24/7 Wall St., 2026/04/14)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://enkiai.com/solid-oxide-fuel-cells/bloom-energys-sofc-deals-power-ai-data-centers-in-2026/" target="_blank" rel="noopener">AEP $26.5億ドル・Oracle 2.8GW・Bloomのパイプライン全容 (EnkiAI, 2026/05)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.datacenterdynamics.com/en/news/bloom-energy-signs-5bn-partnership-with-brookfield-to-deploy-fuel-cell-tech-across-ai-data-centers/" target="_blank" rel="noopener">Brookfield $50億ドル・Equinix 100MW超契約詳細 (DCD, 2026/05)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://finance.yahoo.com/sectors/energy/articles/bloom-energy-oracle-deal-links-140302707.html" target="_blank" rel="noopener">Bloom Energy × Oracle AI データセンター電力契約 (Yahoo Finance)</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; BE_20260519 &nbsp;·&nbsp; Generated 2026-05-19 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "Price Trend (Last 1Y, 月次概算)", "dataset_label": "BE (USD)", "labels": ["2025-05", "2025-07", "2025-08", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05"], "data": [19, 28, 45, 80, 130, 180, 220, 240, 260, 270, 290], "currency_prefix": "$", "currency_suffix": ""}, "revenue_chart": {"title": "Revenue & Operating Income Trend (billion USD)", "labels": ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026E"], "datasets": [{"label": "Total Revenue", "data": [0.97, 1.33, 1.34, 1.79, 3.6]}, {"label": "Non-GAAP Operating Income", "data": [-0.05, 0.08, 0.12, 0.25, 0.9]}, {"label": "GAAP Net Income", "data": [-0.33, -0.3, -0.21, -0.05, 0.2]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
