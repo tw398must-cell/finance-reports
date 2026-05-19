@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBIS — Nebius Group N.V.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">NBIS</div>
+      <h1 class="report-title">Nebius Group N.V.</h1>
+      <div class="report-meta">
+NASDAQ: NBIS &nbsp;·&nbsp; AI Cloud Infrastructure / Neocloud / Full-Stack AI Platform      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-label">2026-05-19 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">NebiusはYandex（ロシア最大のテック企業）のAIインフラ部門を分離・再上場した「ネオクラウド」企業。元Yandex CEOのアルカジー・ヴォロジュ氏が率い、GPU大規模クラスタ・AIクラウドプラットフォーム・開発者ツールのフルスタックを提供。2026年5月13日のQ1決算でグループ売上+684% YoY・AI Cloud EBITDA率45%・EPS $2.11（予想-$0.78を大幅上回り）という「公開テック企業史上最速クラス」の成長を発表。同時にMeta 270億ドル5年契約・NVIDIA 20億ドル出資・Microsoft 174億ドル契約という三大パートナーシップが相次いで成立。FY2026通期ガイダンスは売上30〜34億ドル・年末ARR 70〜90億ドル・EBITDA率40%。CapEx計画を200〜250億ドルへ引き上げ、「2027年需要は既に顧客コミットメント済み」と宣言。1年リターン+500%超・YTD +154%で今回分析した19銘柄中でも最速の成長を誇る。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">客観データ・実績値</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            AI Cloud / Neocloud / Full-Stack          </div>
+<div class="metric-sub">旧Yandex AIインフラ部門のスピンオフ（2024年8月改名）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">株価 (2026/05/19)</div>
+          <div class="metric-value">
+            ~$200          </div>
+<div class="metric-sub">52週: $34.72–$233.73（ATH:5/14）/ YTD +154%</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">時価総額</div>
+          <div class="metric-value">
+            ~$50.3B          </div>
+<div class="metric-sub">約7.3兆円（CoreWeaveの約83%）</div>          <div class="metric-comparison">
+            <span class="comparison-label">CoreWeave (CRWV)</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~$60.7B</span>
+<span class="comparison-delta bull">NBISはCRWVの83%規模</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Q1 2026（グループ）</div>
+          <div class="metric-value">
+            $399M          </div>
+<div class="metric-sub">YoY +684%・QoQ +75%</div>          <div class="metric-comparison">
+            <span class="comparison-label">コンセンサス予想</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">$593M</span>
+<span class="comparison-delta warn">-32%（売上は未達）</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Nebius AI Cloud 売上 Q1</div>
+          <div class="metric-value">
+            $390M          </div>
+<div class="metric-sub">YoY +841%・QoQ +82%（グループの98%）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">AI Cloud Adj.EBITDA率 Q1</div>
+          <div class="metric-value">
+            45%          </div>
+<div class="metric-sub">前Q24%から+21pp急拡大</div>          <div class="metric-comparison">
+            <span class="comparison-label">通期目標</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~40%（通年）</span>
+<span class="comparison-delta bull">Q2は一時低下後Q3回復予定</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">調整後 EPS Q1</div>
+          <div class="metric-value">
+            $2.11          </div>
+<div class="metric-sub">コンセンサス予想 -$0.78を大幅上回り</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">ARR（AI Cloud年換算）</div>
+          <div class="metric-value">
+            $1.9B          </div>
+<div class="metric-sub">前Q$1.25Bから+52%（Q1末時点）</div>          <div class="metric-comparison">
+            <span class="comparison-label">FY2026末 ARRガイダンス</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">$7B–$9B</span>
+<span class="comparison-delta bull">Q1末比3.7〜4.7倍の拡大見込み</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">FY2026 通期ガイダンス</div>
+          <div class="metric-value">
+            $3.0B–$3.4B          </div>
+<div class="metric-sub">EBITDA率~40%・ARR $7B–$9B（年末）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">CapEx 2026 計画（引上げ後）</div>
+          <div class="metric-value">
+            $20B–$25B          </div>
+<div class="metric-sub">前回$16B–$20Bから引き上げ。2027年需要対応</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">現金・有価証券</div>
+          <div class="metric-value">
+            $9.3B          </div>
+<div class="metric-sub">長期負債$8.4B。転換社債$4.3B調達済み</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">主要契約</div>
+          <div class="metric-value">
+            Meta $27B・Microsoft $17.4B・NVIDIA $2B出資          </div>
+<div class="metric-sub">計$46.4Bの戦略的バックアップ</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">電力容量</div>
+          <div class="metric-value">
+            3.5GW超（75%自社保有）          </div>
+<div class="metric-sub">2026年末4GW超目標。ペンシルバニア新サイト1.2GW</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">Price Trend（NBIS, 月次概算）</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">Revenue &amp; EBITDA 推移（四半期）</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>Nebius Group
+              </td>
+              <td class="symbol-mono">NBIS</td>
+              <td class="num-mono">~200<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~50.3B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +684%（Q1 AI Cloud +841%）
+              </td>
+              <td class="products-cell">Nebius AI Cloud（GPUクラスタ・クラウドプラットフォーム）, Toloka AI（データラベリング）, TripleTen（EdTech）, Avride（自動運転）, ClickHouse（DB）, Eigen AI・Clarifai・Tavily（買収）</td>
+              <td class="features-cell">フルスタックAIインフラ。Meta $270億・Microsoft $174億・NVIDIA $20億出資。NVIDIA Exemplar Cloud（GB300）認定。電力容量3.5GW超（75%自社保有）。ARR $1.9B（Q1末）</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>CoreWeave
+              </td>
+              <td class="symbol-mono">CRWV</td>
+              <td class="num-mono">~111<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~60.7B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +112%（Q1）
+              </td>
+              <td class="products-cell">GPU Compute、Managed K8s、AI推論</td>
+              <td class="features-cell">上場済みネオクラウド最大手。バックログ994億ドル。NVIDIAが主要株主。NBISより規模大・成長率低</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Lambda Labs（非上場）
+              </td>
+              <td class="symbol-mono">非上場</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~$1.5B（推定）<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell">
+                非開示
+              </td>
+              <td class="products-cell">GPU Cloud、Lambda Vectorize</td>
+              <td class="features-cell">AI訓練特化。NBISより規模小。評価額はNBISの約3%</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>FluidStack（非上場）
+              </td>
+              <td class="symbol-mono">非上場</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~$18B（評価額）<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                非開示
+              </td>
+              <td class="products-cell">GPUクラスタ、AIデータセンター建設（Anthropic向け）</td>
+              <td class="features-cell">Anthropic $500億契約。非上場。評価額はNBISの約36%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → スクロールで全列表示</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">事実観察・複合的解釈</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">CapEx 200〜250億ドル：5年間で累積570億ドルのFCFマイナス予測:</span>          <span class="highlight-text">アナリストは今後5年間の累積フリーキャッシュフローがマイナス570億ドルに達すると試算。Q1だけで24.7億ドルのCapExを使い、調整後純損失は1億ドル超。転換社債43億ドル・長期負債84億ドルに加えATM（市場型増資）プログラム2,500万株も用意。「成長に資金が追いつかない」局面が続く限り希薄化リスクと財務的脆弱性は解消されない</span>
+        </li>
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">Meta・Microsoft集中リスク＋旧Yandex起源リスク:</span>          <span class="highlight-text">Meta 270億ドル・Microsoft 174億ドルで将来売上の相当部分が2社に依存。特定顧客の方針転換リスクはCoreWeaveと同質の構造的問題。また元Yandex（ロシア系）というバックグラウンドは欧米での規制リスク・地政学的懸念を内包しており、一部機関投資家がESG観点で投資を控える可能性もある（憶測含む）</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">WallStreetZen DCF -1,621%オーバーバリュー警告:</span>          <span class="highlight-text">WallStreetZenはDCFモデルによるフェアバリューを-$13.63と算出し、現在株価は「1,620%オーバーバリュー」と評価。Morningstarも「13%プレミアム」と比較的保守的だが、売上コンセンサスが$593Mに対し実績が$399Mと-32%未達だった点は不透明さを示す。Morgan Stanleyは目標株価を$144へ引き上げたが現在値の半値以下</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">Meta $27B契約の革新的な構造:</span>          <span class="highlight-text">Meta契約は固定$120億（専用コンピュート）＋柔軟$150億（Nebius自身の顧客にも転売可能）という二層構造。「Metaが使わなければ自社顧客に高値で売れる」という設計で、下限は$120億・上限は市場価格次第で$270億超になりうる。CoreWeaveのバックログ構造と類似するが、この転売オプションは他ネオクラウドにはない革新的な特徴</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">NVIDIA Exemplar Cloud認定・Vera Rubin採用確定:</span>          <span class="highlight-text">NVIDIA最高位クラウドパートナー「Exemplar Cloud」をGB300 NVL72で取得。NVIDIAの次世代GPU「Vera Rubin NVL72」の米国初展開先にも選定され、最先端GPUへの優先アクセスが確定している。NVIDIAの$20億出資は単なる財務投資ではなくサプライチェーン戦略の「アンカー」として機能する</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">主観的評価・予想（参考）</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Revenue Growth (Q1 +684%)</span>
+              <span class="score-val bull">10 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="100" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Contract Pipeline (Meta/MSFT/NVIDIA)</span>
+              <span class="score-val bull">10 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="100" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">EBITDA Margin Expansion (45%)</span>
+              <span class="score-val bull">9 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="90" data-color-var="--color-bull"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">CapEx / FCF Burn Risk</span>
+              <span class="score-val bear">2 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="20" data-color-var="--color-bear"></div></div>
+            <div class="score-row">
+              <span class="score-label">Customer Concentration / Origin Risk</span>
+              <span class="score-val bear">3 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="30" data-color-var="--color-bear"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">Nebius Group<span class="symbol">NBIS</span></div>
+          <div class="star-rate" title="Rate: 3/5">
+★★★☆☆          </div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Mid-Long (1–3y)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">100<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>AI Cloud需要が2027年に失速。Meta・Microsoftの発注縮小が判明し、200〜250億ドルのCapEx投資が過剰設備として顕在化。旧Yandex起源への欧米規制強化・地政学リスクが表面化。FY2026ガイダンスを大幅下振れ
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">231<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>FY2026ガイダンス（売上$3.0〜3.4B・ARR $7〜9B）を達成。Q3・Q4のCapEx稼働加速でEBITDA率が40%超に回復。アナリスト平均目標株価$231への収束。Citi目標$287も視野
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">400+<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>ARR $9B超達成・EBITDA率50%超が確認される。Meta/Microsoft以外の大型企業顧客が追加され顧客分散が進む。Vera Rubin優先展開でGPU供給優位が確立。Northland目標$248を大きく超えるシナリオ
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">AIクラウドのGPU計算需要は2026〜2028年に旺盛に継続する。CoreWeaveのバックログ994億ドル・FluidStackのAnthropicバックログ500億ドル・NebiusのMeta/Microsoft合計444億ドルは同じ構造の需要を反映している。Nebiusが「第三のネオクラウド」として確立されれば、CoreWeaveに準ずる評価が正当化される。</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">Q1のEPS $2.11（予想-$0.78）という573%のサプライズ・AI Cloud EBITDA45%・ARR $1.9B（前Q比+52%）は事業の急速な成熟を示す確定データ。Meta契約の$150億転売オプション構造は収益の天井を上方無制限にする革新的な設計。現金93億ドル＋転換社債43億ドルで2026年CapExの資金手当ては確保されている。</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">① CapEx 200〜250億ドルの過剰投資・5年累積FCFマイナス570億ドル ② Meta・Microsoft二社への過度な集中 ③ 旧Yandex起源への地政学・規制リスク ④ Q1売上がコンセンサスを-32%下回った事実（成長は本物でも予測精度が低い）⑤ WallStreetZen DCFが示す「理論的オーバーバリュー1,620%」という極端な警告 ⑥ Morgan Stanley目標株価が現在値の72%下という保守的評価</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.thestreet.com/investing/stocks/nebius-nbis-stock-ceo-doubles-down-on-capex-spending" target="_blank" rel="noopener">Nebius CEO CapEx $20〜25B再確認・2027需要コミット詳細 (TheStreet, 2026/05/17)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://247wallst.com/investing/2026/05/13/nebius-soars-20-on-blowout-quarter-684-revenue-surge-nvidia-backing-meta-megadeal/" target="_blank" rel="noopener">NBIS +20%: 684%成長・Meta $27B・NVIDIA $2B 詳細分析 (24/7 Wall St., 2026/05/13)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://coincentral.com/nebius-nbis-stock-inside-the-meta-microsoft-and-nvidia-deals-driving-growth/" target="_blank" rel="noopener">Meta $27B・Microsoft $17.4B・NVIDIA $2B 三契約の全容 (CoinCentral, 2026/05/19)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.fool.com/earnings/call-transcripts/2026/05/13/nebius-nbis-q1-2026-earnings-transcript/" target="_blank" rel="noopener">Nebius Q1 2026 決算トランスクリプト全文 (Motley Fool, 2026/05/13)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://finance.biggo.com/news/US_NBIS_2026-05-13" target="_blank" rel="noopener">Meta契約の革新的構造（$12B固定+$15B転売オプション）詳細分析 (BigGo Finance)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://stockanalysis.com/stocks/nbis/" target="_blank" rel="noopener">NBIS アナリスト目標株価・Citi $287・Morgan Stanley $144 (StockAnalysis)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.wallstreetzen.com/stocks/us/nasdaq/nbis" target="_blank" rel="noopener">NBIS WallStreetZen DCF フェアバリュー -$13.63・1,620%オーバーバリュー警告</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.morningstar.com/stocks/xnas/nbis/quote" target="_blank" rel="noopener">Morningstar NBIS 13%プレミアム評価・旧Yandex起源リスク</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; NBIS_20260519 &nbsp;·&nbsp; Generated 2026-05-19 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "Price Trend（NBIS, 月次概算）", "dataset_label": "NBIS (USD)", "labels": ["2025-05", "2025-07", "2025-09", "2025-10", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05"], "data": [35, 45, 60, 75, 100, 120, 140, 160, 185, 200], "currency_prefix": "$", "currency_suffix": ""}, "revenue_chart": {"title": "Revenue & EBITDA 推移（四半期）", "labels": ["Q1 FY25", "Q2 FY25", "Q3 FY25", "Q4 FY25", "Q1 FY26", "Q2 FY26E", "Q3 FY26E", "Q4 FY26E"], "datasets": [{"label": "Revenue (million USD)", "data": [51, 80, 120, 228, 399, 598, 900, 1103]}, {"label": "Adj.EBITDA Margin AI Cloud (%)", "data": [-40, -20, 5, 24, 45, 30, 42, 50]}, {"label": "ARR (billion USD)", "data": [0.2, 0.4, 0.6, 1.25, 1.9, 3.0, 5.5, 8.0]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
