@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXPE — Expedia Group, Inc.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 20px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">EXPE</div>
+      <h1 class="report-title">Expedia Group, Inc.</h1>
+      <div class="report-meta">
+NASDAQ: EXPE &nbsp;·&nbsp; Online Travel Agency / AI Travel Platform      </div>
+    </div>
+    <div class="header-right">
+      <div class="date-label">2026-05-19 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">ExpediaはBooking Holdings・Airbnbと並ぶオンライン旅行「トリオポリー」の一角。Expedia・Hotels.com・Vrbo・Hoteliers.comを傘下に持ち、フライト・ホテル・バケーションレンタルをまたぐ初のロイヤルティプログラム「One Key（会員1.68億人）」で顧客囲い込みを強化。AIアシスタント「Romie」はWhatsAppグループに参加して旅程提案・価格変動監視・フライト遅延時の自動再予約を行う「エージェント型AI」として進化中。Q1 2026は売上+15% YoY・調整後EBITDAマージン15.8%（15年ぶり最高）・EPS +41%Beatと好調だったが、株価は52週高値$303から-28%の$217圏に留まり「割安な旅行株」として見直し余地がある。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">客観データ・実績値</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            Online Travel / AI Travel Agent          </div>
+<div class="metric-sub">Consumer Discretionary / Internet</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">株価 (2026/05/16)</div>
+          <div class="metric-value">
+            $217.73          </div>
+<div class="metric-sub">52週: $156.05–$303.80 / 高値比-28%</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">時価総額</div>
+          <div class="metric-value">
+            ~$25B          </div>
+<div class="metric-sub">約3.7兆円（今回14銘柄中 最小クラス）</div>          <div class="metric-comparison">
+            <span class="comparison-label">Booking Holdings (BKNG)</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~$155B</span>
+<span class="comparison-delta warn">EXPEの約6倍の規模差</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Q1 2026</div>
+          <div class="metric-value">
+            $3.43B          </div>
+<div class="metric-sub">YoY +15%・コンセンサス+2.4%上回り</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">グロスブッキング Q1</div>
+          <div class="metric-value">
+            $35.5B          </div>
+<div class="metric-sub">YoY +13%・ルームナイト +6%</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">調整後 EBITDA Q1</div>
+          <div class="metric-value">
+            $542M          </div>
+<div class="metric-sub">YoY +83%・マージン 15.8%（15年ぶり最高）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">EPS Q1</div>
+          <div class="metric-value">
+            $1.96          </div>
+<div class="metric-sub">コンセンサス$1.39を+41%上回り</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">フリーキャッシュフロー Q1</div>
+          <div class="metric-value">
+            $3.75B          </div>
+<div class="metric-sub">YoY +36%（季節性で上期に集中）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">通期 FY2026 ガイダンス</div>
+          <div class="metric-value">
+            売上 +~8% YoY          </div>
+<div class="metric-sub">EPS $20.41予想・Q2 $5.25・Q3 $8.86</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">フォワード PER</div>
+          <div class="metric-value">
+            ~10.7x          </div>
+<div class="metric-sub">FY2026 EPS $20.41ベース</div>          <div class="metric-comparison">
+            <span class="comparison-label">Booking Holdings</span>
+            <span class="comparison-value-block">
+              <span class="comparison-value">~24x</span>
+<span class="comparison-delta bull">EXPEは同業比で大幅割安</span>            </span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">株主還元</div>
+          <div class="metric-value">
+            自社株買い $1.7B（Q1）          </div>
+<div class="metric-sub">配当20%増（$0.48/株）・9百万株消却</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">One Key 会員数</div>
+          <div class="metric-value">
+            1.68億人          </div>
+<div class="metric-sub">フライト・ホテル・バケーションレンタル横断の初ロイヤルティ</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">Price Trend (Last 1Y, 月次概算)</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">Revenue &amp; EBITDA Trend (billion USD, 通期)</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>Expedia Group
+              </td>
+              <td class="symbol-mono">EXPE</td>
+              <td class="num-mono">~218<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~25B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +15%
+              </td>
+              <td class="products-cell">Expedia.com, Hotels.com, Vrbo, Hoteliers.com（B2B）, One Keyロイヤルティ, Romie（AIエージェント）</td>
+              <td class="features-cell">OTAトリオポリーの米国最大手。One Key会員1.68億人。B2Bセグメントが高マージン成長エンジンに転換。PER約19倍で同業最安値圏</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Booking Holdings
+              </td>
+              <td class="symbol-mono">BKNG</td>
+              <td class="num-mono">~6,000<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~155B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +8%
+              </td>
+              <td class="products-cell">Booking.com, Priceline, Kayak, Agoda</td>
+              <td class="features-cell">OTA世界最大。粗利益率~37%はExpediaの約2倍。欧州・アジア支配的。時価総額はEXPEの約6倍。ルームナイト成長でExpediaが最近上回る事例も</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Airbnb
+              </td>
+              <td class="symbol-mono">ABNB</td>
+              <td class="num-mono">~135<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~88B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell bull">
+                +7%
+              </td>
+              <td class="products-cell">Airbnb（短期レンタル）, Experiences</td>
+              <td class="features-cell">ユニークステイカテゴリの絶対的王者。時価総額はEXPEの約3.5倍だが売上は同規模。Vrboと直接競合するが差別化ニッチが明確</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Google Travel（フレネミー）
+              </td>
+              <td class="symbol-mono">GOOGL</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  ~4,800B<span class="unit">USD</span>
+              </td>
+              <td class="growth-cell warn">
+                —
+              </td>
+              <td class="products-cell">Google Flights, Google Hotels, Google Travel AI Overview</td>
+              <td class="features-cell">検索上流を支配する「見えない競合」。AI OverviewのOTAトラフィック侵食が最大の構造的脅威。同時にExpediaの最大集客源でもある「frenemy」</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → スクロールで全列表示</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">事実観察・複合的解釈</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-danger">
+          <span class="level-marker">×</span>
+<span class="highlight-name">Google Travel AI Overview：最大の構造的脅威:</span>          <span class="highlight-text">GoogleのAI Overviewが検索結果の上部でホテル・フライト比較を直接提示することで、ユーザーがOTAサイトへ遷移しなくなるリスクが顕在化しつつある。ExpediaのトラフィックはGoogle検索広告に大きく依存しており、この依存度の低下（One Keyによる直接流入拡大）が戦略の核心だが道半ば。Google独禁訴訟の解消命令によりGoogleの優位性が一部緩和される可能性もあるが不確か（憶測含む）</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">Booking Holdingsとの規模・マージン格差:</span>          <span class="highlight-text">Booking Holdingsの粗利益率約37%に対しExpediaは約20%台。時価総額格差（6倍）は歴史的に縮まらず、欧州・アジアでのシェア差は依然大きい。One Keyによる米国での差別化と、B2Bセグメントの高成長が継続しなければ割安の罠（Value Trap）になりうる</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">マクロ・旅行需要の不確実性:</span>          <span class="highlight-text">2026年の米国消費者景況感は関税・インフレ懸念で不安定。旅行は景気感応度の高いセクターであり、景気後退局面でのグロスブッキング成長率鈍化は直接的に業績を直撃する。特に国際旅行需要の変動リスクがある</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">Romie（AI旅行エージェント）:</span>          <span class="highlight-text">ExpediaのAIアシスタント「Romie」はWhatsAppグループへ参加して旅程提案・価格変動監視・フライト遅延時の自動再予約を実行する「エージェント型AI」に進化。人的カスタマーサービスコストの削減と顧客ロイヤルティ強化を同時に実現しており、EBITDAマージン改善の主要ドライバー</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">B2B・フォワードPE 10.7倍の割安性:</span>          <span class="highlight-text">B2Bセグメント（Hoteliers.com）がグロスブッキング全体の中で高マージン・高成長のエンジンとして台頭。フォワードPE約10.7倍はBooking Holdings（24倍）・Airbnb（50倍超）と比べて著しく割安で、EBITDA+83%・EPS+41%Beatという実力との乖離が大きい。自社株買い17億ドル・配当20%増で株主還元も積極化</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">主観的評価・予想（参考）</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Revenue Growth &amp; EBITDA</span>
+              <span class="score-val bull">7 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="70" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Valuation (Forward PE 10.7x)</span>
+              <span class="score-val bull">9 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="90" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">AI Strategy (Romie / One Key)</span>
+              <span class="score-val bull">7 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="70" data-color-var="--color-bull"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">Google Travel Structural Risk</span>
+              <span class="score-val bear">3 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="30" data-color-var="--color-bear"></div></div>
+            <div class="score-row">
+              <span class="score-label">Margin vs Booking Holdings</span>
+              <span class="score-val warn">4 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="40" data-color-var="--color-accent"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">Expedia Group<span class="symbol">EXPE</span></div>
+          <div class="star-rate" title="Rate: 4/5">
+★★★★☆          </div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Mid (6–18m)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">155<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>Google AI OverviewがOTAトラフィックを大幅侵食し、グロスブッキング成長が+5%以下に鈍化。景気後退で旅行需要が収縮し、EBITDAマージンが10%台前半に後退するシナリオ。52週安値$156水準への回帰
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">285<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>FY2026 EPS $20.41ガイダンス達成・アナリスト平均目標株価$285への収束。One Keyが旅行者のデフォルト選択肢として定着しGoogle依存が低下。B2B成長がEBITDAマージンを17〜18%へ押し上げる
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">400+<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>Booking Holdings並みのPE評価（24倍×EPS $20）への再評価。Romieが業界標準のAI旅行エージェントとして認知され、AIネイティブ旅行プラットフォームとして市場が再定義するシナリオ
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">世界の旅行需要は2026年以降も構造的に成長し、デジタル予約比率は上昇し続ける。AIが旅行体験のパーソナライズ・価格最適化・カスタマーサービス自動化を加速するなか、1.68億人のOne Key会員という囲い込み資産は年々価値が高まる。</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">フォワードPE 10.7倍はFY2026 EPS $20.41ベースで、EBITDA+83%・EPS+41%Beatという実力との乖離が極めて大きい。自社株買い17億ドル（Q1だけで時価総額の約7%）は経営陣が現在の株価を明確に割安と判断している証左。アナリスト14人全員Buy・平均目標$285（現在値から+31%）という評価も強い支持材料。</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">① Google Travel AI Overviewによる集客チャネル侵食 ② Booking Holdingsとの規模・マージン格差（Value Trapリスク）③ マクロ景気後退による旅行需要収縮 ④ IRS移転価格問題（長期的な税務リスク）⑤ Romie等AI戦略の実行遅延 ⑥ Vrboがモバイルゲートウェイ競争でAirbnbに遅れる可能性</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.investing.com/news/transcripts/earnings-call-transcript-expedias-q1-2026-earnings-beat-expectations-93CH-4670733" target="_blank" rel="noopener">Expedia Q1 2026 決算トランスクリプト（EPS+41%Beat・EBITDA+83%・FCF+36%）</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.stocktitan.net/news/EXPE/" target="_blank" rel="noopener">Expedia Q1 2026 公式決算：グロスブッキング355億ドル・自社株買い17億ドル・配当20%増</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.investing.com/equities/expedia" target="_blank" rel="noopener">EXPE 株価・ガイダンス・アナリスト目標株価$285 (Investing.com, 2026/05/16)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://markets.financialcontent.com/stocks/article/finterra-2026-1-22-the-resurgence-of-a-travel-giant-a-deep-dive-into-expedia-group-expe-in-2026" target="_blank" rel="noopener">Expedia 2026年詳細分析：One Key・Romie・Google脅威 (FinancialContent, 2026/01)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://markets.financialcontent.com/wral/article/finterra-2026-3-2-expedia-group-expe-from-tech-unification-to-b2b-powerhouse-2026-research-feature" target="_blank" rel="noopener">Expedia B2B転換・競合分析 (FinancialContent, 2026/03)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://markets.financialcontent.com/wral/article/finterra-2026-2-16-the-ai-inflection-point-a-deep-dive-into-expedia-group-expe-and-the-future-of-travel-booking" target="_blank" rel="noopener">Expedia AI変曲点分析：Google脅威・長期バリュエーション (FinancialContent, 2026/02)</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.google.com/finance/beta/quote/EXPE:NASDAQ" target="_blank" rel="noopener">EXPE 株価・PER・EPS (Google Finance, 2026/05/19)</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; EXPE_20260519 &nbsp;·&nbsp; Generated 2026-05-19 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "Price Trend (Last 1Y, 月次概算)", "dataset_label": "EXPE (USD)", "labels": ["2025-05", "2025-07", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05"], "data": [185, 200, 230, 260, 285, 303, 270, 235, 220, 210, 218], "currency_prefix": "$", "currency_suffix": ""}, "revenue_chart": {"title": "Revenue & EBITDA Trend (billion USD, 通期)", "labels": ["FY2022", "FY2023", "FY2024", "FY2025", "FY2026E"], "datasets": [{"label": "Total Revenue", "data": [11.7, 12.8, 13.7, 14.7, 15.9]}, {"label": "Adj. EBITDA", "data": [1.85, 2.2, 2.48, 2.9, 3.2]}, {"label": "Net Income (GAAP)", "data": [0.15, 0.86, 0.51, 0.78, 1.3]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
