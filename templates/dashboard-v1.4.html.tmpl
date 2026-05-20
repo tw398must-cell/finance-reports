@@ -54,8 +54,9 @@
   .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
   .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
   .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
-  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); }
   .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  .header-right .star-rate { font-size: 20px; letter-spacing: 3px; }
   @media (max-width: 600px) {
     .report-title { font-size: 22px; }
     .header-right { align-items: flex-start; }
@@ -229,6 +230,11 @@
       </div>
     </div>
     <div class="header-right">
+      {% if analysis.forecasts %}
+      <div class="star-rate" title="Rate: {{ analysis.forecasts[0].rate }}/5">
+        {% for _ in range(analysis.forecasts[0].rate) %}★{% endfor %}{% for _ in range(5 - analysis.forecasts[0].rate) %}☆{% endfor %}
+      </div>
+      {% endif %}
       <div class="date-label">{{ meta.report_date }} {{ meta.timezone }}</div>
     </div>
   </header>
@@ -418,9 +424,6 @@
       <div class="forecast-card">
         <div class="forecast-header">
           <div class="forecast-name">{{ fc.name }}<span class="symbol">{{ fc.symbol }}</span></div>
-          <div class="star-rate" title="Rate: {{ fc.rate }}/5">
-            {% for _ in range(fc.rate) %}★{% endfor %}{% for _ in range(5 - fc.rate) %}☆{% endfor %}
-          </div>
         </div>
 
         {% if fc.strategy.term %}
