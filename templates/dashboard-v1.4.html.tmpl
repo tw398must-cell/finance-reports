@@ -327,7 +327,7 @@
               <td class="num-mono">{{ issue.price }}<span class="unit">{{ issue.currency_override or meta.primary_currency }}</span></td>
               <td class="num-mono">
                 {% if issue.market_cap is not none %}
-                  {{ issue.market_cap }}<span class="unit">{{ issue.currency_override or meta.primary_currency }}</span>
+                  {{ issue.market_cap }}<span class="unit">{{ issue.market_cap_unit }}</span>
                 {% else %}
                   <span class="unit">—</span>
                 {% endif %}
