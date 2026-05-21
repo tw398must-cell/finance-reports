@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T02:40:06+09:00",
+  "generated_at": "2026-05-22T03:00:53+09:00",
   "reports": [
     {
       "filename": "CLSK_20260521.html",
@@ -16,6 +16,15 @@
       "symbol": "MU",
       "sector": "Semiconductors / Memory & HBM",
       "feature": "メモリ半導体は2026年、AIインフラ投資の爆発的拡大によりHBM（高帯域幅メモリ）主導の「スーパーサイクル」に突入。DRAM・NAND双方で需給が逼迫し、価格決定力が強まっている。SK Hynix・Samsung・Micronの3強がHB…",
+      "rate": 4,
+      "datetime": "2026-05-21T00:00:00+09:00"
+    },
+    {
+      "filename": "NVDA_20260521.html",
+      "name": "NVIDIA Corporation",
+      "symbol": "NVDA",
+      "sector": "Semiconductors / AI Infrastructure",
+      "feature": "ハイパースケーラー（AWS・Google・Microsoft・Meta・Oracle）の2026年合計CapExは7,000億ドルを超え、その大半がAIインフラ向け。NVIDIAのBlackwellアーキテクチャが全需要を独占的に取り込んで…",
       "rate": 4,
       "datetime": "2026-05-21T00:00:00+09:00"
     },
