@@ -1,0 +1,194 @@
+{
+  "generated_at": "2026-05-22T02:28:21+09:00",
+  "reports": [
+    {
+      "filename": "CLSK_20260521.html",
+      "name": "CleanSpark, Inc.",
+      "symbol": "CLSK",
+      "sector": "Bitcoin Mining / AI Infrastructure",
+      "feature": "2024年4月のビットコイン半減期以降、純粋なマイニング収益は構造的に縮小。上場マイナー各社はAI/HPC（高性能コンピューティング）インフラへの転換を競う「電力資産争奪戦」フェーズに入っている。米国内に稼働施設を完全自社所有する点でCLS…",
+      "rate": 3,
+      "datetime": "2026-05-21T00:00:00+09:00"
+    },
+    {
+      "filename": "3030T_20260520.html",
+      "name": "Hub Co., Ltd.（ハブ）",
+      "symbol": "3030T",
+      "sector": "Restaurants / Pub Chain",
+      "feature": "コロナ禍後のインバウンド回復・人流増加を追い風に、国内外食産業は概ね増収傾向。ただし、人件費・食材費・エネルギーコストの上昇が利益率を圧迫する構造は続いており、価格転嫁力と出店戦略の差が企業間の明暗を分けている。",
+      "rate": 3,
+      "datetime": "2026-05-20T00:00:00+09:00"
+    },
+    {
+      "filename": "BE_20260519.html",
+      "name": "Bloom Energy Corporation",
+      "symbol": "BE",
+      "sector": "Clean Energy / Solid Oxide Fuel Cell / AI Data Center Power",
+      "feature": "Bloom Energyは固体酸化物型燃料電池（SOFC）を製造・販売・メンテナンスするクリーンエネルギー企業。AIデータセンターの電力需要急増という「想定外の追い風」が2025〜2026年に到来し、1年で株価+1,400%超という今回分析…",
+      "rate": 3,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "BKNG_20260519.html",
+      "name": "Booking Holdings, Inc.",
+      "symbol": "BKNG",
+      "sector": "Online Travel Agency / AI Connected Trip Platform",
+      "feature": "Booking Holdingsは世界最大のオンライン旅行会社（OTA）。Booking.com・Priceline・Agoda・KAYAK・OpenTableを傘下に持ち、欧州・アジアを中心に圧倒的な市場支配力を誇る。2026年4月2日に…",
+      "rate": 5,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "CVX_20260519.html",
+      "name": "Chevron Corporation",
+      "symbol": "CVX",
+      "sector": "Integrated Energy / Oil & Gas",
+      "feature": "Chevronは世界第2位の米国系石油メジャー。2025年7月のHess買収完了により、ガイアナStabroekブロック（30%権益）・バッケン・メキシコ湾を加え、生産量は年産3,858 MBOED（千バレル/日換算）と過去最高を達成。パー…",
+      "rate": 4,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "EXPE_20260519.html",
+      "name": "Expedia Group, Inc.",
+      "symbol": "EXPE",
+      "sector": "Online Travel Agency / AI Travel Platform",
+      "feature": "ExpediaはBooking Holdings・Airbnbと並ぶオンライン旅行「トリオポリー」の一角。Expedia・Hotels.com・Vrbo・Hoteliers.comを傘下に持ち、フライト・ホテル・バケーションレンタルをまたぐ…",
+      "rate": 4,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "LITE_20260519.html",
+      "name": "Lumentum Holdings, Inc.",
+      "symbol": "LITE",
+      "sector": "Optical & Photonic / AI Data Center Connectivity",
+      "feature": "Lumentumは光学・フォトニクス技術を手掛けるグローバルリーダーで、AIデータセンターのインターコネクト需要爆発の恩恵を最も受けているトランシーバー・レーザーチップメーカーの一角。2026年3月にNVIDIAがCoherentとLume…",
+      "rate": 4,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "MTZ_20260519.html",
+      "name": "MasTec, Inc.",
+      "symbol": "MTZ",
+      "sector": "Infrastructure Engineering & Construction / AI Picks & Shovels",
+      "feature": "MasTecは米国最大級のインフラ建設・エンジニアリング会社。通信（5G・光ファイバー）・クリーンエネルギー（再生可能・送電）・パイプラインの三軸でAIデータセンター建設ブームの「picks & shovels（道具と鶴嘴）」的受益者として…",
+      "rate": 4,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "MU_20260519.html",
+      "name": "Micron Technology, Inc.",
+      "symbol": "MU",
+      "sector": "Semiconductor / Memory (HBM・DRAM・NAND)",
+      "feature": "MicronはDRAM・NAND・HBM（高帯域幅メモリ）を製造する世界3大メモリ半導体メーカーの一角。AI GPU（NVIDIA Blackwell・AMD Instinct）に不可欠なHBM3e・HBM4の2026年分在庫は全量売り切れ…",
+      "rate": 5,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "NBIS_20260519.html",
+      "name": "Nebius Group N.V.",
+      "symbol": "NBIS",
+      "sector": "AI Cloud Infrastructure / Neocloud / Full-Stack AI Platform",
+      "feature": "NebiusはYandex（ロシア最大のテック企業）のAIインフラ部門を分離・再上場した「ネオクラウド」企業。元Yandex CEOのアルカジー・ヴォロジュ氏が率い、GPU大規模クラスタ・AIクラウドプラットフォーム・開発者ツールのフルスタ…",
+      "rate": 3,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "SNDK_20260519.html",
+      "name": "Sandisk Corporation（更新版）",
+      "symbol": "SNDK",
+      "sector": "Semiconductor / NAND Flash / AI Storage",
+      "feature": "SandiskはWestern Digitalから2025年2月にスピンオフした独立NANDフラッシュメモリ企業。FQ3 2026（4月期）は売上59.5億ドル（+251% YoY）・粗利益率78.4%・EPS 23.41ドルで全指標過去最…",
+      "rate": 3,
+      "datetime": "2026-05-19T00:00:00+09:00"
+    },
+    {
+      "filename": "AAOI_20260518.html",
+      "name": "Applied Optoelectronics, Inc.",
+      "symbol": "AAOI",
+      "sector": "Optical Transceivers / AI Data Center Connectivity",
+      "feature": "AIデータセンターにおけるGPUクラスタ大規模化に伴い、銅線インターコネクトの限界を超える「光ファイバートランシーバー」が不可欠なボトルネック部品として急浮上している。AAOIは800G・1.6Tトランシーバーに特化した米国製造の垂直統合メ…",
+      "rate": 2,
+      "datetime": "2026-05-18T00:00:00+09:00"
+    },
+    {
+      "filename": "AAPL_20260518.html",
+      "name": "Apple Inc.",
+      "symbol": "AAPL",
+      "sector": "Consumer Electronics / Services / AI Ecosystem",
+      "feature": "AppleはiPhone・Mac・iPad等のハードウェアと、App Store・iCloud・Apple TV+・Apple Pay等のサービス事業を掛け合わせた世界最大のエコシステム企業。時価総額は2026年5月に史上初の4兆ドル超えを…",
+      "rate": 4,
+      "datetime": "2026-05-18T00:00:00+09:00"
+    },
+    {
+      "filename": "AMD_20260518.html",
+      "name": "Advanced Micro Devices, Inc.",
+      "symbol": "AMD",
+      "sector": "Semiconductor / AI GPU & CPU",
+      "feature": "半導体市場においてNVIDIAがAI GPU市場の約80%を握る中、AMDは唯一の「信頼できる第2位」として地位を確立しつつある。Q1 2026売上は+38% YoYの103億ドルを達成し、データセンターセグメントが+57%で牽引。MI35…",
+      "rate": 4,
+      "datetime": "2026-05-18T00:00:00+09:00"
+    },
+    {
+      "filename": "GOOGL_20260518.html",
+      "name": "Alphabet Inc. (Google)",
+      "symbol": "GOOGL",
+      "sector": "Digital Advertising / AI / Cloud / Search",
+      "feature": "AlphabetはGoogle検索・YouTube・Google Cloud・Gemini AIを核とするデジタル広告・AIプラットフォーム企業。Q1 2026売上は+22% YoYの1,099億ドルと過去2年で最速の成長を記録。Googl…",
+      "rate": 5,
+      "datetime": "2026-05-18T00:00:00+09:00"
+    },
+    {
+      "filename": "IBM_20260518.html",
+      "name": "International Business Machines Corp.",
+      "symbol": "IBM",
+      "sector": "Enterprise AI Software / Hybrid Cloud / Consulting",
+      "feature": "IBMは創業115年超の老舗IT企業でありながら、watsonx AIプラットフォーム・Red Hat（ハイブリッドクラウドOS）・IBM Z（メインフレーム）・IBM Consultingという4本柱で「エンタープライズAIの実行基盤」へ…",
+      "rate": 3,
+      "datetime": "2026-05-18T00:00:00+09:00"
+    },
+    {
+      "filename": "PLTR_20260518.html",
+      "name": "Palantir Technologies, Inc.",
+      "symbol": "PLTR",
+      "sector": "Enterprise AI Software / Defense Tech",
+      "feature": "エンタープライズAIソフトウェア市場において、Palantirは「AIP（AI Platform）」を軸に政府・防衛・民間商業の三領域で支配的地位を確立しつつある。Q1 2026売上は+85% YoYと2020年上場以来最速の成長を達成。競…",
+      "rate": 4,
+      "datetime": "2026-05-18T00:00:00+09:00"
+    },
+    {
+      "filename": "NVDA_20260516.html",
+      "name": "NVIDIA Corporation",
+      "symbol": "NVDA",
+      "sector": "Semiconductors / AI Infrastructure",
+      "feature": "AIインフラ投資が世界的に拡大し、半導体セクターは強気相場が継続。米中貿易摩擦による輸出規制は依然リスクだが、トランプ政権によるH200輸出承認（10社・計75,000チップ上限）が新たな好材料として浮上。NVIDIAは時価総額5.72兆ド…",
+      "rate": 4,
+      "datetime": "2026-05-16T00:00:00+09:00"
+    },
+    {
+      "filename": "CRWV_20260515.html",
+      "name": "CoreWeave, Inc.",
+      "symbol": "CRWV",
+      "sector": "AI Cloud Infrastructure / Neocloud",
+      "feature": "AIクラウドインフラ市場はハイパースケーラー（AWS・Azure・GCP）が支配するが、AI専用GPUクラスタ需要が爆発し「ネオクラウド」と呼ばれるAI特化型プロバイダーが急台頭。CoreWeaveはその代表格で、2025年に年間売上50億…",
+      "rate": 3,
+      "datetime": "2026-05-15T00:00:00+09:00"
+    },
+    {
+      "filename": "FLUIDSTACK_20260515.html",
+      "name": "FluidStack, Inc.",
+      "symbol": "FLUIDSTACK",
+      "sector": "AI Cloud Infrastructure / Neocloud",
+      "feature": "FluidStackは2017年創業の英国発AIクラウドインフラ企業（ネオクラウド）。2025年11月にAnthropicとの500億ドル規模のデータセンター建設契約を締結し一躍注目を浴びた。現在は非上場企業で、株式はプライベートセカンダリ…",
+      "rate": 2,
+      "datetime": "2026-05-15T00:00:00+09:00"
+    },
+    {
+      "filename": "IONQ_20260515.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "Quantum Computing / Technology",
+      "feature": "量子コンピュータ業界は2026年に商業化の転換点を迎え、純粋プレイ6社が米国上場。全体市場は2030年に100億ドル規模を目指す。IonQはこの業界で唯一、年間GAAPベース1億ドル超の収益を達成した企業として突出した地位にある。",
+      "rate": 3,
+      "datetime": "2026-05-15T00:00:00+09:00"
+    }
+  ]
+}

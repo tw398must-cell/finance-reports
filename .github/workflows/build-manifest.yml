@@ -1,0 +1,46 @@
+name: Build reports manifest
+
+# docs/reports/ 配下のレポートHTMLが push されたら、一覧ページ用のメタ情報目録 docs/reports.json を再生成してコミットする。
+# トリガ対象を docs/reports/** に限定しているため、本ワークフロー自身がコミットする。
+# docs/reports.json では再起動しない（無限ループしない）。
+
+on:
+  push:
+    paths:
+      - "docs/reports/**"
+  workflow_dispatch: {}
+
+# 連続 push 時は最新の実行のみ残す
+concurrency:
+  group: build-manifest-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build docs/reports.json
+        run: python3 scripts/build_manifest.py
+
+      - name: Commit manifest if changed
+        run: |
+          if git diff --quiet -- docs/reports.json; then
+            echo "reports.json に変更なし。コミットをスキップします。"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/reports.json
+          git commit -m "chore: rebuild reports.json [skip ci]"
+          git push

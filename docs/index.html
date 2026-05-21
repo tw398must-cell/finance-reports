@@ -255,10 +255,36 @@
         color: var(--color-text-secondary);
       }
 
-      .filename-cell {
-        font-family: var(--font-mono);
+      .sector-cell {
+        color: var(--color-text-secondary);
+      }
+
+      .sector-cell.empty {
         color: var(--color-text-tertiary);
-        font-size: 12px;
+      }
+
+      .feature-cell {
+        color: var(--color-text-secondary);
+        max-width: 360px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .rate-cell {
+        font-family: var(--font-mono);
+        color: var(--color-warning);
+        letter-spacing: 2px;
+        white-space: nowrap;
+      }
+
+      .rate-cell .star-empty {
+        color: var(--color-border-subtle);
+      }
+
+      .rate-cell.empty {
+        color: var(--color-text-tertiary);
+        letter-spacing: normal;
       }
 
       .report-link {
@@ -357,13 +383,16 @@
           type="text"
           id="search-input"
           class="search-input"
-          placeholder="銘柄シンボルで絞り込み（例: AAPL, USDJPY）"
+          placeholder="シンボル・セクターで絞り込み（例: AAPL, Semiconductor）"
         />
         <select id="sort-select" class="sort-select">
-          <option value="date-desc">新しい順</option>
-          <option value="date-asc">古い順</option>
+          <option value="datetime-desc">Date New</option>
+          <option value="datetime-asc">Date Old</option>
           <option value="symbol-asc">Symbol A-Z</option>
           <option value="symbol-desc">Symbol Z-A</option>
+          <option value="sector-asc">Sector A-Z</option>
+          <option value="rate-desc">Rate High</option>
+          <option value="rate-asc">Rate Low</option>
         </select>
       </div>
 
@@ -389,13 +418,16 @@
         "use strict";
 
         // === Configuration ===
-        // GitHub Pages の publication URL から owner/repo を自動推定する
-        // 例: https://username.github.io/finance-reports/  →  owner=username, repo=finance-reports
+        // レポートのメタ情報目録。レポート生成スキルが push 時に更新する。
+        // index.html と同階層 (docs/) に配置。
+        const MANIFEST_URL = "reports.json";
+
+        // GitHub Pages の publication URL から owner/repo を自動推定し
+        // フッターの「View on GitHub」リンクを設定する。
         function detectRepoFromLocation() {
           const host = window.location.hostname;
           const pathname = window.location.pathname;
 
-          // username.github.io/repo-name/ パターン
           const hostMatch = host.match(/^([^.]+)\.github\.io$/);
           if (hostMatch) {
             const owner = hostMatch[1];
@@ -403,21 +435,17 @@
             const repo = pathParts[0] || "";
             return { owner, repo };
           }
-
-          // ローカル確認用フォールバック
           return { owner: "YOUR_USERNAME", repo: "finance-reports" };
         }
 
         const { owner, repo } = detectRepoFromLocation();
-        const API_URL = `https://api.github.com/repos/${owner}/${repo}/contents/docs/reports`;
-        const REPO_URL = `https://github.com/${owner}/${repo}`;
-
-        document.getElementById("repo-link").href = REPO_URL;
+        document.getElementById("repo-link").href =
+          `https://github.com/${owner}/${repo}`;
 
         // === State ===
         let allReports = [];
         let filteredReports = [];
-        let currentSort = "date-desc";
+        let currentSort = "datetime-desc";
 
         // === DOM refs ===
         const contentArea = document.getElementById("content-area");
@@ -426,67 +454,97 @@
         const totalCountEl = document.getElementById("total-count");
         const latestDateEl = document.getElementById("latest-date");
 
-        // === Parse filename ===
-        // ファイル名: {SYMBOL}_{YYYYMMDD}.html
-        function parseFilename(filename) {
-          const match = filename.match(/^(.+)_(\d{4})(\d{2})(\d{2})\.html$/);
-          if (!match) return null;
-          return {
-            filename,
-            symbol: match[1],
-            dateRaw: match[2] + match[3] + match[4],
-            dateFormatted: `${match[2]}-${match[3]}-${match[4]}`,
-          };
+        // === Helpers ===
+        // datetime ("YYYY-MM-DD" または ISO8601) を表示用に整形する。
+        // 時刻を含む場合は "YYYY-MM-DD HH:mm"、日付のみなら "YYYY-MM-DD"。
+        function formatDateTime(value) {
+          if (!value) return "—";
+          const m = String(value).match(
+            /^(\d{4}-\d{2}-\d{2})(?:[T ](\d{2}):(\d{2}))?/,
+          );
+          if (!m) return value;
+          return m[2] ? `${m[1]} ${m[2]}:${m[3]}` : m[1];
         }
 
-        // === Fetch reports ===
-        async function fetchReports() {
+        // ソート比較用に datetime（ISO8601）から比較キーを得る。
+        function dateSortKey(r) {
+          return r.datetime || "";
+        }
+
+        // reports.json に filename が無い場合のフォールバック。
+        // datetime ("YYYY-MM-DDT...") から "{SYMBOL}_{YYYYMMDD}.html" を組み立てる。
+        function deriveFilename(symbol, datetime) {
+          const ymd = String(datetime || "").slice(0, 10).replace(/-/g, "");
+          return `${symbol}_${ymd}.html`;
+        }
+
+        // rate(1–5) を ★★★☆☆ 表記の HTML にする。
+        function renderRate(rate) {
+          const n = Number(rate);
+          if (!Number.isInteger(n) || n < 1 || n > 5) {
+            return '<span class="rate-cell empty">—</span>';
+          }
+          const filled = "★".repeat(n);
+          const empty = "☆".repeat(5 - n);
+          return `<span class="rate-cell" title="Rate: ${n}/5">${filled}<span class="star-empty">${empty}</span></span>`;
+        }
+
+        // 文字列を HTML エスケープする（属性・テキスト共用）。
+        function escapeHtml(value) {
+          return String(value ?? "").replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          );
+        }
+
+        // === Load reports ===
+        // docs/reports.json（メタ情報目録）を 1 リクエストで取得する。
+        async function loadReports() {
           try {
-            const res = await fetch(API_URL, {
-              headers: { Accept: "application/vnd.github+json" },
-            });
+            const res = await fetch(MANIFEST_URL, { cache: "no-cache" });
 
             if (res.status === 404) {
               renderError(
-                "リポジトリまたは reports/ ディレクトリが見つかりません。",
-                `Checked: ${API_URL}`,
-              );
-              return;
-            }
-
-            if (res.status === 403) {
-              renderError(
-                "GitHub APIのレート制限に達しました。",
-                "1時間ほど時間を置いて再度お試しください（未認証で60リクエスト/時の制限があります）。",
+                "レポート目録 (reports.json) が見つかりません。",
+                "scripts/build_manifest.py を実行して docs/reports.json を生成してください。",
               );
               return;
             }
 
             if (!res.ok) {
               renderError(
-                `APIリクエストに失敗しました (HTTP ${res.status})`,
+                `レポート目録の取得に失敗しました (HTTP ${res.status})`,
                 res.statusText,
               );
               return;
             }
 
             const data = await res.json();
-            const reports = data
-              .filter(
-                (item) => item.type === "file" && item.name.endsWith(".html"),
-              )
-              .map((item) => {
-                const parsed = parseFilename(item.name);
-                if (!parsed) return null;
-                return { ...parsed, url: `reports/${item.name}` };
-              })
-              .filter(Boolean);
+            const reports = Array.isArray(data.reports) ? data.reports : [];
+            allReports = reports
+              .filter((r) => r && r.symbol && r.datetime)
+              .map((r) => ({
+                // filename は表示しないが、レポートHTMLへの遷移に使う非表示項目。
+                filename: r.filename || deriveFilename(r.symbol, r.datetime),
+                name: r.name || r.symbol,
+                symbol: r.symbol,
+                sector: r.sector || null,
+                feature: r.feature || "",
+                rate: r.rate,
+                datetime: r.datetime,
+              }));
 
-            allReports = reports;
             updateStats();
             applyFiltersAndSort();
           } catch (err) {
-            renderError("レポート一覧の取得に失敗しました。", err.message);
+            renderError("レポート目録の読み込みに失敗しました。", err.message);
           }
         }
 
@@ -494,10 +552,10 @@
         function updateStats() {
           totalCountEl.textContent = allReports.length;
           if (allReports.length > 0) {
-            const sorted = [...allReports].sort((a, b) =>
-              b.dateRaw.localeCompare(a.dateRaw),
-            );
-            latestDateEl.textContent = sorted[0].dateFormatted;
+            const latest = [...allReports].sort((a, b) =>
+              dateSortKey(b).localeCompare(dateSortKey(a)),
+            )[0];
+            latestDateEl.textContent = formatDateTime(latest.datetime);
           } else {
             latestDateEl.textContent = "—";
           }
@@ -506,19 +564,23 @@
         // === Filter & Sort ===
         function applyFiltersAndSort() {
           const query = searchInput.value.trim().toUpperCase();
-          filteredReports = allReports.filter(
-            (r) => !query || r.symbol.toUpperCase().includes(query),
-          );
+          filteredReports = allReports.filter((r) => {
+            if (!query) return true;
+            return (
+              r.symbol.toUpperCase().includes(query) ||
+              (r.sector || "").toUpperCase().includes(query)
+            );
+          });
 
           switch (currentSort) {
-            case "date-desc":
+            case "datetime-desc":
               filteredReports.sort((a, b) =>
-                b.dateRaw.localeCompare(a.dateRaw),
+                dateSortKey(b).localeCompare(dateSortKey(a)),
               );
               break;
-            case "date-asc":
+            case "datetime-asc":
               filteredReports.sort((a, b) =>
-                a.dateRaw.localeCompare(b.dateRaw),
+                dateSortKey(a).localeCompare(dateSortKey(b)),
               );
               break;
             case "symbol-asc":
@@ -526,6 +588,22 @@
               break;
             case "symbol-desc":
               filteredReports.sort((a, b) => b.symbol.localeCompare(a.symbol));
+              break;
+            case "sector-asc":
+              filteredReports.sort((a, b) =>
+                (a.sector || "～").localeCompare(b.sector || "～"),
+              );
+              break;
+            case "sector-desc":
+              filteredReports.sort((a, b) =>
+                (b.sector || "").localeCompare(a.sector || ""),
+              );
+              break;
+            case "rate-desc":
+              filteredReports.sort((a, b) => (b.rate || 0) - (a.rate || 0));
+              break;
+            case "rate-asc":
+              filteredReports.sort((a, b) => (a.rate || 0) - (b.rate || 0));
               break;
           }
 
@@ -544,15 +622,23 @@
           }
 
           const rows = filteredReports
-            .map(
-              (r) => `
-      <tr data-url="${r.url}">
-        <td class="symbol-cell">${r.symbol}</td>
-        <td class="date-cell">${r.dateFormatted}</td>
-        <td class="filename-cell">${r.filename}</td>
+            .map((r) => {
+              const sector = r.sector
+                ? `<td class="sector-cell">${escapeHtml(r.sector)}</td>`
+                : `<td class="sector-cell empty">—</td>`;
+              const feature = r.feature
+                ? `<td class="feature-cell" title="${escapeHtml(r.feature)}">${escapeHtml(r.feature)}</td>`
+                : `<td class="feature-cell empty">—</td>`;
+              return `
+      <tr data-url="${escapeHtml(`reports/${r.filename}`)}">
+        <td class="symbol-cell" title="${escapeHtml(r.name)}">${escapeHtml(r.symbol)}</td>
+        ${sector}
+        ${feature}
+        <td>${renderRate(r.rate)}</td>
+        <td class="date-cell">${formatDateTime(r.datetime)}</td>
       </tr>
-    `,
-            )
+    `;
+            })
             .join("");
 
           contentArea.innerHTML = `
@@ -560,8 +646,10 @@
         <thead>
           <tr>
             <th class="sortable" data-sort="symbol">Symbol</th>
-            <th class="sortable" data-sort="date">Date</th>
-            <th>Filename</th>
+            <th class="sortable" data-sort="sector">Sector</th>
+            <th>Feature</th>
+            <th class="sortable" data-sort="rate">Rate</th>
+            <th class="sortable" data-sort="datetime">Datetime</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
@@ -605,7 +693,7 @@
         });
 
         // === Init ===
-        fetchReports();
+        loadReports();
       })();
     </script>
   </body>
