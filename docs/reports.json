@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-05-22T03:00:53+09:00",
+  "generated_at": "2026-05-22T03:45:33+09:00",
   "reports": [
+    {
+      "filename": "APLD_20260522.html",
+      "name": "Applied Digital Corporation",
+      "symbol": "APLD",
+      "sector": "AI Data Center / HPC Infrastructure",
+      "feature": "AI推論・学習の爆発的需要を背景に、特化型高密度データセンター（AIファクトリー）市場が急拡大。APLDはビットコインマイニングホスティングからHPC/AIインフラへの転換を完了しつつあり、CoreWeaveをはじめとする複数の大型ハイパー…",
+      "rate": 4,
+      "datetime": "2026-05-22T03:45:01+09:00"
+    },
+    {
+      "filename": "RGTI_20260522.html",
+      "name": "Rigetti Computing, Inc.",
+      "symbol": "RGTI",
+      "sector": "Quantum Computing / Hardware",
+      "feature": "量子コンピューティング市場はNISQ（ノイズあり中規模量子）時代にあり、商用化はまだ黎明期。GoogleのWillowチップ（105量子ビット）やIBMのHeron R2が技術フロンティアをリード。純粋量子プレイとしてIonQ・Rigett…",
+      "rate": 2,
+      "datetime": "2026-05-22T03:45:01+09:00"
+    },
+    {
+      "filename": "SPOT_20260522.html",
+      "name": "Spotify Technology S.A.",
+      "symbol": "SPOT",
+      "sector": "Music Streaming / Communication Services",
+      "feature": "音楽ストリーミング市場はSpotify・Apple Music・YouTube Musicの3強体制。Spotifyが月間アクティブユーザー7.6億人でシェア首位を独走。2026年はポッドキャスト・オーディオブック・AI機能拡充で「音声プラ…",
+      "rate": 4,
+      "datetime": "2026-05-22T03:45:01+09:00"
+    },
     {
       "filename": "CLSK_20260521.html",
       "name": "CleanSpark, Inc.",
