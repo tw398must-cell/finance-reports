@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T02:28:21+09:00",
+  "generated_at": "2026-05-22T02:40:06+09:00",
   "reports": [
     {
       "filename": "CLSK_20260521.html",
@@ -7,6 +7,24 @@
       "symbol": "CLSK",
       "sector": "Bitcoin Mining / AI Infrastructure",
       "feature": "2024年4月のビットコイン半減期以降、純粋なマイニング収益は構造的に縮小。上場マイナー各社はAI/HPC（高性能コンピューティング）インフラへの転換を競う「電力資産争奪戦」フェーズに入っている。米国内に稼働施設を完全自社所有する点でCLS…",
+      "rate": 3,
+      "datetime": "2026-05-21T00:00:00+09:00"
+    },
+    {
+      "filename": "MU_20260521.html",
+      "name": "Micron Technology, Inc.",
+      "symbol": "MU",
+      "sector": "Semiconductors / Memory & HBM",
+      "feature": "メモリ半導体は2026年、AIインフラ投資の爆発的拡大によりHBM（高帯域幅メモリ）主導の「スーパーサイクル」に突入。DRAM・NAND双方で需給が逼迫し、価格決定力が強まっている。SK Hynix・Samsung・Micronの3強がHB…",
+      "rate": 4,
+      "datetime": "2026-05-21T00:00:00+09:00"
+    },
+    {
+      "filename": "SNDK_20260521.html",
+      "name": "Sandisk Corporation",
+      "symbol": "SNDK",
+      "sector": "NAND Flash / Enterprise Storage",
+      "feature": "NANDフラッシュ市場は2026年、AIデータレイク・エンタープライズSSD需要の爆発で「NANDクランチ」局面に入った。Gartnerはエンタープライズ向けNAND価格が2026年に最大234%上昇すると予測。NANDの寡占的市場構造（S…",
       "rate": 3,
       "datetime": "2026-05-21T00:00:00+09:00"
     },
