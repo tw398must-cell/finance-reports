@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generated-at" content="2026-05-22T04:18:04+09:00">
+<title>IONQ — IonQ, Inc.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  .header-right .star-rate { font-size: 20px; letter-spacing: 3px; }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 22px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">IONQ</div>
+      <h1 class="report-title">IonQ, Inc.</h1>
+      <div class="report-meta">
+NYSE: IONQ &nbsp;·&nbsp; Quantum Computing / Hardware      </div>
+    </div>
+    <div class="header-right">
+      <div class="star-rate" title="Rate: 4/5">
+★★★★☆      </div>
+      <div class="date-label">2026-05-22 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">量子コンピューティング純粋プレイの中でIonQは売上・技術・政府契約の全面でリーダーポジションを確立。2026年Q1に売上+755% YoYという驚異的成長を記録し、FY2026ガイダンスを$260〜270Mに引き上げ。商用化フェーズへの移行を業界で最初に体現している。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">Objective Data & Metrics</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            Quantum Computing          </div>
+<div class="metric-sub">Technology</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Price</div>
+          <div class="metric-value">
+            $58.39          </div>
+<div class="metric-sub">2026-05-22（52週高値$84.64→現在-31%）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Market Cap</div>
+          <div class="metric-value">
+            約218億USD（約3.1兆円）          </div>
+<div class="metric-sub">vs Rigetti $71億：規模差約3倍</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">PER</div>
+          <div class="metric-value">
+            149.7x          </div>
+<div class="metric-sub">TTM（大型政府契約受注が利益押し上げ）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">PBR</div>
+          <div class="metric-value">
+            4.4x          </div>
+<div class="metric-sub">TTM</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">ROE</div>
+          <div class="metric-value">
+            +11.3%          </div>
+<div class="metric-sub">TTM（量子純粋プレイで唯一の黒字ROE）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Gross Margin</div>
+          <div class="metric-value">
+            36.1%          </div>
+<div class="metric-sub">TTM</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Growth</div>
+          <div class="metric-value">
+            +755%          </div>
+<div class="metric-sub">Q1 2026 YoY（$7.6M→$64.7M）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue</div>
+          <div class="metric-value">
+            $64.7M（Q1 2026）/ FY2026E $260〜270M          </div>
+<div class="metric-sub">ガイダンス2度引き上げ</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Backlog</div>
+          <div class="metric-value">
+            RPO $470M          </div>
+<div class="metric-sub">YoY +554%（多年度確定受注）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Analyst Target</div>
+          <div class="metric-value">
+            $67.64          </div>
+<div class="metric-sub">コンセンサス目標株価（+16%余地）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Beta</div>
+          <div class="metric-value">
+            3.05          </div>
+<div class="metric-sub">高ボラティリティ</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">Price Trend (Last 1Y)</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">Revenue Trend (million USD)</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>IonQ
+              </td>
+              <td class="symbol-mono">IONQ</td>
+              <td class="num-mono">58.39<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  2,180<span class="unit"></span>
+              </td>
+              <td class="growth-cell bull">
+                +755%
+              </td>
+              <td class="products-cell">Forte（36量子ビット）、Tempo、256量子ビット6世代チップ</td>
+              <td class="features-cell">Q1 2026売上$64.7M・RPO$470M・$31億キャッシュ無借金</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Rigetti Computing
+              </td>
+              <td class="symbol-mono">RGTI</td>
+              <td class="num-mono">21.41<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  71<span class="unit"></span>
+              </td>
+              <td class="growth-cell bull">
+                +199%
+              </td>
+              <td class="products-cell">超電導方式QPU（84量子ビット）</td>
+              <td class="features-cell">TTM売上$10M。IONQの1/18規模、政府契約獲得で追随中</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>D-Wave Quantum
+              </td>
+              <td class="symbol-mono">QBTS</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  〜10億USD<span class="unit"></span>
+              </td>
+              <td class="growth-cell">
+                —
+              </td>
+              <td class="products-cell">量子アニーリング</td>
+              <td class="features-cell">Gross Margin 83%、商用最適化問題に特化</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>IBM Quantum（参考）
+              </td>
+              <td class="symbol-mono">IBM</td>
+              <td class="num-mono">—<span class="unit">USD</span></td>
+              <td class="num-mono">
+                  〜20兆円（IBM全体）<span class="unit"></span>
+              </td>
+              <td class="growth-cell">
+                —
+              </td>
+              <td class="products-cell">Heron R2（156量子ビット）、IBM Quantum Network</td>
+              <td class="features-cell">バランスシート最強、エンタープライズ販売で独走</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → Scroll to see all columns</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">Observations & Composite Insights</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">IONQ:</span>          <span class="highlight-text">Q1 2026売上+755% YoY、ガイダンス中間値比+30%超え。FY2026年間ガイダンスを$260〜270Mに引き上げ（2度目）。純粋量子プレイで最初の商用スケール移行を体現（出典: IonQ IR 2026-05-06）</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">IONQ:</span>          <span class="highlight-text">商用顧客60%・国際顧客35%・マルチプロダクト顧客35%のバランス。政府（DARPA、宇宙開発庁、ミサイル防衛庁）と商用の両輪で収益分散</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">IONQ:</span>          <span class="highlight-text">PER 149x・時価総額$218億に対してFY2026売上$265M（P/S約82倍）。市場は「将来の支配的プラットフォーム」としての期待を織り込んでおり、ガイダンス下振れ時の株価急落リスクが高い</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">IONQ:</span>          <span class="highlight-text">52週高値$84.64から現在-31%。Beta=3.05で市場全体の3倍超のボラティリティ。量子コンピューティングは依然NISQ時代にあり、技術的飛躍なき継続成長が求められる</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">Subjective Assessment & Outlook</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Growth</span>
+              <span class="score-val bull">9 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="90" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Profitability</span>
+              <span class="score-val warn">5 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="50" data-color-var="--color-accent"></div></div>
+            <div class="score-row">
+              <span class="score-label">Competitive Edge</span>
+              <span class="score-val bull">8 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="80" data-color-var="--color-bull"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">Valuation</span>
+              <span class="score-val bear">3 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="30" data-color-var="--color-bear"></div></div>
+            <div class="score-row">
+              <span class="score-label">Geopolitical Risk</span>
+              <span class="score-val warn">5 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="50" data-color-var="--color-accent"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">IonQ<span class="symbol">IONQ</span></div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Mid (1–3m)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">35.00<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>量子ブーム冷却・Q2ガイダンス下振れ・競合台頭
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">65.00<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>Q2売上$65〜68M達成・コンセンサス目標$67.6に向かう
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">90.00<span class="unit">USD</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>256量子ビットシステムの商用契約拡大・フォールトトレランス実証
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">量子コンピューティング純粋プレイの中で唯一の商用スケール達成企業。$31億キャッシュ・無借金・RPO$470Mの基盤は業界屈指の財務体力</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">Q1 2026は+755%成長・ガイダンス超過+30%という圧倒的な実績。Rigetti（$10M売上）との規模差18倍はリーダーシップを明確に示す。アナリスト目標$67.64に対し現値には上昇余地あり</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">①超高評価（P/S 82倍）②技術的停滞リスク（フォールトトレランス実証遅延）③IBM/Google/Microsoftの巨大資本による追い上げ④Beta=3.05による激しい値動き</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">yfinance</span>
+          株価・財務指標（2026-05-22取得）
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://www.ionq.com/news/ionq-announces-first-quarter-2026-financial-results" target="_blank" rel="noopener">IonQ Q1 2026決算発表（売上+755%、ガイダンス引き上げ）</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://quantumcomputingreport.com/ionq-reports-on-its-q1-2026-financial-results-historic-growth-and-blueprint-for-fault-tolerance/" target="_blank" rel="noopener">Quantum Computing Report: IonQ Q1 2026 詳細分析</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://futurumgroup.com/insights/ionq-q1-fy-2026-earnings-show-record-revenue-and-raised-outlook/" target="_blank" rel="noopener">Futurum: IonQ Q1 2026 Earnings Analysis</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; IONQ_20260522 &nbsp;·&nbsp; Generated 2026-05-22 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "Price Trend (Last 1Y)", "dataset_label": "IONQ (USD, monthly close)", "labels": ["2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05"], "data": [42.97, 39.87, 42.74, 61.5, 62.38, 49.3, 44.87, 39.98, 38.37, 28.83, 45.12, 58.39], "currency_prefix": "$", "currency_suffix": ""}, "revenue_chart": {"title": "Revenue Trend (million USD)", "labels": ["FY2023", "FY2024", "FY2025", "FY2026E（中間）"], "datasets": [{"label": "Revenue", "data": [22.0, 43.1, 130.0, 265.0]}, {"label": "Gross Profit", "data": [8.0, 16.0, 47.0, null]}, {"label": "Net Income", "data": [-165.0, -332.0, null, null]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
