@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-05-22T03:45:33+09:00",
+  "generated_at": "2026-05-22T04:18:39+09:00",
   "reports": [
+    {
+      "filename": "CRWV_20260522.html",
+      "name": "CoreWeave, Inc.",
+      "symbol": "CRWV",
+      "sector": "AI GPU Cloud / Infrastructure",
+      "feature": "AI推論・学習向けGPUクラウド市場は急拡大中。AWS・Azure・GCPのハイパースケーラーが汎用クラウドを押さえる一方、NVIDIA GPU特化の「ネオクラウド」としてCoreWeaveが頭角を現す。2026年のAIインフラ投資は依然と…",
+      "rate": 3,
+      "datetime": "2026-05-22T04:18:04+09:00"
+    },
+    {
+      "filename": "IONQ_20260522.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "Quantum Computing / Hardware",
+      "feature": "量子コンピューティング純粋プレイの中でIonQは売上・技術・政府契約の全面でリーダーポジションを確立。2026年Q1に売上+755% YoYという驚異的成長を記録し、FY2026ガイダンスを$260〜270Mに引き上げ。商用化フェーズへの移…",
+      "rate": 4,
+      "datetime": "2026-05-22T04:18:04+09:00"
+    },
+    {
+      "filename": "STX_20260522.html",
+      "name": "Seagate Technology Holdings plc",
+      "symbol": "STX",
+      "sector": "HDD / AI Storage Infrastructure",
+      "feature": "AIデータセンターの爆発的拡張を背景に、ハイパースケーラー向け大容量ニアラインHDDの需要が構造的に拡大。SeagateはHAMR（熱アシスト磁気記録）技術Mozaic 4+で1ドライブ44TBを実現し、容量密度リーダーとして2027年末ま…",
+      "rate": 4,
+      "datetime": "2026-05-22T04:18:04+09:00"
+    },
     {
       "filename": "APLD_20260522.html",
       "name": "Applied Digital Corporation",
