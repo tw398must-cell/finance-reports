@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-05-22T20:30:31+09:00",
+  "generated_at": "2026-05-22T20:35:22+09:00",
   "reports": [
+    {
+      "filename": "ASML_20260522.html",
+      "name": "ASML Holding N.V.",
+      "symbol": "ASML",
+      "sector": "Semiconductor Equipment / EUV Lithography",
+      "feature": "半導体製造装置の中でも極端紫外線（EUV）露光装置は世界でASMLのみが製造できる。AIチップ需要の爆発的拡大を背景にTSMC・Samsung・Intelの設備投資が急加速し、ASMLは「AIサプライチェーンの最上流の独占者」として構造的追…",
+      "rate": 4,
+      "datetime": "2026-05-22T20:35:12+09:00"
+    },
     {
       "filename": "IREN_20260522.html",
       "name": "IREN Limited",
