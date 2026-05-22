@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-05-22T04:18:39+09:00",
+  "generated_at": "2026-05-22T20:30:31+09:00",
   "reports": [
+    {
+      "filename": "IREN_20260522.html",
+      "name": "IREN Limited",
+      "symbol": "IREN",
+      "sector": "AI Data Center / Bitcoin Mining Pivot",
+      "feature": "元Iris Energy（オーストラリア系）。ビットコインマイニングからAIクラウド・HPCインフラへの転換を進める。Microsoft $97億・NVIDIA $34億の長期AIクラウド契約を締結し、2026年末に契約ARR $37億・4…",
+      "rate": 3,
+      "datetime": "2026-05-22T20:30:19+09:00"
+    },
     {
       "filename": "CRWV_20260522.html",
       "name": "CoreWeave, Inc.",
