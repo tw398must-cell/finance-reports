@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-05-22T22:15:12+09:00",
+  "generated_at": "2026-05-24T01:28:21+09:00",
   "reports": [
+    {
+      "filename": "ICHR_20260524.html",
+      "name": "Ichor Holdings, Ltd.",
+      "symbol": "ICHR",
+      "sector": "Semiconductor Equipment / Fluid Delivery Subsystems",
+      "feature": "半導体製造装置の「部品供給者」として、ガス・薬液デリバリーサブシステムを設計・製造。Applied Materials・Lam Research・TEL等の大手装置メーカーに供給するODM/ODEモデル。先端ロジック・メモリ向けエッチング・…",
+      "rate": 3,
+      "datetime": "2026-05-24T01:28:12+09:00"
+    },
     {
       "filename": "5253T_20260522.html",
       "name": "カバー株式会社（5253）",
