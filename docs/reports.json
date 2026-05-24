@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-05-24T14:39:00+09:00",
+  "generated_at": "2026-05-24T14:46:02+09:00",
   "reports": [
+    {
+      "filename": "MXL_20260524.html",
+      "name": "MaxLinear, Inc.",
+      "symbol": "MXL",
+      "sector": "Semiconductors / AI Infrastructure",
+      "feature": "AIデータセンター向け半導体需要が急拡大する中、混合信号チップ市場では光インターコネクト・5G基地局向けが成長牽引役となっている。MXLはQ1 2026で前年比+43%の増収を達成し、インフラ部門が+136%成長と主力に転換した。",
+      "rate": 3,
+      "datetime": "2026-05-24T14:45:22+09:00"
+    },
     {
       "filename": "5253T_20260522.html",
       "name": "カバー株式会社（5253）",
