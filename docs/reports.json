@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-05-25T05:54:48+09:00",
+  "generated_at": "2026-05-25T06:16:51+09:00",
   "reports": [
+    {
+      "filename": "CNQ_20260525.html",
+      "name": "Canadian Natural Resources Limited",
+      "symbol": "CNQ",
+      "sector": "Oil & Gas E&P / Oil Sands / Canada",
+      "feature": "カナダ最大のオイルサンド・原油生産会社。WTI原油が$70〜$90/barrel水準で推移する中、CNQはブレークイーブン$40台前半の低コスト構造で安定的なフリーキャッシュフローを生み出している。2026年産生量ガイダンス：約165万BO…",
+      "rate": 4,
+      "datetime": "2026-05-25T06:16:42+09:00"
+    },
+    {
+      "filename": "DHT_20260525.html",
+      "name": "DHT Holdings, Inc.",
+      "symbol": "DHT",
+      "sector": "Crude Oil Tanker / VLCC / Energy Shipping",
+      "feature": "イラン紛争・ホルムズ海峡混乱によりVLCC（超大型原油タンカー）の運賃レートは2026年初に急騰。遠回り航路の増加・供給制約が重なり、タンカー株は年初来+59〜63%の急騰を演じた。アナリストは一部「巻き戻しリスク」を警戒している。",
+      "rate": 4,
+      "datetime": "2026-05-25T06:16:42+09:00"
+    },
+    {
+      "filename": "FRO_20260525.html",
+      "name": "Frontline plc",
+      "symbol": "FRO",
+      "sector": "Crude Oil Tanker / VLCC・Suezmax・Aframax / Energy Shipping",
+      "feature": "イラン紛争・ホルムズ海峡混乱を受けてVLCCスポット運賃が急騰。FROはDHTより多角的な船種を持ち、VLCC・Suezmax・Aframaxを組み合わせた分散型フリートで中東〜アジア・欧州ルートの需要増を取り込んでいる。年初来+62%超の…",
+      "rate": 4,
+      "datetime": "2026-05-25T06:16:42+09:00"
+    },
+    {
+      "filename": "UVE_20260525.html",
+      "name": "Universal Insurance Holdings, Inc.",
+      "symbol": "UVE",
+      "sector": "Property & Casualty Insurance / Florida Homeowners",
+      "feature": "2022年のフロリダ州保険改革（訴訟濫用規制）により、フロリダ損保市場は正常化に向かっている。2025年はハリケーンシーズンの被害が限定的で、UVEは劇的な収益回復を達成。ただし2026年ハリケーンシーズン（6月〜）が最大の不確実性。",
+      "rate": 4,
+      "datetime": "2026-05-25T06:16:42+09:00"
+    },
     {
       "filename": "LITE_20260525.html",
       "name": "Lumentum Holdings Inc.",
