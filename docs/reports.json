@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-05-24T14:46:02+09:00",
+  "generated_at": "2026-05-24T15:20:29+09:00",
   "reports": [
+    {
+      "filename": "BE_20260524.html",
+      "name": "Bloom Energy Corporation",
+      "symbol": "BE",
+      "sector": "Clean Energy / Fuel Cell / AI Power Infrastructure",
+      "feature": "AIデータセンターの電力制約問題が深刻化する中、グリッド接続を待たずに即時電力供給できる固体酸化物型燃料電池（SOFC）が急注目されている。Bloom Energyはこの追い風をOracle・Brookfield・Nebius等との大型契約…",
+      "rate": 3,
+      "datetime": "2026-05-24T15:19:55+09:00"
+    },
+    {
+      "filename": "NEE_20260524.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "Utilities / Renewable Energy & AI Power",
+      "feature": "AIデータセンターの電力需要急増を背景に、米国電力会社は再生可能エネルギー・ガス・原子力の複合供給戦略へ転換中。NextEraは2026年5月にDominion Energy（$67B）を買収合意し、世界最大の電力会社へ飛躍を図る。",
+      "rate": 4,
+      "datetime": "2026-05-24T15:19:55+09:00"
+    },
     {
       "filename": "MXL_20260524.html",
       "name": "MaxLinear, Inc.",
