@@ -324,10 +324,12 @@
                 <span class="role-tag {{ issue.role }}">{% if issue.role == 'target' %}trgt{% else %}{{ issue.role }}{% endif %}</span>{{ issue.name }}
               </td>
               <td class="symbol-mono">{{ issue.symbol }}</td>
-              <td class="num-mono">{{ issue.price }}<span class="unit">{{ issue.currency_override or meta.primary_currency }}</span></td>
+              {%- set mc_ccy = issue.currency_override or meta.primary_currency -%}
+              {%- set mc_ccy_display = '円' if mc_ccy == 'JPY' else mc_ccy -%}
+              <td class="num-mono">{{ issue.price or '—' }}{% if issue.price and issue.price != '—' %}<span class="unit">{{ mc_ccy }}</span>{% endif %}</td>
               <td class="num-mono">
-                {% if issue.market_cap is not none %}
-                  {{ issue.market_cap }}<span class="unit">{{ issue.market_cap_unit }}</span>
+                {% if issue.market_cap %}
+                  {{ issue.market_cap }}<span class="unit">{{ mc_ccy_display }}</span>
                 {% else %}
                   <span class="unit">—</span>
                 {% endif %}
