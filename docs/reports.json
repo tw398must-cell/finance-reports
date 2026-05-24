@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-05-24T15:20:29+09:00",
+  "generated_at": "2026-05-25T05:54:48+09:00",
   "reports": [
+    {
+      "filename": "LITE_20260525.html",
+      "name": "Lumentum Holdings Inc.",
+      "symbol": "LITE",
+      "sector": "Photonics / Optical Interconnect / AI Infrastructure",
+      "feature": "AI大規模クラスターでは数千GPUが並列稼働し、データ転送量が指数的に増大。銅配線の物理的限界を超えた光接続技術（光トランシーバ・Co-Packaged Optics等）が不可欠となり、LITEはその中核サプライヤーとして急成長中。",
+      "rate": 4,
+      "datetime": "2026-05-25T05:54:14+09:00"
+    },
+    {
+      "filename": "MU_20260525.html",
+      "name": "Micron Technology, Inc.",
+      "symbol": "MU",
+      "sector": "Semiconductors / HBM & DRAM / AI Memory",
+      "feature": "AIデータセンター需要の爆発的拡大により、HBM（高帯域幅メモリ）およびDRAM・NANDは構造的供給不足に陥っている。2026年のメモリ市場はスーパーサイクルの只中にあり、価格は急騰・供給は2027年まで逼迫見込み。",
+      "rate": 4,
+      "datetime": "2026-05-25T05:54:14+09:00"
+    },
+    {
+      "filename": "MXL_20260525.html",
+      "name": "MaxLinear, Inc.",
+      "symbol": "MXL",
+      "sector": "Semiconductors / AI Infrastructure / Optical Interconnect",
+      "feature": "AIデータセンター向け光インターコネクト・5Gバックホール市場が急拡大。MXLはQ1 2026でインフラ部門+136%成長を達成し、業界再評価を受けた。ただし株価はアナリスト目標の約2倍で推移中。",
+      "rate": 2,
+      "datetime": "2026-05-25T05:54:14+09:00"
+    },
+    {
+      "filename": "SNDK_20260525.html",
+      "name": "Sandisk Corporation",
+      "symbol": "SNDK",
+      "sector": "Semiconductors / NAND Flash / AI Storage",
+      "feature": "AIデータセンターがNAND Flashの世界供給の70%を消費する時代に突入。NAND価格はQ1 2026に+60%急騰、Q2は+70〜75%の上昇が見込まれる。Sandiskはこの波を純粋株として直撃する。",
+      "rate": 3,
+      "datetime": "2026-05-25T05:54:14+09:00"
+    },
     {
       "filename": "BE_20260524.html",
       "name": "Bloom Energy Corporation",
