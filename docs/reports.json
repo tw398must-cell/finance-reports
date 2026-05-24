@@ -1,60 +1,6 @@
 {
-  "generated_at": "2026-05-24T14:34:09+09:00",
+  "generated_at": "2026-05-24T14:39:00+09:00",
   "reports": [
-    {
-      "filename": "CNQ_20260524.html",
-      "name": "Canadian Natural Resources Limited",
-      "symbol": "CNQ",
-      "sector": "Oil Sands / Canadian E&P",
-      "feature": "カナダのオイルサンドはWTI比割引（WCS discount）が縮小傾向にあり、Trans Mountain Pipeline（TMX）の稼働でアジア向け輸出ルートが拡大。CNQはカナダ最大の独立系石油・ガス会社として、オイルサンド・熱サイ…",
-      "rate": 3,
-      "datetime": "2026-05-24T14:33:59+09:00"
-    },
-    {
-      "filename": "DHT_20260524.html",
-      "name": "DHT Holdings, Inc.",
-      "symbol": "DHT",
-      "sector": "Crude Oil Tanker / VLCC",
-      "feature": "VLCC（超大型原油タンカー）市場は2025年後半〜2026年にかけて構造的タイトネスが進行中。イラン制裁・ホルムズ海峡の地政学リスクが複合的に「シャドウフリート」を市場から排除し、コンプライアント船の需要が急増。VLCCスポットレートは2…",
-      "rate": 4,
-      "datetime": "2026-05-24T14:33:59+09:00"
-    },
-    {
-      "filename": "FRO_20260524.html",
-      "name": "Frontline plc",
-      "symbol": "FRO",
-      "sector": "Crude Oil Tanker / VLCC・Suezmax",
-      "feature": "世界最大級の上場タンカー会社として、VLCC・Suezmax・LR2を合わせた80隻超の艦隊を保有。DHT同様にVLCCレート急騰の恩恵を享受。2026年1月に「戦略的艦隊更新プログラム」（旧VLCC8隻売却$831.5M・新造船9隻発注$…",
-      "rate": 3,
-      "datetime": "2026-05-24T14:33:59+09:00"
-    },
-    {
-      "filename": "UVE_20260524.html",
-      "name": "Universal Insurance Holdings, Inc.",
-      "symbol": "UVE",
-      "sector": "Property & Casualty Insurance / Florida Homeowners",
-      "feature": "フロリダ州を中心とする住宅財物保険（P&C）市場は、複数のハリケーン（Debby・Helene・Milton）の保険金支払いがほぼ完了し、損害率の正常化局面へ。再保険コストの高止まりや猛暑に伴うリスクは残るが、UVEは2026〜2027年再…",
-      "rate": 4,
-      "datetime": "2026-05-24T14:33:59+09:00"
-    },
-    {
-      "filename": "VLO_20260524.html",
-      "name": "Valero Energy Corporation",
-      "symbol": "VLO",
-      "sector": "Oil Refining / Low-Carbon Fuels",
-      "feature": "世界最大の独立系石油精製企業。精製マージン（クラックスプレッド）はホルムズ海峡の地政学リスク・供給制約・在庫低水準を背景に高水準を維持。再生可能ディーゼル（RD）部門はRINクレジット改善と米国再エネ政策の追い風を受け、前年の損失から黒字転…",
-      "rate": 3,
-      "datetime": "2026-05-24T14:33:59+09:00"
-    },
-    {
-      "filename": "ICHR_20260524.html",
-      "name": "Ichor Holdings, Ltd.",
-      "symbol": "ICHR",
-      "sector": "Semiconductor Equipment / Fluid Delivery Subsystems",
-      "feature": "半導体製造装置の「部品供給者」として、ガス・薬液デリバリーサブシステムを設計・製造。Applied Materials・Lam Research・TEL等の大手装置メーカーに供給するODM/ODEモデル。先端ロジック・メモリ向けエッチング・…",
-      "rate": 3,
-      "datetime": "2026-05-24T01:28:12+09:00"
-    },
     {
       "filename": "5253T_20260522.html",
       "name": "カバー株式会社（5253）",
@@ -62,61 +8,7 @@
       "sector": "VTuber / エンターテインメント・テック",
       "feature": "ホロライブプロダクションを運営する、世界最大のVTuber事務所。配信・ライブ・グッズ・ライセンスの多角的収益モデルで成長中。2026年3月期は売上493億円（+13.7%）と増収を達成したが、メタバース「ホロアース」開発方針転換に伴う約3…",
       "rate": 3,
-      "datetime": "2026-05-22T22:14:59+09:00"
-    },
-    {
-      "filename": "EXPE_20260522.html",
-      "name": "Expedia Group, Inc.",
-      "symbol": "EXPE",
-      "sector": "Online Travel / Consumer Cyclical",
-      "feature": "オンライン旅行代理店（OTA）市場はコロナ後の旅行需要回復が一巡し、AI活用・B2B展開・スーパーアプリ連携の第二成長フェーズへ移行中。Booking Holdings（BKNG）・Airbnb（ABNB）・Expedia（EXPE）の3強…",
-      "rate": 3,
-      "datetime": "2026-05-22T22:06:31+09:00"
-    },
-    {
-      "filename": "ASML_20260522.html",
-      "name": "ASML Holding N.V.",
-      "symbol": "ASML",
-      "sector": "Semiconductor Equipment / EUV Lithography",
-      "feature": "半導体製造装置の中でも極端紫外線（EUV）露光装置は世界でASMLのみが製造できる。AIチップ需要の爆発的拡大を背景にTSMC・Samsung・Intelの設備投資が急加速し、ASMLは「AIサプライチェーンの最上流の独占者」として構造的追…",
-      "rate": 4,
-      "datetime": "2026-05-22T20:35:12+09:00"
-    },
-    {
-      "filename": "IREN_20260522.html",
-      "name": "IREN Limited",
-      "symbol": "IREN",
-      "sector": "AI Data Center / Bitcoin Mining Pivot",
-      "feature": "元Iris Energy（オーストラリア系）。ビットコインマイニングからAIクラウド・HPCインフラへの転換を進める。Microsoft $97億・NVIDIA $34億の長期AIクラウド契約を締結し、2026年末に契約ARR $37億・4…",
-      "rate": 3,
-      "datetime": "2026-05-22T20:30:19+09:00"
-    },
-    {
-      "filename": "CRWV_20260522.html",
-      "name": "CoreWeave, Inc.",
-      "symbol": "CRWV",
-      "sector": "AI GPU Cloud / Infrastructure",
-      "feature": "AI推論・学習向けGPUクラウド市場は急拡大中。AWS・Azure・GCPのハイパースケーラーが汎用クラウドを押さえる一方、NVIDIA GPU特化の「ネオクラウド」としてCoreWeaveが頭角を現す。2026年のAIインフラ投資は依然と…",
-      "rate": 3,
-      "datetime": "2026-05-22T04:18:04+09:00"
-    },
-    {
-      "filename": "IONQ_20260522.html",
-      "name": "IonQ, Inc.",
-      "symbol": "IONQ",
-      "sector": "Quantum Computing / Hardware",
-      "feature": "量子コンピューティング純粋プレイの中でIonQは売上・技術・政府契約の全面でリーダーポジションを確立。2026年Q1に売上+755% YoYという驚異的成長を記録し、FY2026ガイダンスを$260〜270Mに引き上げ。商用化フェーズへの移…",
-      "rate": 4,
-      "datetime": "2026-05-22T04:18:04+09:00"
-    },
-    {
-      "filename": "STX_20260522.html",
-      "name": "Seagate Technology Holdings plc",
-      "symbol": "STX",
-      "sector": "HDD / AI Storage Infrastructure",
-      "feature": "AIデータセンターの爆発的拡張を背景に、ハイパースケーラー向け大容量ニアラインHDDの需要が構造的に拡大。SeagateはHAMR（熱アシスト磁気記録）技術Mozaic 4+で1ドライブ44TBを実現し、容量密度リーダーとして2027年末ま…",
-      "rate": 4,
-      "datetime": "2026-05-22T04:18:04+09:00"
+      "datetime": "2026-05-24T14:38:45+09:00"
     },
     {
       "filename": "APLD_20260522.html",
@@ -125,7 +17,88 @@
       "sector": "AI Data Center / HPC Infrastructure",
       "feature": "AI推論・学習の爆発的需要を背景に、特化型高密度データセンター（AIファクトリー）市場が急拡大。APLDはビットコインマイニングホスティングからHPC/AIインフラへの転換を完了しつつあり、CoreWeaveをはじめとする複数の大型ハイパー…",
       "rate": 4,
-      "datetime": "2026-05-22T03:45:01+09:00"
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "ASML_20260522.html",
+      "name": "ASML Holding N.V.",
+      "symbol": "ASML",
+      "sector": "Semiconductor Equipment / EUV Lithography",
+      "feature": "半導体製造装置の中でも極端紫外線（EUV）露光装置は世界でASMLのみが製造できる。AIチップ需要の爆発的拡大を背景にTSMC・Samsung・Intelの設備投資が急加速し、ASMLは「AIサプライチェーンの最上流の独占者」として構造的追…",
+      "rate": 4,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "CNQ_20260524.html",
+      "name": "Canadian Natural Resources Limited",
+      "symbol": "CNQ",
+      "sector": "Oil Sands / Canadian E&P",
+      "feature": "カナダのオイルサンドはWTI比割引（WCS discount）が縮小傾向にあり、Trans Mountain Pipeline（TMX）の稼働でアジア向け輸出ルートが拡大。CNQはカナダ最大の独立系石油・ガス会社として、オイルサンド・熱サイ…",
+      "rate": 3,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "CRWV_20260522.html",
+      "name": "CoreWeave, Inc.",
+      "symbol": "CRWV",
+      "sector": "AI GPU Cloud / Infrastructure",
+      "feature": "AI推論・学習向けGPUクラウド市場は急拡大中。AWS・Azure・GCPのハイパースケーラーが汎用クラウドを押さえる一方、NVIDIA GPU特化の「ネオクラウド」としてCoreWeaveが頭角を現す。2026年のAIインフラ投資は依然と…",
+      "rate": 3,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "DHT_20260524.html",
+      "name": "DHT Holdings, Inc.",
+      "symbol": "DHT",
+      "sector": "Crude Oil Tanker / VLCC",
+      "feature": "VLCC（超大型原油タンカー）市場は2025年後半〜2026年にかけて構造的タイトネスが進行中。イラン制裁・ホルムズ海峡の地政学リスクが複合的に「シャドウフリート」を市場から排除し、コンプライアント船の需要が急増。VLCCスポットレートは2…",
+      "rate": 4,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "EXPE_20260522.html",
+      "name": "Expedia Group, Inc.",
+      "symbol": "EXPE",
+      "sector": "Online Travel / Consumer Cyclical",
+      "feature": "オンライン旅行代理店（OTA）市場はコロナ後の旅行需要回復が一巡し、AI活用・B2B展開・スーパーアプリ連携の第二成長フェーズへ移行中。Booking Holdings（BKNG）・Airbnb（ABNB）・Expedia（EXPE）の3強…",
+      "rate": 3,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "FRO_20260524.html",
+      "name": "Frontline plc",
+      "symbol": "FRO",
+      "sector": "Crude Oil Tanker / VLCC・Suezmax",
+      "feature": "世界最大級の上場タンカー会社として、VLCC・Suezmax・LR2を合わせた80隻超の艦隊を保有。DHT同様にVLCCレート急騰の恩恵を享受。2026年1月に「戦略的艦隊更新プログラム」（旧VLCC8隻売却$831.5M・新造船9隻発注$…",
+      "rate": 3,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "ICHR_20260524.html",
+      "name": "Ichor Holdings, Ltd.",
+      "symbol": "ICHR",
+      "sector": "Semiconductor Equipment / Fluid Delivery Subsystems",
+      "feature": "半導体製造装置の「部品供給者」として、ガス・薬液デリバリーサブシステムを設計・製造。Applied Materials・Lam Research・TEL等の大手装置メーカーに供給するODM/ODEモデル。先端ロジック・メモリ向けエッチング・…",
+      "rate": 3,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "IONQ_20260522.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "Quantum Computing / Hardware",
+      "feature": "量子コンピューティング純粋プレイの中でIonQは売上・技術・政府契約の全面でリーダーポジションを確立。2026年Q1に売上+755% YoYという驚異的成長を記録し、FY2026ガイダンスを$260〜270Mに引き上げ。商用化フェーズへの移…",
+      "rate": 4,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "IREN_20260522.html",
+      "name": "IREN Limited",
+      "symbol": "IREN",
+      "sector": "AI Data Center / Bitcoin Mining Pivot",
+      "feature": "元Iris Energy（オーストラリア系）。ビットコインマイニングからAIクラウド・HPCインフラへの転換を進める。Microsoft $97億・NVIDIA $34億の長期AIクラウド契約を締結し、2026年末に契約ARR $37億・4…",
+      "rate": 3,
+      "datetime": "2026-05-24T14:38:45+09:00"
     },
     {
       "filename": "RGTI_20260522.html",
@@ -134,7 +107,7 @@
       "sector": "Quantum Computing / Hardware",
       "feature": "量子コンピューティング市場はNISQ（ノイズあり中規模量子）時代にあり、商用化はまだ黎明期。GoogleのWillowチップ（105量子ビット）やIBMのHeron R2が技術フロンティアをリード。純粋量子プレイとしてIonQ・Rigett…",
       "rate": 2,
-      "datetime": "2026-05-22T03:45:01+09:00"
+      "datetime": "2026-05-24T14:38:45+09:00"
     },
     {
       "filename": "SPOT_20260522.html",
@@ -143,7 +116,34 @@
       "sector": "Music Streaming / Communication Services",
       "feature": "音楽ストリーミング市場はSpotify・Apple Music・YouTube Musicの3強体制。Spotifyが月間アクティブユーザー7.6億人でシェア首位を独走。2026年はポッドキャスト・オーディオブック・AI機能拡充で「音声プラ…",
       "rate": 4,
-      "datetime": "2026-05-22T03:45:01+09:00"
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "STX_20260522.html",
+      "name": "Seagate Technology Holdings plc",
+      "symbol": "STX",
+      "sector": "HDD / AI Storage Infrastructure",
+      "feature": "AIデータセンターの爆発的拡張を背景に、ハイパースケーラー向け大容量ニアラインHDDの需要が構造的に拡大。SeagateはHAMR（熱アシスト磁気記録）技術Mozaic 4+で1ドライブ44TBを実現し、容量密度リーダーとして2027年末ま…",
+      "rate": 4,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "UVE_20260524.html",
+      "name": "Universal Insurance Holdings, Inc.",
+      "symbol": "UVE",
+      "sector": "Property & Casualty Insurance / Florida Homeowners",
+      "feature": "フロリダ州を中心とする住宅財物保険（P&C）市場は、複数のハリケーン（Debby・Helene・Milton）の保険金支払いがほぼ完了し、損害率の正常化局面へ。再保険コストの高止まりや猛暑に伴うリスクは残るが、UVEは2026〜2027年再…",
+      "rate": 4,
+      "datetime": "2026-05-24T14:38:45+09:00"
+    },
+    {
+      "filename": "VLO_20260524.html",
+      "name": "Valero Energy Corporation",
+      "symbol": "VLO",
+      "sector": "Oil Refining / Low-Carbon Fuels",
+      "feature": "世界最大の独立系石油精製企業。精製マージン（クラックスプレッド）はホルムズ海峡の地政学リスク・供給制約・在庫低水準を背景に高水準を維持。再生可能ディーゼル（RD）部門はRINクレジット改善と米国再エネ政策の追い風を受け、前年の損失から黒字転…",
+      "rate": 3,
+      "datetime": "2026-05-24T14:38:45+09:00"
     },
     {
       "filename": "CLSK_20260521.html",
