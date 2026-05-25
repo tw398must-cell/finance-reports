@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-05-25T06:16:51+09:00",
+  "generated_at": "2026-05-25T21:13:58+09:00",
   "reports": [
+    {
+      "filename": "AVGO_20260525.html",
+      "name": "Broadcom Inc.",
+      "symbol": "AVGO",
+      "sector": "Semiconductors / Custom AI ASIC / VMware / AI Infrastructure",
+      "feature": "カスタムAIアクセラレータ（XPU/ASIC）市場でApprox 70%のシェアを持つBroadcomは、Google・Meta・Anthropic・OpenAI等ハイパースケーラーの専用AIチップを設計・製造。2027年にAIチップだけで…",
+      "rate": 5,
+      "datetime": "2026-05-25T21:13:46+09:00"
+    },
+    {
+      "filename": "CRM_20260525.html",
+      "name": "Salesforce, Inc.",
+      "symbol": "CRM",
+      "sector": "Enterprise SaaS / Agentic AI / CRM / Cloud",
+      "feature": "エンタープライズAIの「エージェント革命」が進む中、Salesforceは既存の30万社超の顧客基盤にAgentforce（AIエージェント）をアップセルする戦略で急成長中。FY2026通年売上$41.5B・$72BのRPO・$50Bの自社…",
+      "rate": 4,
+      "datetime": "2026-05-25T21:13:46+09:00"
+    },
+    {
+      "filename": "QCOM_20260525.html",
+      "name": "QUALCOMM Incorporated",
+      "symbol": "QCOM",
+      "sector": "Semiconductors / Edge AI / Automotive / Snapdragon",
+      "feature": "AIの重心がデータセンター（クラウド）からエッジ（デバイス）へ移行する「Edge AI」時代の到来。QCOMはSnapdragon搭載スマートフォン・PC・自動車・IoTという数億台規模のエッジデバイスを持ち、オンデバイスAI推論の最大受益…",
+      "rate": 3,
+      "datetime": "2026-05-25T21:13:46+09:00"
+    },
     {
       "filename": "CNQ_20260525.html",
       "name": "Canadian Natural Resources Limited",
