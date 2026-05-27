@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-05-28T01:44:23+09:00",
+  "generated_at": "2026-05-28T05:14:23+09:00",
   "reports": [
+    {
+      "filename": "CMP_20260528.html",
+      "name": "Compass Minerals International, Inc.",
+      "symbol": "CMP",
+      "sector": "Basic Materials / Rock Salt / Specialty Fertilizer / Lithium",
+      "feature": "北米最大の岩塩（道路除雪）・植物栄養素（SOP特殊カリ）供給会社。2025/2026冬は例年より積雪が多く塩需要が好調。更にEnergyXとの直接リチウム抽出（DLE）事業化合意（最大$400M投資）でリチウム株としての再評価が進行中。JP…",
+      "rate": 3,
+      "datetime": "2026-05-28T05:14:09+09:00"
+    },
+    {
+      "filename": "CPA_20260528.html",
+      "name": "Copa Holdings, S.A.",
+      "symbol": "CPA",
+      "sector": "Airlines / Latin America / Hub-and-Spoke",
+      "feature": "パナマ・トクメン国際空港を「アメリカ大陸のハブ」として活用する中南米航空市場のリーダー。Q1 2026 EPSは$5.16（コンセンサス$4.43を+16.5%超過）・営業利益率24.6%は世界の航空会社でトップ水準。Boeing 737…",
+      "rate": 5,
+      "datetime": "2026-05-28T05:14:09+09:00"
+    },
+    {
+      "filename": "DDOG_20260528.html",
+      "name": "Datadog, Inc.",
+      "symbol": "DDOG",
+      "sector": "SaaS / AI Observability / Cloud Monitoring / Security",
+      "feature": "AI時代のクラウド・インフラ監視（オブザーバビリティ）市場のリーダー。AIワークロードの爆発的増加に伴い、GPU監視・LLMオブザーバビリティという新市場を独自に開拓。Q1 2026で初めて四半期売上$1B突破。株価は5月8日に+29.9%…",
+      "rate": 4,
+      "datetime": "2026-05-28T05:14:09+09:00"
+    },
+    {
+      "filename": "GNTX_20260528.html",
+      "name": "Gentex Corporation",
+      "symbol": "GNTX",
+      "sector": "Auto Parts / ADAS / Full Display Mirror / Dimmable Glass",
+      "feature": "自動車用自動調光ミラー（世界市場シェア~90%）の独占的サプライヤー。2025年にVOXX International（プレミアムオーディオ）を買収し多角化。FDM（フルディスプレイミラー）・ICMS（車内監視システム）・HomeLink等…",
+      "rate": 4,
+      "datetime": "2026-05-28T05:14:09+09:00"
+    },
     {
       "filename": "CLSK_20260528.html",
       "name": "CleanSpark, Inc.",
