@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-05-25T21:13:58+09:00",
+  "generated_at": "2026-05-28T01:44:23+09:00",
   "reports": [
+    {
+      "filename": "CLSK_20260528.html",
+      "name": "CleanSpark, Inc.",
+      "symbol": "CLSK",
+      "sector": "Bitcoin Mining / AI Data Center / Green Energy",
+      "feature": "BTC現在値：約$77,219（2026/05/26）。CLSKはハルビング後も再エネ中心・低コスト電力契約でマイニングを継続。4月2026年はAI DCテナント誘致にも動き出しており、マイニング＋AI DCの二本柱へ転換を模索中。",
+      "rate": 3,
+      "datetime": "2026-05-28T01:44:04+09:00"
+    },
+    {
+      "filename": "COIN_20260528.html",
+      "name": "Coinbase Global, Inc.",
+      "symbol": "COIN",
+      "sector": "Crypto Exchange / Stablecoin / Everything Exchange",
+      "feature": "米国最大の暗号資産取引所。2025年の強い取引収益から2026年Q1は売上▲31%・純損失$394Mへ急悪化。USDC（ステーブルコイン）のCircle（CRCL）との収益分配・CLARITY Act前進が引き続き注目点。5月に構造改革（R…",
+      "rate": 3,
+      "datetime": "2026-05-28T01:44:04+09:00"
+    },
+    {
+      "filename": "CRCL_20260528.html",
+      "name": "Circle Internet Group, Inc.",
+      "symbol": "CRCL",
+      "sector": "Stablecoin / USDC / Crypto Infrastructure",
+      "feature": "USDC（時価総額$80B超）を発行・管理する「ステーブルコインの基盤会社」。2025年7月にNYSE上場。CLARITY Act（米国ステーブルコイン規制法案）の進展が最大の株価カタリスト。5月4日の法案妥協案発表でCRCL+18%急騰。…",
+      "rate": 4,
+      "datetime": "2026-05-28T01:44:04+09:00"
+    },
+    {
+      "filename": "HIVE_20260528.html",
+      "name": "HIVE Digital Technologies Ltd.",
+      "symbol": "HIVE",
+      "sector": "Bitcoin Mining / GPU AI Computing / Green Energy",
+      "feature": "BTC現在値：約$77,219（2026/05/26）。HIVEはカナダ・スウェーデンのグリーン電力を活用したマイニングに加え、NVIDIA GPU クラスターによるAI/HPC クラウドへの転換を最も積極的に進めている採掘会社の一つ。売上…",
+      "rate": 3,
+      "datetime": "2026-05-28T01:44:04+09:00"
+    },
+    {
+      "filename": "HOOD_20260528.html",
+      "name": "Robinhood Markets, Inc.",
+      "symbol": "HOOD",
+      "sector": "Fintech / Retail Brokerage / Crypto Exchange",
+      "feature": "米国ミレニアル・Z世代向けの無料株式・暗号資産取引プラットフォーム。CLARITY Act（ステーブルコイン規制法案）の前進により、暗号資産規制明確化が追い風。ただし株価は年初来▲19%と低迷。Q1 2026純損失・暗号資産取引収入急減が重…",
+      "rate": 4,
+      "datetime": "2026-05-28T01:44:04+09:00"
+    },
+    {
+      "filename": "MARA_20260528.html",
+      "name": "MARA Holdings, Inc.",
+      "symbol": "MARA",
+      "sector": "Bitcoin Mining / Crypto Infrastructure",
+      "feature": "BTC現在値：約$77,219（2026/05/26）。2024年4月のハルビング（報酬3.125BTC）後、採掘コストが上昇。米公開BTC採掘企業の中でMARAはハッシュレート最大（72.20 EH/s）。BTC価格レンジ$75K〜$82…",
+      "rate": 3,
+      "datetime": "2026-05-28T01:44:04+09:00"
+    },
     {
       "filename": "AVGO_20260525.html",
       "name": "Broadcom Inc.",
