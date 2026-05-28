@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-05-28T05:14:23+09:00",
+  "generated_at": "2026-05-28T09:26:26+09:00",
   "reports": [
+    {
+      "filename": "COHR_20260528.html",
+      "name": "Coherent Corp.",
+      "symbol": "COHR",
+      "sector": "Photonics / Optical Transceiver / Laser / AI Infrastructure",
+      "feature": "LITEと並ぶ光コンポーネント・トランシーバの世界大手。II-VIとCohrentの合併（2022年）で誕生した規模のある企業。800G/1.6Tトランシーバ市場シェア20〜30%と推定され、6インチウエハー基板の優位性でシリコンフォトニク…",
+      "rate": 3,
+      "datetime": "2026-05-28T09:26:14+09:00"
+    },
+    {
+      "filename": "LITE_20260528.html",
+      "name": "Lumentum Holdings Inc.",
+      "symbol": "LITE",
+      "sector": "Photonics / AI Optical Interconnect / CPO / Laser Chip",
+      "feature": "AIデータセンターにおける光インターコネクト需要が爆発的に拡大。GPU数万台規模のAIクラスターでは銅配線の物理的限界を超え、光ファイバー接続が不可欠となっている。LITEはNVIDIAから$2B投資を受けたCPO（Co-Packaged…",
+      "rate": 4,
+      "datetime": "2026-05-28T09:26:14+09:00"
+    },
+    {
+      "filename": "MRVL_20260528.html",
+      "name": "Marvell Technology, Inc.",
+      "symbol": "MRVL",
+      "sector": "Semiconductors / Custom AI XPU / Optical Interconnect / AI Infrastructure",
+      "feature": "カスタムAI XPU・光インターコネクト・CXLスイッチング・ネットワーキングを一気通貫で提供する「AIインフラのスイス的中立者」（Oppenheimer評）。2026年2月にCelestial AI・XConn Technologiesを…",
+      "rate": 5,
+      "datetime": "2026-05-28T09:26:14+09:00"
+    },
     {
       "filename": "CMP_20260528.html",
       "name": "Compass Minerals International, Inc.",
