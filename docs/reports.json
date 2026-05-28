@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-05-28T09:26:26+09:00",
+  "generated_at": "2026-05-28T21:10:01+09:00",
   "reports": [
+    {
+      "filename": "DELL_20260528.html",
+      "name": "Dell Technologies Inc.",
+      "symbol": "DELL",
+      "sector": "Computer Hardware / AI Server / Infrastructure / PC",
+      "feature": "AIデータセンター向け最適化サーバーの世界最大の出荷会社。FY2026（1月期）AI最適化サーバー売上は$24.7B（+166% YoY）・受注残$43Bを抱えFY2027は$50B（+103%）を見込む。株価は1年前の$120台から$30…",
+      "rate": 4,
+      "datetime": "2026-05-28T21:09:49+09:00"
+    },
+    {
+      "filename": "IBM_20260528.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "IT Services / Enterprise AI / Hybrid Cloud / Software / Mainframe",
+      "feature": "「エンタープライズAIの信頼されるパートナー」として変革中。watsonx・Red Hat・HashiCorp・Confluentという買収戦略でハイブリッドクラウドAIの最適企業を目指す。消費者AIではなく「銀行・政府・製造業向けのミッシ…",
+      "rate": 4,
+      "datetime": "2026-05-28T21:09:49+09:00"
+    },
     {
       "filename": "COHR_20260528.html",
       "name": "Coherent Corp.",
