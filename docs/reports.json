@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-05-28T22:34:02+09:00",
+  "generated_at": "2026-06-11T22:00:01+09:00",
   "reports": [
+    {
+      "filename": "AMZN_20260611.html",
+      "name": "Amazon.com, Inc.",
+      "symbol": "AMZN",
+      "sector": "Cloud (AWS) / AI Infrastructure / E-Commerce / Advertising / Custom Silicon",
+      "feature": "AWS・EC・広告・カスタムシリコン（Trainium/Graviton）という4つの事業が同時加速する「複合コングロマリット」。Q1 2026でAWS成長率は過去15四半期で最速（+28%）、カスタムチップ事業は年換算$20B超・前年比3…",
+      "rate": 5,
+      "datetime": "2026-06-11T21:59:46+09:00"
+    },
     {
       "filename": "CRDO_20260528.html",
       "name": "Credo Technology Group Holding Ltd",
