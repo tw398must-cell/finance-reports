@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-06-17T02:00:40+09:00",
+  "generated_at": "2026-06-17T02:05:37+09:00",
   "reports": [
+    {
+      "filename": "ALAB_20260617.html",
+      "name": "Astera Labs, Inc.",
+      "symbol": "ALAB",
+      "sector": "Semiconductors / AI Connectivity / PCIe CXL Retimer / Scale-up Fabric",
+      "feature": "AIデータセンターの内部配線（GPU〜CPU〜メモリ間）の「信号品質保証」チップを作る半導体企業。CRDOの「ケーブル制御」に対してALABは「PCIe/CXLリタイマーIC」という異なるニッチを持つ。6/22 Nasdaq-100組み入れ…",
+      "rate": 3,
+      "datetime": "2026-06-17T02:05:15+09:00"
+    },
+    {
+      "filename": "NBIS_20260617.html",
+      "name": "Nebius Group N.V.",
+      "symbol": "NBIS",
+      "sector": "AI Cloud Infrastructure / GPU-as-a-Service / Europe・US",
+      "feature": "旧Yandexの欧州AI事業を引き継いだ「欧州版CoreWeave」。Q1 2026で売上+684%・EBITDA初の黒字転換（マージン32%）・現金$9.3Bという圧倒的強さを発揮。NVIDIAから$2B投資・Exemplar Cloud…",
+      "rate": 4,
+      "datetime": "2026-06-17T02:05:15+09:00"
+    },
+    {
+      "filename": "RKLB_20260617.html",
+      "name": "Rocket Lab Corporation",
+      "symbol": "RKLB",
+      "sector": "Space Launch / Defense / Satellites / Hard-Tech",
+      "feature": "Electronロケット（小型衛星打ち上げ）で世界第2位の軌道打ち上げ実績を持つ民間宇宙企業。SpaceX IPO期待が「宇宙株全体」を押し上げる中、Q1 2026で記録的売上$200.3M（+63.5%）・バックログ$2.2B（過去最高）…",
+      "rate": 3,
+      "datetime": "2026-06-17T02:05:15+09:00"
+    },
+    {
+      "filename": "TER_20260617.html",
+      "name": "Teradyne, Inc.",
+      "symbol": "TER",
+      "sector": "Semiconductor Equipment / AI Test / HBM Test / Automated Test Equipment",
+      "feature": "AIチップ・HBM・GPUが出荷される前に全数検査する「半導体テスト装置」の世界最大手。Q1 2026でAI関連需要が売上の約70%を占め、前年比+87%の記録的売上$1.282Bを達成。「AIチップが増えれば増えるほど、テスト需要も増える…",
+      "rate": 4,
+      "datetime": "2026-06-17T02:05:15+09:00"
+    },
     {
       "filename": "CRWV_20260617.html",
       "name": "CoreWeave, Inc.",
