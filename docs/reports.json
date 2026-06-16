@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-06-11T22:00:01+09:00",
+  "generated_at": "2026-06-17T01:04:02+09:00",
   "reports": [
+    {
+      "filename": "AMD_20260617.html",
+      "name": "Advanced Micro Devices, Inc.",
+      "symbol": "AMD",
+      "sector": "Semiconductors / GPU / CPU / AI Accelerator / Data Center",
+      "feature": "NVIDIAに次ぐAI GPU市場2位として急成長中。Q1 2026データセンター部門は+57% YoY（$5.8B）で売上全体の56%を占める。MI300→MI400シリーズへの移行期。OpenAI 6GW・Meta 6GWという巨大コミ…",
+      "rate": 4,
+      "datetime": "2026-06-17T01:03:43+09:00"
+    },
+    {
+      "filename": "LITE_20260617.html",
+      "name": "Lumentum Holdings Inc.",
+      "symbol": "LITE",
+      "sector": "Photonics / CPO / OCS / AI Optical Interconnect",
+      "feature": "NVIDIA $2B投資を受けたCPO（Co-Packaged Optics）独占サプライヤー。OCSバックログ$400M超（2027年完売）。ただし前回5/28レポート（$902）から現在$878へやや調整中。Q4 FY2026決算（7月…",
+      "rate": 4,
+      "datetime": "2026-06-17T01:03:43+09:00"
+    },
+    {
+      "filename": "MU_20260617.html",
+      "name": "Micron Technology, Inc.",
+      "symbol": "MU",
+      "sector": "Semiconductors / HBM / DRAM / NAND / AI Memory",
+      "feature": "AIメモリのスーパーサイクル最中。時価総額が$1兆を突破し、6月24日にQ3 FY2026決算（売上コンセンサス$35B・EPS $20.21予想）を発表予定。HBM4の量産を世界初開始（NVIDIA Vera Rubin向け）、主要顧客は…",
+      "rate": 4,
+      "datetime": "2026-06-17T01:03:43+09:00"
+    },
+    {
+      "filename": "MXL_20260617.html",
+      "name": "MaxLinear, Inc.",
+      "symbol": "MXL",
+      "sector": "Semiconductors / AI Optical Interconnect / 5G / Mixed Signal",
+      "feature": "AIデータセンター向け光インターコネクト・5Gバックホール市場が急拡大。Q1 2026でインフラ部門が+136%成長し売上最大セグメントへ転換。ただし4月の$99から6月は$86へ調整中。前回5/24のレポート（$99）から約▲13%の下落…",
+      "rate": 2,
+      "datetime": "2026-06-17T01:03:43+09:00"
+    },
+    {
+      "filename": "VICR_20260617.html",
+      "name": "Vicor Corporation",
+      "symbol": "VICR",
+      "sector": "Electronic Components / AI Power Delivery / ChiP Module / VPD",
+      "feature": "AIデータセンターのGPU（H100/H200/B200）に電力を供給する「Power-on-Package」ChiPモジュールの独占技術企業。VPD（Via Packaging Direct）技術でGPU基板直接に高電流・高効率電力を供給…",
+      "rate": 4,
+      "datetime": "2026-06-17T01:03:43+09:00"
+    },
     {
       "filename": "AMZN_20260611.html",
       "name": "Amazon.com, Inc.",
