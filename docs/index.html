@@ -255,20 +255,12 @@
         color: var(--color-text-secondary);
       }
 
-      .sector-cell {
+      .sector-cell .feature-cell {
         color: var(--color-text-secondary);
       }
 
       .sector-cell.empty {
         color: var(--color-text-tertiary);
-      }
-
-      .feature-cell {
-        color: var(--color-text-secondary);
-        max-width: 360px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       .rate-cell {
@@ -474,7 +466,9 @@
         // reports.json に filename が無い場合のフォールバック。
         // datetime ("YYYY-MM-DDT...") から "{SYMBOL}_{YYYYMMDD}.html" を組み立てる。
         function deriveFilename(symbol, datetime) {
-          const ymd = String(datetime || "").slice(0, 10).replace(/-/g, "");
+          const ymd = String(datetime || "")
+            .slice(0, 10)
+            .replace(/-/g, "");
           return `${symbol}_${ymd}.html`;
         }
 
