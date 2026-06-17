@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-06-18T00:39:11+09:00",
+  "generated_at": "2026-06-18T02:02:27+09:00",
   "reports": [
+    {
+      "filename": "ASML_20260618.html",
+      "name": "ASML Holding N.V.",
+      "symbol": "ASML",
+      "sector": "Semiconductor Equipment / EUV Lithography / AI Chip Manufacturing Enabler",
+      "feature": "EUV（極紫外線）リソグラフィシステムの世界唯一の製造会社。TSMC・Samsung・Intel等が製造するすべての最先端AIチップは必ずASMLのEUVシステムを通る。Q1 2026で€8.8B売上・バックログ€38.8B・FY2026ガ…",
+      "rate": 4,
+      "datetime": "2026-06-18T02:02:08+09:00"
+    },
+    {
+      "filename": "LLY_20260618.html",
+      "name": "Eli Lilly and Company",
+      "symbol": "LLY",
+      "sector": "Pharmaceuticals / GLP-1 / Obesity / Diabetes / Oncology",
+      "feature": "Mounjaro（糖尿病）・Zepbound（肥満）という2つのGLP-1/GIP二重作動薬（チルゼパチド）を武器に、LLYは医薬品史上最速の売上成長を達成中。Q1 2026で売上+56%・EPS +170%という驚異的な数字を叩き出し、F…",
+      "rate": 5,
+      "datetime": "2026-06-18T02:02:08+09:00"
+    },
+    {
+      "filename": "NVO_20260618.html",
+      "name": "Novo Nordisk A/S",
+      "symbol": "NVO",
+      "sector": "Pharmaceuticals / GLP-1 / Obesity / Diabetes",
+      "feature": "セマグルチド（Ozempic/Wegovy）という世界最大のGLP-1フランチャイズを持つデンマーク製薬大手。2026年は価格圧力（Medicaid削減・MFN・China NRDL）と量成長の綱引きが続く。Wegovy Pill（経口）が…",
+      "rate": 4,
+      "datetime": "2026-06-18T02:02:08+09:00"
+    },
     {
       "filename": "TSLA_20260618.html",
       "name": "Tesla, Inc.",
