@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-06-17T20:50:10+09:00",
+  "generated_at": "2026-06-17T21:05:23+09:00",
   "reports": [
+    {
+      "filename": "ASTS_20260617.html",
+      "name": "AST SpaceMobile, Inc.",
+      "symbol": "ASTS",
+      "sector": "Space / Direct-to-Device Satellite / Telecom Infrastructure",
+      "feature": "スマートフォンに追加アプリなし・追加ハードウェアなしで宇宙から直接通信サービスを提供する「SpaceMobile」ネットワークを構築中。AT&T・T-Mobile・Verizon・Vodafone等60近くのMNOと提携、30億人以上のサブ…",
+      "rate": 3,
+      "datetime": "2026-06-17T21:05:11+09:00"
+    },
+    {
+      "filename": "CAN_20260617.html",
+      "name": "Canaan Inc.",
+      "symbol": "CAN",
+      "sector": "Bitcoin Mining Hardware / ASIC / BTC Treasury / Compute-Energy",
+      "feature": "Bitcoin ASIC採掘機（Avalon シリーズ）の製造・販売会社（第2位）。2025年に業績急回復（Q4売上+121%）したものの、2026年Q1はBTCハッシュプライスが過去最低水準（$0.03）に落ち込み売上ガイダンスを$60〜…",
+      "rate": 2,
+      "datetime": "2026-06-17T21:05:11+09:00"
+    },
+    {
+      "filename": "PLTR_20260617.html",
+      "name": "Palantir Technologies Inc.",
+      "symbol": "PLTR",
+      "sector": "AI Software / Enterprise AI Platform / Government / Defense",
+      "feature": "AIP（Artificial Intelligence Platform）という「企業・政府向けAIオペレーティングシステム」で急成長。Q1 2026で売上+85%（上場来最高成長率）・Rule of 40スコア145（NVIDIA・Mic…",
+      "rate": 5,
+      "datetime": "2026-06-17T21:05:11+09:00"
+    },
     {
       "filename": "6976T_20260617.html",
       "name": "太陽誘電株式会社",
