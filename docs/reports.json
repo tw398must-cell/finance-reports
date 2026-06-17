@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-06-17T21:05:23+09:00",
+  "generated_at": "2026-06-18T00:39:11+09:00",
   "reports": [
+    {
+      "filename": "TSLA_20260618.html",
+      "name": "Tesla, Inc.",
+      "symbol": "TSLA",
+      "sector": "EV / Robotaxi / FSD / Optimus Robot / Physical AI / Energy",
+      "feature": "EVメーカーから「物理AI企業」への転換を宣言したテスラ。Q1 2026で売上+16%・ロボタクシーをオースティン・ダラス・ヒューストンに拡大し、Optimusロボットの初期量産（2026年後半）準備中。ただしCapEx $25B超・FCF…",
+      "rate": 3,
+      "datetime": "2026-06-18T00:38:50+09:00"
+    },
     {
       "filename": "ASTS_20260617.html",
       "name": "AST SpaceMobile, Inc.",
