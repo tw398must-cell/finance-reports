@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-06-18T02:02:27+09:00",
+  "generated_at": "2026-06-25T20:45:25+09:00",
   "reports": [
+    {
+      "filename": "BE_20260625.html",
+      "name": "Bloom Energy Corporation",
+      "symbol": "BE",
+      "sector": "Clean Energy / Fuel Cell / AI Power Infrastructure / SOFC",
+      "feature": "AIデータセンターの電力制約問題を解決する固体酸化物型燃料電池（SOFC）が急注目されている。Oracle 2.8GW・Nebius提携等の大型受注で株価YTD+773%と超過熱状態。アナリスト目標$264.53は現値$326.19を▲19…",
+      "rate": 3,
+      "datetime": "2026-06-25T20:45:10+09:00"
+    },
+    {
+      "filename": "CRWV_20260625.html",
+      "name": "CoreWeave, Inc.",
+      "symbol": "CRWV",
+      "sector": "AI Cloud Infrastructure / GPU-as-a-Service",
+      "feature": "AIファクトリー特化型クラウドのパイオニア。Q1 2026売上$2.08B（+112%）・バックログ$99.4B・FY2026ガイダンス$12〜13B維持。Q2ガイダンス$2.45〜2.6Bはコンセンサス$2.69Bを下回り決算後▲10%急…",
+      "rate": 4,
+      "datetime": "2026-06-25T20:45:10+09:00"
+    },
+    {
+      "filename": "IBM_20260625.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "IT Services / Enterprise AI / Hybrid Cloud / Software",
+      "feature": "エンタープライズAIの「信頼されるパートナー」。watsonx・Red Hat・HashiCorp・Confluentという買収戦略でハイブリッドクラウドAIを推進。5月末〜6月に株価が$295から$263へ調整中。Q1 2026は売上+6…",
+      "rate": 4,
+      "datetime": "2026-06-25T20:45:10+09:00"
+    },
+    {
+      "filename": "LITE_20260625.html",
+      "name": "Lumentum Holdings Inc.",
+      "symbol": "LITE",
+      "sector": "Photonics / CPO / OCS / AI Optical Interconnect",
+      "feature": "NVIDIA $2B投資を受けたCPO（Co-Packaged Optics）独占サプライヤー。OCSバックログ$400M+（2027年完売）。Q4 FY2026決算（7月予定）・ガイダンス$960M〜$1.01Bが次のカタリスト。現在$8…",
+      "rate": 4,
+      "datetime": "2026-06-25T20:45:10+09:00"
+    },
+    {
+      "filename": "NBIS_20260625.html",
+      "name": "Nebius Group N.V.",
+      "symbol": "NBIS",
+      "sector": "AI Cloud Infrastructure / GPU-as-a-Service / Europe",
+      "feature": "旧Yandex欧州AI事業継承の「欧州版CoreWeave」。Q1 2026売上+684%・バックログ$47B（Microsoft・Meta等）・Nasdaq-100に6/22追加。NBISがBloom Energy（BE）と提携してAIデ…",
+      "rate": 4,
+      "datetime": "2026-06-25T20:45:10+09:00"
+    },
+    {
+      "filename": "NEE_20260625.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "Utilities / Renewable Energy / AI Power / Dominion M&A",
+      "feature": "米国最大の再生可能エネルギー開発会社。Dominion Energy（$67B）買収合意（2026年5月）でAI DC電力市場を制覇しようとしている。株価はDominion買収発表後に▲10%急落したが現在$87.62で安定化。配当2.85…",
+      "rate": 4,
+      "datetime": "2026-06-25T20:45:10+09:00"
+    },
     {
       "filename": "ASML_20260618.html",
       "name": "ASML Holding N.V.",
