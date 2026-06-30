@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-07-01T01:29:40+09:00",
+  "generated_at": "2026-07-01T02:43:25+09:00",
   "reports": [
+    {
+      "filename": "ENPH_20260701.html",
+      "name": "Enphase Energy, Inc.",
+      "symbol": "ENPH",
+      "sector": "Technology / Solar (Residential Inverters)",
+      "feature": "住宅用ソーラーインバーター・蓄電システムの大手。米国住宅市場の太陽光需要鈍化と金利高止まりの影響で売上はピーク時から大きく減少しており、業績回復はまだ道半ば。",
+      "rate": 2,
+      "datetime": "2026-07-01T02:43:01+09:00"
+    },
+    {
+      "filename": "FSLR_20260701.html",
+      "name": "First Solar, Inc.",
+      "symbol": "FSLR",
+      "sector": "Technology / Solar (Panel Manufacturing)",
+      "feature": "米国製太陽光パネルメーカー最大手。IRA（インフレ抑制法）の国内製造優遇措置を追い風に、安定的な黒字成長を続ける太陽光セクターの優良企業。AI電力需要拡大に伴う再エネ調達ニーズの恩恵も期待される。",
+      "rate": 4,
+      "datetime": "2026-07-01T02:43:01+09:00"
+    },
+    {
+      "filename": "NNE_20260701.html",
+      "name": "NANO Nuclear Energy Inc.",
+      "symbol": "NNE",
+      "sector": "Industrials / Micro Modular Reactor",
+      "feature": "超小型モジュール炉（マイクロリアクター）を開発するプレ・レベニュー段階の企業。SMR大手3社（Oklo・NuScale・自社）の中では時価総額が最小で、研究開発初期段階のハイリスク銘柄。",
+      "rate": 2,
+      "datetime": "2026-07-01T02:43:01+09:00"
+    },
+    {
+      "filename": "SEDG_20260701.html",
+      "name": "SolarEdge Technologies, Inc.",
+      "symbol": "SEDG",
+      "sector": "Technology / Solar (Inverters & Optimizers)",
+      "feature": "Enphaseの直接競合となる太陽光インバーター大手。FY22のピークから売上は大きく落ち込み、FY24には巨額の赤字を計上したが、FY25は売上成長率+41.5%と回復の兆しを見せている。financialsはなお不安定で、ターンアラウン…",
+      "rate": 2,
+      "datetime": "2026-07-01T02:43:01+09:00"
+    },
+    {
+      "filename": "SMR_20260701.html",
+      "name": "NuScale Power Corporation",
+      "symbol": "SMR",
+      "sector": "Industrials / SMR (Small Modular Reactor)",
+      "feature": "SMR分野の先行上場企業だが、直近期の売上は前年から減少に転じ、営業赤字は約6.9億ドルへ急拡大。AI電力需要テーマの中でもとりわけ業績が不安定な銘柄であり、競合（Oklo・Nano Nuclear）に対する優位性は薄れつつある。",
+      "rate": 2,
+      "datetime": "2026-07-01T02:43:01+09:00"
+    },
     {
       "filename": "CEG_20260701.html",
       "name": "Constellation Energy Corporation",
