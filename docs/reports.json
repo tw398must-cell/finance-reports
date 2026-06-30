@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-07-01T01:22:38+09:00",
+  "generated_at": "2026-07-01T01:29:40+09:00",
   "reports": [
+    {
+      "filename": "CEG_20260701.html",
+      "name": "Constellation Energy Corporation",
+      "symbol": "CEG",
+      "sector": "Utilities / Nuclear Power",
+      "feature": "AIデータセンター向け電力需要の急増を背景に、原子力発電セクターが再評価されている。CEGは米国最大の原子力フリート（21基）を保有し、ハイパースケーラーとの長期電力契約で収益の可視性が高い業界トップ企業。",
+      "rate": 4,
+      "datetime": "2026-07-01T01:29:14+09:00"
+    },
+    {
+      "filename": "GEV_20260701.html",
+      "name": "GE Vernova Inc.",
+      "symbol": "GEV",
+      "sector": "Industrials / Power Equipment",
+      "feature": "原子力・天然ガス・電化・送電網拡張など、AI主導の電力需要拡大の「設備供給側」を担う企業。GE HitachiとのJVによるSMR（BWRX-300）開発を進めており、発電事業者よりも川上のインフラ供給で恩恵を受ける位置づけ。",
+      "rate": 3,
+      "datetime": "2026-07-01T01:29:14+09:00"
+    },
+    {
+      "filename": "NOC_20260701.html",
+      "name": "Northrop Grumman Corporation",
+      "symbol": "NOC",
+      "sector": "Aerospace & Defense / Space-Based Solar Power",
+      "feature": "防衛・宇宙システムの大手。安定した防衛収益を土台に、宇宙太陽光発電（SBSP）技術（ビーム誘導の実証済み、Arachne衛星実証を予定）で「AI×宇宙×エネルギー」融合領域の先行企業として位置づけられる。Metaが宇宙発電スタートアップと提…",
+      "rate": 4,
+      "datetime": "2026-07-01T01:29:14+09:00"
+    },
+    {
+      "filename": "OKLO_20260701.html",
+      "name": "Oklo Inc.",
+      "symbol": "OKLO",
+      "sector": "Utilities / SMR (Small Modular Reactor)",
+      "feature": "Meta社と1.2GW規模の原子力発電キャンパス建設で合意（2026年1月、Ohio州）した小型モジュール炉（SMR）開発企業。商業運転実績はまだなく、売上はゼロのまま赤字が拡大している投機的な成長株。",
+      "rate": 2,
+      "datetime": "2026-07-01T01:29:14+09:00"
+    },
+    {
+      "filename": "TLN_20260701.html",
+      "name": "Talen Energy Corporation",
+      "symbol": "TLN",
+      "sector": "Utilities / Nuclear Power",
+      "feature": "AmazonとのSusquehanna原子力発電所からの長期電力供給契約（1,920MW、〜2042年）を軸に、AI電力需要テーマの高成長株として評価。売上成長率は業界トップ級だが、利益面は赤字に転落しており収益性の不安定さが目立つ。",
+      "rate": 3,
+      "datetime": "2026-07-01T01:29:14+09:00"
+    },
     {
       "filename": "6702T_20260701.html",
       "name": "富士通株式会社",
