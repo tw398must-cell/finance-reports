@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generated-at" content="2026-07-01T01:22:28+09:00">
+<title>6702.T — 富士通株式会社</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --color-bg-base: #0d1117;
+    --color-bg-surface: #161b22;
+    --color-bg-elevated: #1c2128;
+    --color-bg-hover: #21262d;
+    --color-border-subtle: #30363d;
+    --color-border-muted: #21262d;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-tertiary: #6e7681;
+    --color-accent: #58a6ff;
+    --color-bull: #26a69a;
+    --color-bear: #ef5350;
+    --color-warning: #d29922;
+    --color-target-bg: rgba(88, 166, 255, 0.08);
+    --color-target-border: #58a6ff;
+    --color-layer-facts: #8b949e;
+    --color-layer-insights: #58a6ff;
+    --color-layer-analysis: #d29922;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px;
+    --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--color-bg-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: var(--space-5); }
+  @media (max-width: 600px) {
+    .container { padding: var(--space-4) var(--space-3); }
+    html, body { font-size: 13px; }
+  }
+
+  .top-bar { padding: var(--space-3) 0; margin-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-muted); }
+  .back-link { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); text-decoration: none; }
+  .back-link:hover { color: var(--color-accent); }
+
+  header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: var(--space-5); margin-bottom: var(--space-6); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: var(--space-4); }
+  .symbol-badge { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent); background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.25); border-radius: var(--radius-sm); padding: 2px 8px; display: inline-block; margin-bottom: var(--space-2); }
+  .report-title { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-1); }
+  .report-meta { font-size: 12px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); }
+  .date-label { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-secondary); }
+  .header-right .star-rate { font-size: 20px; letter-spacing: 3px; }
+  @media (max-width: 600px) {
+    .report-title { font-size: 22px; }
+    .header-right { align-items: flex-start; }
+    header { gap: var(--space-2); }
+  }
+
+  .overview-section { margin-bottom: var(--space-6); }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--space-4); padding-bottom: var(--space-2); border-bottom: 1px solid var(--color-border-muted); }
+  .market-description { color: var(--color-text-secondary); line-height: 1.7; }
+
+  .layer-section { margin-bottom: var(--space-7); padding-top: var(--space-5); border-top: 2px solid var(--color-border-subtle); position: relative; }
+  .layer-section::before { content: ''; position: absolute; top: -2px; left: 0; width: 80px; height: 2px; background: var(--layer-color, var(--color-text-tertiary)); }
+  .layer-section.layer-facts { --layer-color: var(--color-layer-facts); }
+  .layer-section.layer-insights { --layer-color: var(--color-layer-insights); }
+  .layer-section.layer-analysis { --layer-color: var(--color-layer-analysis); }
+  .layer-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-5); flex-wrap: wrap; gap: var(--space-2); }
+  .layer-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; padding: 4px var(--space-3); border-radius: var(--radius-md); border: 1px solid var(--layer-color); color: var(--layer-color); background: rgba(255,255,255,0.02); text-transform: uppercase; }
+  .layer-subtitle { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); letter-spacing: 0.04em; }
+  .subsection { margin-bottom: var(--space-5); }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); margin-bottom: var(--space-3); }
+
+  /* Metric Cards */
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); }
+  @media (max-width: 600px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); } }
+  .metric-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-1); }
+  @media (max-width: 600px) { .metric-card { padding: var(--space-3); } }
+  .metric-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+  .metric-value { font-family: var(--font-mono); font-size: 22px; font-weight: 600; color: var(--color-text-primary); }
+  .metric-value.small { font-size: 15px; letter-spacing: -0.01em; }
+  .metric-sub { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .metric-comparison { margin-top: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); font-size: 11px; font-family: var(--font-mono); flex-wrap: wrap; }
+  .comparison-label { color: var(--color-text-tertiary); }
+  .comparison-value-block { display: flex; align-items: baseline; gap: var(--space-2); }
+  .comparison-value { color: var(--color-text-secondary); }
+  .comparison-delta { font-weight: 600; }
+  .bull { color: var(--color-bull); }
+  .bear { color: var(--color-bear); }
+  .warn { color: var(--color-warning); }
+
+  /* Charts */
+  .chart-wrapper { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-4); height: 280px; position: relative; min-width: 0; overflow: hidden; }
+  .chart-wrapper canvas { display: block; max-width: 100%; }
+  .chart-section { margin-bottom: 0; min-width: 0; }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .two-col > * { min-width: 0; }
+  @media (max-width: 880px) { .two-col { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .chart-wrapper { height: 240px; padding: var(--space-3); } }
+
+  /* Comparing table - 横スクロール */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); }
+  .table-wrapper::-webkit-scrollbar { height: 6px; }
+  .table-wrapper::-webkit-scrollbar-track { background: var(--color-bg-elevated); }
+  .table-wrapper::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: 3px; }
+  .issues-table { width: 100%; border-collapse: collapse; min-width: 720px; }
+  .issues-table th { text-align: left; padding: var(--space-3) var(--space-4); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); background: var(--color-bg-elevated); border-bottom: 1px solid var(--color-border-subtle); white-space: nowrap; }
+  .issues-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-muted); font-size: 13px; vertical-align: top; }
+  .issues-table tr:last-child td { border-bottom: none; }
+  .issues-table tr.role-target { background: var(--color-target-bg); border-left: 2px solid var(--color-target-border); }
+  .issues-table tr.role-target td:first-child { font-weight: 600; }
+  .role-tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-right: var(--space-2); }
+  .role-tag.target { background: var(--color-accent); color: var(--color-bg-base); }
+  .role-tag.peer { background: var(--color-bg-elevated); color: var(--color-text-tertiary); border: 1px solid var(--color-border-subtle); }
+  .symbol-mono { font-family: var(--font-mono); color: var(--color-text-secondary); font-size: 12px; white-space: nowrap; }
+  .num-mono { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+  .features-cell { color: var(--color-text-secondary); min-width: 240px; }
+  .products-cell { color: var(--color-text-primary); font-family: var(--font-mono); font-size: 12px; min-width: 140px; }
+  .growth-cell { font-family: var(--font-mono); text-align: right; font-weight: 600; white-space: nowrap; }
+  .unit { color: var(--color-text-tertiary); margin-left: 2px; font-size: 11px; }
+
+  .scroll-hint { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-top: var(--space-1); letter-spacing: 0.06em; }
+  @media (max-width: 720px) { .scroll-hint { display: block; } }
+
+  /* Highlights */
+  .highlights-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .highlights-card { padding: var(--space-4) var(--space-3); } }
+  .highlights-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+  .highlight-item { font-size: 13px; padding: var(--space-3) var(--space-4); padding-left: var(--space-5); position: relative; border-radius: var(--radius-sm); border-left: 2px solid transparent; background: rgba(255, 255, 255, 0.01); }
+  .highlight-item .level-marker { position: absolute; left: var(--space-3); top: var(--space-3); font-family: var(--font-mono); font-weight: 700; font-size: 12px; }
+  .highlight-item.level-info { border-left-color: var(--color-accent); background: rgba(88, 166, 255, 0.04); }
+  .highlight-item.level-info .level-marker { color: var(--color-accent); }
+  .highlight-item.level-warning { border-left-color: var(--color-warning); background: rgba(210, 153, 34, 0.05); }
+  .highlight-item.level-warning .level-marker { color: var(--color-warning); }
+  .highlight-item.level-danger { border-left-color: var(--color-bear); background: rgba(239, 83, 80, 0.05); }
+  .highlight-item.level-danger .level-marker { color: var(--color-bear); }
+  .highlight-name { color: var(--color-text-primary); font-weight: 600; margin-right: var(--space-1); }
+  .highlight-text { color: var(--color-text-secondary); }
+
+  /* Scores */
+  .scores-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); }
+  @media (max-width: 600px) { .scores-card { padding: var(--space-4) var(--space-3); } }
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  @media (max-width: 880px) { .scores-grid { grid-template-columns: 1fr; gap: var(--space-3); } }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); font-size: 12px; }
+  .score-label { color: var(--color-text-tertiary); font-family: var(--font-mono); }
+  .score-val { font-family: var(--font-mono); font-weight: 600; }
+  .bar-track { height: 6px; background: var(--color-bg-elevated); border-radius: 3px; margin-bottom: var(--space-3); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  /* Forecast */
+  .forecast-card { background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-4); }
+  @media (max-width: 600px) { .forecast-card { padding: var(--space-4) var(--space-3); } }
+  .forecast-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border-muted); flex-wrap: wrap; gap: var(--space-2); }
+  .forecast-name { font-size: 18px; font-weight: 600; }
+  .forecast-name .symbol { color: var(--color-text-tertiary); font-size: 14px; font-weight: 400; font-family: var(--font-mono); margin-left: var(--space-2); }
+  .star-rate { font-family: var(--font-mono); color: var(--color-warning); font-size: 16px; letter-spacing: 2px; }
+
+  .term-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); font-family: var(--font-mono); font-size: 12px; }
+  .term-row .label { color: var(--color-text-tertiary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .term-row .value { color: var(--color-text-primary); font-weight: 600; padding: 2px var(--space-2); background: var(--color-bg-elevated); border-radius: var(--radius-sm); }
+
+  .scenarios-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-5); }
+  @media (max-width: 720px) { .scenarios-grid { grid-template-columns: 1fr; } }
+  .scenario-card { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); border-left: 3px solid; }
+  .scenario-card.bear { border-color: var(--color-bear); }
+  .scenario-card.base { border-color: var(--color-text-secondary); }
+  .scenario-card.bull { border-color: var(--color-bull); }
+  .scenario-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-2); }
+  .scenario-name { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .scenario-card.bear .scenario-name { color: var(--color-bear); }
+  .scenario-card.base .scenario-name { color: var(--color-text-secondary); }
+  .scenario-card.bull .scenario-name { color: var(--color-bull); }
+  .scenario-price { font-family: var(--font-mono); font-size: 18px; font-weight: 700; }
+  .scenario-card.bear .scenario-price { color: var(--color-bear); }
+  .scenario-card.base .scenario-price { color: var(--color-text-primary); }
+  .scenario-card.bull .scenario-price { color: var(--color-bull); }
+  .scenario-condition { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; padding-top: var(--space-2); border-top: 1px dashed var(--color-border-muted); }
+  .scenario-condition .if-label { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-tertiary); margin-right: var(--space-1); letter-spacing: 0.06em; }
+
+  .reasoning-block { margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-sm); background: var(--color-bg-elevated); border-left: 3px solid; }
+  .reasoning-block + .reasoning-block { margin-top: var(--space-3); }
+  .reasoning-block.premise { border-color: var(--color-text-tertiary); }
+  .reasoning-block.reason { border-color: var(--color-accent); }
+  .reasoning-block.risks { border-color: var(--color-bear); }
+  .reasoning-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--space-2); display: block; }
+  .reasoning-block.premise .reasoning-label { color: var(--color-text-secondary); }
+  .reasoning-block.reason .reasoning-label { color: var(--color-accent); }
+  .reasoning-block.risks .reasoning-label { color: var(--color-bear); }
+  .reasoning-text { color: var(--color-text-primary); font-size: 13px; line-height: 1.7; }
+
+  /* Reference */
+  .reference-section { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--color-border-subtle); }
+  .reference-list { list-style: none; padding: 0; }
+  .reference-list li { padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border-muted); font-size: 13px; color: var(--color-text-secondary); }
+  .reference-list li:last-child { border-bottom: none; }
+  .reference-list a { color: var(--color-accent); text-decoration: none; word-break: break-all; }
+  .reference-list a:hover { text-decoration: underline; }
+  .reference-list .source-type { display: inline-block; font-family: var(--font-mono); font-size: 10px; padding: 1px 6px; border: 1px solid var(--color-border-subtle); border-radius: 3px; color: var(--color-text-tertiary); margin-right: var(--space-2); text-transform: uppercase; }
+
+  footer { margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary); font-size: 11px; font-family: var(--font-mono); text-align: center; }
+  footer a { color: var(--color-text-tertiary); text-decoration: none; }
+  footer a:hover { color: var(--color-accent); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-link" href="../index.html">← Finance Reports</a>
+  </div>
+
+  <header>
+    <div>
+      <div class="symbol-badge">6702.T</div>
+      <h1 class="report-title">富士通株式会社</h1>
+      <div class="report-meta">
+JPX（東証プライム）: 6702.T &nbsp;·&nbsp; ITサービス / 量子コンピュータ / AI / 国策銘柄      </div>
+    </div>
+    <div class="header-right">
+      <div class="star-rate" title="Rate: 4/5">
+★★★★☆      </div>
+      <div class="date-label">2026-07-01 JST</div>
+    </div>
+  </header>
+
+  <div class="overview-section">
+    <div class="section-title">Overview</div>
+    <p class="market-description">従来型ITベンダーから「量子コンピュータ・AI」を核とする世界屈指のテクノロジー企業へ転換中。理化学研究所と共同で256量子ビット超伝導量子コンピュータを実現済みで、2026年度には世界最大規模の1000量子ビット公開を予定。政府の「戦略17分野」で量子技術の最重要フロントランナーと位置づけられる「国策銘柄」。2026年3月期は最終利益が前期比2.0倍の4,494億円に急拡大、配当も28円→50円へ大幅増配。</p>
+  </div>
+
+  <section class="layer-section layer-facts">
+    <div class="layer-header">
+      <div class="layer-tag">FACTS</div>
+      <div class="layer-subtitle">Objective Data & Metrics</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Metrics</div>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Sector</div>
+          <div class="metric-value small">
+            情報・通信業          </div>
+<div class="metric-sub">東証プライム / 6702</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Price</div>
+          <div class="metric-value">
+            3,247          </div>
+<div class="metric-sub">円（2026/06/25）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Market Cap</div>
+          <div class="metric-value">
+            5兆6,328億円          </div>
+<div class="metric-sub">JPY</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">PER</div>
+          <div class="metric-value">
+            18.6x          </div>
+<div class="metric-sub">TTM（ITサービス業として標準的）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">PBR</div>
+          <div class="metric-value">
+            2.78x          </div>
+<div class="metric-sub">TTM</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">ROE</div>
+          <div class="metric-value">
+            15.6%          </div>
+<div class="metric-sub">TTM（改善傾向）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Gross Margin</div>
+          <div class="metric-value">
+            35.6%          </div>
+<div class="metric-sub">TTM</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Operating Margin</div>
+          <div class="metric-value">
+            13.1%          </div>
+<div class="metric-sub">TTM（2026/3期4Q：13.1%・前年13.9%から微減）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Growth</div>
+          <div class="metric-value">
+            -1.3%          </div>
+<div class="metric-sub">2026/3期 売上収益（非継続事業整理の影響）</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Net Income Growth</div>
+          <div class="metric-value">
+            +104.5%          </div>
+<div class="metric-sub">2026/3期 親会社帰属当期利益</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Dividend Yield</div>
+          <div class="metric-value">
+            1.68%          </div>
+<div class="metric-sub">50円→55円へ増配予定</div>        </div>
+        <div class="metric-card">
+          <div class="metric-label">Analyst Target</div>
+          <div class="metric-value">
+            4,622円          </div>
+<div class="metric-sub">平均目標株価（+42%上値余地）</div>        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Historical Trends</div>
+      <div class="two-col">
+        <div class="chart-section">
+          <div class="card-title">株価推移（過去1年）</div>
+          <div class="chart-wrapper"><canvas id="priceChart"></canvas></div>
+        </div>
+        <div class="chart-section">
+          <div class="card-title">業績推移（億円）</div>
+          <div class="chart-wrapper"><canvas id="revenueChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Comparing</div>
+      <div class="table-wrapper">
+        <table class="issues-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th style="text-align: right;">Price</th>
+              <th style="text-align: right;">Market Cap</th>
+              <th style="text-align: right;">Rev Growth</th>
+              <th>Products</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="role-target">
+              <td>
+                <span class="role-tag target">trgt</span>富士通
+              </td>
+              <td class="symbol-mono">6702.T</td><td class="num-mono">3,247<span class="unit">JPY</span></td>
+              <td class="num-mono">
+                  5兆6,328億円<span class="unit">円</span>
+              </td>
+              <td class="growth-cell">
+                -1.3%
+              </td>
+              <td class="products-cell">量子コンピュータ（理研共同・256量子ビット）・企業向けLLM「Takane」・AIエージェント・Uvance（DXソリューション）</td>
+              <td class="features-cell">2026/3期最終利益+104.5%（4,494億円）・調整後営業利益+27.1%（3,905億円）・配当50円→55円増配予定・自己株式取得847億円・2026年度1000量子ビット公開予定・ブレインパッド子会社化（量子×AI分析）</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>IBM
+              </td>
+              <td class="symbol-mono">IBM</td><td class="num-mono">—</td>
+              <td class="num-mono">
+                  約37兆円<span class="unit">円</span>
+              </td>
+              <td class="growth-cell bull">
+                +9.5%
+              </td>
+              <td class="products-cell">IBM Quantum（超伝導量子コンピュータ）・watsonx</td>
+              <td class="features-cell">量子コンピュータ分野の世界最大手。富士通の最大の競合・ベンチマーク対象</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>NEC
+              </td>
+              <td class="symbol-mono">6701.T</td><td class="num-mono">—</td>
+              <td class="num-mono">
+                  約4兆円<span class="unit">円</span>
+              </td>
+              <td class="growth-cell bull">
+                +5%
+              </td>
+              <td class="products-cell">顔認証AI・通信インフラ・量子暗号</td>
+              <td class="features-cell">国内ITサービスの直接競合。量子分野では暗号技術に注力</td>
+            </tr>
+            <tr class="role-peer">
+              <td>
+                <span class="role-tag peer">peer</span>Google（Alphabet）
+              </td>
+              <td class="symbol-mono">GOOGL</td><td class="num-mono">—</td>
+              <td class="num-mono">
+                  約2,400B USD<span class="unit">円</span>
+              </td>
+              <td class="growth-cell bull">
+                +28%
+              </td>
+              <td class="products-cell">Willow量子チップ・Sycamore</td>
+              <td class="features-cell">量子超越性の実証で先行。富士通とは規模・アプローチが異なる</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="scroll-hint">← → Scroll to see all columns</div>
+    </div>
+  </section>
+
+  <section class="layer-section layer-insights">
+    <div class="layer-header">
+      <div class="layer-tag">INSIGHTS</div>
+      <div class="layer-subtitle">Observations & Composite Insights</div>
+    </div>
+
+    <div class="highlights-card">
+      <ul class="highlights-list">
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">6702.T:</span>          <span class="highlight-text">2027年3月期当期利益予想は前期比▲31.0%の3,100億円：2026年3月期の4,494億円は非継続事業（事業売却益等）の一過性要因が約1,463億円含まれており、来期はその反動減が見込まれる。「本業の利益成長」と「最終利益の減少予想」が同時に起きるという、決算の読み解きが必要な状況</span>
+        </li>
+        <li class="highlight-item level-warning">
+          <span class="level-marker">!</span>
+<span class="highlight-name">6702.T:</span>          <span class="highlight-text">株価は2026年1月高値4,668円から現在3,247円へ▲30%調整中：年初の量子コンピュータ・AIテーマでの急騰後、利益確定売り・国策銘柄としての期待先行が一服した形。出来高急増（6/12に前日比+76%）は短期的な需給調整を示唆</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">6702.T:</span>          <span class="highlight-text">理化学研究所と256量子ビット超伝導量子コンピュータを共同実現・2026年度に「世界最大規模1000量子ビット」公開予定：政府の経済安全保障戦略17分野における量子技術のフロントランナーとして「国策銘柄」の中核に位置づけられる。第一生命グループとの量子技術×保険分野の共同研究（6/4発表）等、産業応用も着実に拡大中</span>
+        </li>
+        <li class="highlight-item level-info">
+          <span class="level-marker">i</span>
+<span class="highlight-name">6702.T:</span>          <span class="highlight-text">SMBC日興証券が目標株価を5,900円に引き上げ（6月）・複数の大手証券が「強気」継続：ブレインパッド子会社化（2025年12月）で量子の圧倒的計算力とAI分析を組み合わせた独自の強みを構築。配当性向30.1%への引き上げ方針も株主還元姿勢の強化を示す</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="layer-section layer-analysis">
+    <div class="layer-header">
+      <div class="layer-tag">ANALYSIS</div>
+      <div class="layer-subtitle">Subjective Assessment & Outlook</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Scores (Subjective)</div>
+      <div class="scores-card">
+        <div class="scores-grid">
+          <div>
+            <div class="score-row">
+              <span class="score-label">Growth</span>
+              <span class="score-val bull">6 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="60" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Profitability</span>
+              <span class="score-val bull">6 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="60" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Valuation</span>
+              <span class="score-val bull">7 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="70" data-color-var="--color-bull"></div></div>
+          </div>
+          <div>
+            <div class="score-row">
+              <span class="score-label">Competitive Edge</span>
+              <span class="score-val bull">7 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="70" data-color-var="--color-bull"></div></div>
+            <div class="score-row">
+              <span class="score-label">Geopolitical Risk</span>
+              <span class="score-val warning">3 / 10</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" data-width="30" data-color-var="--color-warning"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Forecast</div>
+      <div class="forecast-card">
+        <div class="forecast-header">
+          <div class="forecast-name">富士通<span class="symbol">6702.T</span></div>
+        </div>
+
+        <div class="term-row">
+          <span class="label">Term</span>
+          <span class="value">Long (12m+)</span>
+        </div>
+
+        <div class="scenarios-grid">
+          <div class="scenario-card bear">
+            <div class="scenario-head">
+              <div class="scenario-name">bear</div>
+              <div class="scenario-price">2,500<span class="unit">JPY</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>2027/3期当期利益▲31%予想通りの着地・本業利益成長率鈍化・量子コンピュータ商業化遅延
+            </div>
+          </div>
+          <div class="scenario-card base">
+            <div class="scenario-head">
+              <div class="scenario-name">base</div>
+              <div class="scenario-price">4,200<span class="unit">JPY</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>調整後営業利益4,150億円達成・1000量子ビット公開・国策プロジェクトの進捗確認
+            </div>
+          </div>
+          <div class="scenario-card bull">
+            <div class="scenario-head">
+              <div class="scenario-name">bull</div>
+              <div class="scenario-price">5,900<span class="unit">JPY</span></div>
+            </div>
+            <div class="scenario-condition">
+              <span class="if-label">If</span>量子コンピュータ商業化前倒し・大型政府契約追加・SMBC日興目標株価到達
+            </div>
+          </div>
+        </div>
+
+        <div class="reasoning-block premise">
+          <span class="reasoning-label">Premise</span>
+          <div class="reasoning-text">日本の量子技術における経済安全保障の中核企業。理研との256量子ビット実現・2026年度1000量子ビット公開という具体的なロードマップを持つ「国策銘柄」の代表格</div>
+        </div>
+        <div class="reasoning-block reason">
+          <span class="reasoning-label">Reason</span>
+          <div class="reasoning-text">PER 18.6倍・PBR 2.78倍はITサービス業として割高感はなく、アナリスト目標+42%の上値余地もある。ただし来期利益予想▲31%という会計上の複雑さがあり、本業の調整後営業利益（+27%→+6%見込み）で実態を判断する必要がある</div>
+        </div>
+        <div class="reasoning-block risks">
+          <span class="reasoning-label">Risks</span>
+          <div class="reasoning-text">①2027/3期最終利益▲31%予想（一過性益の反動）②量子コンピュータの商業化タイムライン不確実性 ③ITサービス業界の価格競争 ④為替変動 ⑤大型システム障害・納期遅延リスク</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="reference-section">
+    <div class="section-title">Reference</div>
+    <ul class="reference-list">
+      <li>
+        <span class="source-type">yfinance</span>
+          株価・財務指標（2026/06/25取得）
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://finance.yahoo.co.jp/quote/6702.T/financials" target="_blank" rel="noopener">富士通 2026年3月期決算：最終利益2.0倍4,494億円、配当50円へ増配 - Yahoo!ファイナンス</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://news.yahoo.co.jp/articles/6370c527a5d817d5b11dabdfbb08550b567cce9c" target="_blank" rel="noopener">富士通：量子コンピュータで国策牽引、本業利益67%増、配当50円増配 - LIMO</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://minkabu.jp/stock/6702/settlement" target="_blank" rel="noopener">富士通 27年3月期最終利益31%減見通し、配当55円へ増配 - みんかぶ</a>
+      </li>
+      <li>
+        <span class="source-type">web</span>
+          <a href="https://finance.yahoo.co.jp/quote/6702.T/ai-topics" target="_blank" rel="noopener">富士通：SMBC日興目標株価5,900円に引き上げ、第一生命と量子保険共同研究 - Yahoo!ファイナンス</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>
+    <a href="../index.html">← Finance Reports</a>
+    &nbsp;·&nbsp; 6702T_20260701 &nbsp;·&nbsp; Generated 2026-07-01 JST
+  </footer>
+
+</div>
+
+<script id="charts-data" type="application/json">{"price_chart": {"title": "株価推移（過去1年）", "dataset_label": "6702.T（円、月次終値）", "labels": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "data": [3256, 3523, 3432, 3988, 4103, 4283, 4237, 3550, 3138, 3180, 3368, 3247], "currency_prefix": "¥", "currency_suffix": ""}, "revenue_chart": {"title": "業績推移（億円）", "labels": ["FY2024/3", "FY2025/3", "FY2026/3", "FY2027/3 会社計画"], "datasets": [{"label": "売上収益", "data": [37137, 35497, 35029, 36500]}, {"label": "調整後営業利益", "data": [2150, 3072, 3905, 4150]}, {"label": "親会社帰属当期利益", "data": [1700, 2197, 4494, 3100]}]}}</script>
+
+<script>
+// Apply score bar widths and colors from data-* attributes
+(function() {
+  document.querySelectorAll('.bar-fill').forEach(el => {
+    const width = el.dataset.width;
+    const colorVar = el.dataset.colorVar;
+    if (width) el.style.width = width + '%';
+    if (colorVar) el.style.background = 'var(' + colorVar + ')';
+  });
+})();
+
+// Render charts from JSON payload
+(function() {
+  const dataEl = document.getElementById('charts-data');
+  if (!dataEl) return;
+  const charts = JSON.parse(dataEl.textContent);
+
+  const textColor = '#8b949e';
+  const gridColor = '#21262d';
+  const tooltipBg = '#1c2128';
+  const monoSm = { family: 'JetBrains Mono, monospace', size: 10 };
+  const monoMd = { family: 'JetBrains Mono, monospace', size: 11 };
+
+  // Price Chart (line)
+  if (charts.price_chart) {
+    const pc = charts.price_chart;
+    const ctx = document.getElementById('priceChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: pc.labels,
+          datasets: [{
+            label: pc.dataset_label,
+            data: pc.data,
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.08)',
+            borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#58a6ff',
+            tension: 0.35, fill: true
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: textColor, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + (pc.currency_prefix || '') + ctx.parsed.y.toLocaleString() + (pc.currency_suffix || '') } }
+          },
+          scales: {
+            x: { grid: { color: gridColor }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm,
+                callback: (v) => (pc.currency_prefix || '') + v.toLocaleString() + (pc.currency_suffix || '') } }
+          }
+        }
+      });
+    }
+  }
+
+  // Revenue Chart (bar, 3-series)
+  if (charts.revenue_chart) {
+    const rc = charts.revenue_chart;
+    const ctx = document.getElementById('revenueChart');
+    if (ctx) {
+      const colors = ['#58a6ff', '#26a69a', '#d29922'];
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: rc.labels,
+          datasets: rc.datasets.map((ds, i) => ({
+            label: ds.label,
+            data: ds.data,
+            backgroundColor: colors[i % colors.length],
+            borderRadius: 2
+          }))
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', align: 'end',
+              labels: { color: textColor, boxWidth: 10, boxHeight: 10, padding: 12, font: monoMd } },
+            tooltip: { backgroundColor: tooltipBg, borderColor: gridColor, borderWidth: 1, titleColor: '#e6edf3', bodyColor: textColor,
+              callbacks: { label: (ctx) => ' ' + ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString() + 'B' } }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#6e7681', font: monoSm } },
+            y: { grid: { color: gridColor },
+              ticks: { color: '#6e7681', font: monoSm, callback: (v) => '$' + v + 'B' } }
+          }
+        }
+      });
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
