@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-07-01T02:43:25+09:00",
+  "generated_at": "2026-07-01T23:52:45+09:00",
   "reports": [
+    {
+      "filename": "BEP_20260701.html",
+      "name": "Brookfield Renewable Partners L.P.",
+      "symbol": "BEP",
+      "sector": "Utilities / Global Renewable Energy",
+      "feature": "水力・風力・太陽光・蓄電を複合的に保有するグローバル再エネ大手（Brookfield Asset Management傘下）。北米・欧州・アジア・南米に分散した資産ポートフォリオが特徴で、配当利回り4.5%超のインカム志向の銘柄。",
+      "rate": 3,
+      "datetime": "2026-07-01T23:52:18+09:00"
+    },
+    {
+      "filename": "CWEN_20260701.html",
+      "name": "Clearway Energy, Inc.",
+      "symbol": "CWEN",
+      "sector": "Utilities / Renewable Energy Yieldco",
+      "feature": "米国内の太陽光・風力・蓄電資産を保有するヨールドコ（Yieldco）型の再エネ企業。長期PPAによる安定収益と高配当が特徴で、NRG Energyを主要株主に持つ。AI電力需要拡大に伴う再エネPPAニーズを取り込みつつ、売上成長+18.8%…",
+      "rate": 3,
+      "datetime": "2026-07-01T23:52:18+09:00"
+    },
+    {
+      "filename": "NEE_20260701.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "Utilities / Renewable Energy",
+      "feature": "風力・太陽光を中心とした再エネ容量で世界最大級の電力会社。フロリダ州の規制電力事業（FPL）と再エネ卸電力事業（NEER）の2本柱で安定収益を確保しており、AI電力需要拡大に伴う長期電力契約（PPA）の主要な担い手として位置づけられる。",
+      "rate": 4,
+      "datetime": "2026-07-01T23:52:18+09:00"
+    },
     {
       "filename": "ENPH_20260701.html",
       "name": "Enphase Energy, Inc.",
