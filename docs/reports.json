@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-07-01T23:52:45+09:00",
+  "generated_at": "2026-07-02T01:11:54+09:00",
   "reports": [
+    {
+      "filename": "EXPE_20260702.html",
+      "name": "Expedia Group, Inc.",
+      "symbol": "EXPE",
+      "sector": "Online Travel Agency / AI Travel / B2B Platform",
+      "feature": "世界最大のオンライン旅行会社グループ（Expedia・Vrbo・Hotels.com・Egencia等）。Q1 2026でEPS $1.96（コンセンサス$1.25を+57%超過）・売上+14.7%・記録的な第1四半期収益性を達成。新たに$…",
+      "rate": 4,
+      "datetime": "2026-07-02T01:11:42+09:00"
+    },
+    {
+      "filename": "IBM_20260702.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "IT Services / Enterprise AI / Hybrid Cloud / watsonx / z17",
+      "feature": "前回6/25レポート（$263）から+12%上昇し$294.15。Q2 2026決算は7月23日予定。watsonx・Red Hat・HashiCorp・Confluentという買収戦略でエンタープライズAIを推進。アナリスト目標$293.…",
+      "rate": 4,
+      "datetime": "2026-07-02T01:11:42+09:00"
+    },
+    {
+      "filename": "TSLA_20260702.html",
+      "name": "Tesla, Inc.",
+      "symbol": "TSLA",
+      "sector": "EV / Robotaxi / FSD / Optimus Robot / Physical AI / Energy",
+      "feature": "前回6/18レポート（$399）から+7.3%上昇し$428.06。最大の進展：無人ロボタクシー（Unsupervised Robotaxi）がオースティン全域（4,285平方マイル）に拡大。Cybercab・Tesla Semi量産を20…",
+      "rate": 3,
+      "datetime": "2026-07-02T01:11:42+09:00"
+    },
     {
       "filename": "BEP_20260701.html",
       "name": "Brookfield Renewable Partners L.P.",
