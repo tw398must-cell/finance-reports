@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-07-02T01:46:02+09:00",
+  "generated_at": "2026-07-08T01:02:51+09:00",
   "reports": [
+    {
+      "filename": "AVGO_20260708.html",
+      "name": "Broadcom Inc.",
+      "symbol": "AVGO",
+      "sector": "Semiconductors / Custom AI XPU / AI Networking / VMware",
+      "feature": "Q2 FY2026（6/3発表）：AI半導体$10.8B（+143%）・総売上$22.2B（+48%）・Q3ガイダンス+200%超・$29.4B。FY2026 AI $56B・FY2027 AI $100Bを再確認。現在$367.58は5月…",
+      "rate": 5,
+      "datetime": "2026-07-08T01:02:38+09:00"
+    },
+    {
+      "filename": "LITE_20260708.html",
+      "name": "Lumentum Holdings Inc.",
+      "symbol": "LITE",
+      "sector": "Photonics / CPO / OCS / AI Optical Interconnect",
+      "feature": "高値$902.32から現在$694.40（▲23%）に調整中。Q4 FY2026決算（7月末予定）・ガイダンス$960M〜$1.01Bが最重要カタリスト。Q3実績：$808M（+90%）・Non-GAAP粗利47.9%（+540bps Qo…",
+      "rate": 4,
+      "datetime": "2026-07-08T01:02:38+09:00"
+    },
+    {
+      "filename": "MRVL_20260708.html",
+      "name": "Marvell Technology, Inc.",
+      "symbol": "MRVL",
+      "sector": "Semiconductors / Custom XPU / AI Interconnect / NVLink Fusion",
+      "feature": "6月の高値$297.89から現在$228.18（▲23%）に急落中。みんかぶAI診断「売り」（理論株価$184.12）・アナリスト目標$249.33（+9%上値余地）。一方でアナリスト38人全員が「Buy」推奨という興味深い乖離がある。Q1…",
+      "rate": 4,
+      "datetime": "2026-07-08T01:02:38+09:00"
+    },
+    {
+      "filename": "MU_20260708.html",
+      "name": "Micron Technology, Inc.",
+      "symbol": "MU",
+      "sector": "Semiconductors / HBM4 / DRAM / NAND / AI Memory",
+      "feature": "YTD+284%（本日Samsung不振で▲6%超急落・$891〜$947の範囲で推移）。Q3 FY2026（5月決算）：売上$41.4B（+345%）・Non-GAAP EPS $25.11（+1,200%超）・粗利率86%。HBM4を量…",
+      "rate": 5,
+      "datetime": "2026-07-08T01:02:38+09:00"
+    },
+    {
+      "filename": "PLTR_20260708.html",
+      "name": "Palantir Technologies Inc.",
+      "symbol": "PLTR",
+      "sector": "AI Software / Enterprise AI / Government / AIP",
+      "feature": "高値$200から▲33%調整し$135.43に回復基調。Q2決算（8/3予定）が最重要イベント。Q1はRule of 40スコア145%・売上+85%・FCF $925M（57%マージン）という過去最高の成績を残した。みんかぶAI診断「買い…",
+      "rate": 4,
+      "datetime": "2026-07-08T01:02:38+09:00"
+    },
+    {
+      "filename": "SNDK_20260708.html",
+      "name": "Sandisk Corporation",
+      "symbol": "SNDK",
+      "sector": "NAND Flash / AI Storage / Data Center SSD",
+      "feature": "YTD+635%（本日7/7はSamsung Q2決算不振で▲6%超急落中）。高値$2,273.73（6月）から現在$1,561.09（▲31%調整）。しかしMotley Foolが本日「今が買い時」と報道。Forward PERが9.3倍…",
+      "rate": 4,
+      "datetime": "2026-07-08T01:02:38+09:00"
+    },
     {
       "filename": "AVGO_20260702.html",
       "name": "Broadcom Inc.",
