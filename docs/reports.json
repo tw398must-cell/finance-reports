@@ -1,68 +1,68 @@
 {
-  "generated_at": "2026-07-15T04:05:57+09:00",
+  "generated_at": "2026-07-15T04:08:40+09:00",
   "reports": [
     {
       "filename": "AXON_20260715.html",
       "name": "Axon Enterprise, Inc.",
       "symbol": "AXON",
-      "sector": "Public Safety Technology",
-      "feature": "公共安全(法執行機関向け)技術市場でTASER・ボディカメラ+AIソフトのエコシステムを独占的に展開。9四半期連続30%超増収。AIサブスク(AI Era Plan)が成長を加速。",
+      "sector": "Public Safety Technology / Aerospace & Defense",
+      "feature": "公共安全・法執行機関向けの統合テクノロジー市場は、AI・クラウドの導入で拡大。AxonはQ1 2026に売上+34%と9四半期連続の30%超成長を達成。AI製品売上が前年比700%超、対ドローン製品も300%超と新領域が急伸。",
       "rate": 4,
-      "datetime": "2026-07-15T00:42:27+09:00"
+      "datetime": "2026-07-15T04:08:12+09:00"
     },
     {
       "filename": "DDOG_20260715.html",
       "name": "Datadog, Inc.",
       "symbol": "DDOG",
-      "sector": "Observability / Cloud Monitoring",
-      "feature": "クラウド監視・オブザーバビリティ市場は生成AIワークロードの拡大で追い風。一方、顧客のクラウド最適化・使用量ベース課金の変動が短期業績のブレ要因。",
+      "sector": "Observability / Application Software",
+      "feature": "クラウド監視・オブザーバビリティ市場はAIワークロードの拡大で再加速。Datadogは2026年Q1に四半期売上が初めて10億ドルを突破し、AI関連需要が新たな成長ドライバーとなっている。一方で高PER維持のハードルは高い。",
       "rate": 3,
-      "datetime": "2026-07-15T00:42:27+09:00"
+      "datetime": "2026-07-15T04:08:12+09:00"
     },
     {
       "filename": "IOT_20260715.html",
       "name": "Samsara Inc.",
       "symbol": "IOT",
-      "sector": "Industrial IoT / Connected Operations",
-      "feature": "物理オペレーション(車両・現場)のデジタル化を担うConnected Operations市場は拡大中。AI駆動の新製品とARR成長が牽引する一方、景気敏感な顧客基盤が下振れ要因。",
+      "sector": "IoT / Connected Operations Software",
+      "feature": "物理オペレーション向けIoT-SaaSは、フリート・現場データのプラットフォーム化で拡大。SamsaraはARRが約20億ドルに接近し、GAAP黒字を3四半期連続で達成。ハードウェア起点からソフトウェア主導モデルへの転換が進む。",
       "rate": 3,
-      "datetime": "2026-07-15T00:42:27+09:00"
+      "datetime": "2026-07-15T04:08:12+09:00"
     },
     {
       "filename": "OKTA_20260715.html",
       "name": "Okta, Inc.",
       "symbol": "OKTA",
-      "sector": "Identity & Access Management",
-      "feature": "ID・アクセス管理市場はエージェント型AI(自律AIエージェントごとにID認証が必要)で構造的追い風。Auth0 for AI Agentsで先行。Microsoft Entraとの競合が主リスク。",
-      "rate": 4,
-      "datetime": "2026-07-15T00:42:27+09:00"
+      "sector": "Identity Security / Infrastructure Software",
+      "feature": "アイデンティティセキュリティ市場は、AIエージェントの急増で「新たなアイデンティティ」の管理需要が拡大。OktaはFY27 Q1に売上+11%、RPO+16%と着実成長。ただし成長率は同業セキュリティ勢より緩やかで、AIエージェント製品の実…",
+      "rate": 2,
+      "datetime": "2026-07-15T04:08:12+09:00"
     },
     {
       "filename": "PANW_20260715.html",
       "name": "Palo Alto Networks, Inc.",
       "symbol": "PANW",
-      "sector": "Cybersecurity (Platform)",
-      "feature": "サイバーセキュリティはAIセキュリティ需要とプラットフォーム統合(SASE)で構造成長。PANWはFY30 ARR $20B目標を掲げるが、高バリュエーションが上値を抑制。",
-      "rate": 3,
-      "datetime": "2026-07-15T00:42:27+09:00"
+      "sector": "Cybersecurity / Network Security",
+      "feature": "AIの進展でサイバー脅威が高度化し、セキュリティ需要が構造的に拡大。Palo AltoはFY26 Q3に売上+31%、次世代セキュリティARR+60%を達成。CyberArk・Chronosphere買収でプラットフォーム化が加速する一方、…",
+      "rate": 4,
+      "datetime": "2026-07-15T04:08:12+09:00"
     },
     {
       "filename": "STM_20260715.html",
       "name": "STMicroelectronics N.V.",
       "symbol": "STM",
-      "sector": "Semiconductors (Automotive/Industrial)",
-      "feature": "自動車・産業向け半導体は在庫調整が一巡し回復局面。SiC(EV向け)とAIデータセンター向け電源が新たな成長ドライバー。AWSとの複数年契約も追い風。",
+      "sector": "Semiconductors (Analog / Automotive / MCU)",
+      "feature": "車載・産業向け半導体は在庫調整の底打ち局面。STは2025年通期で減収・低マージンに苦しんだが、Q4に前年比プラス成長へ復帰。ただしQ1 2026ガイダンスは季節性で減収見通しと、回復ペースは緩やか。",
       "rate": 3,
-      "datetime": "2026-07-15T00:42:27+09:00"
+      "datetime": "2026-07-15T04:08:12+09:00"
     },
     {
       "filename": "TWLO_20260715.html",
       "name": "Twilio Inc.",
       "symbol": "TWLO",
-      "sector": "Cloud Communications (CPaaS)",
-      "feature": "CPaaS(通信API)市場はAI音声・エージェント型通信需要で再評価局面。Stifelなど複数社が目標を引き上げ。消費量ベース課金モデルが成長を後押しするが、競争激化が課題。",
+      "sector": "CPaaS / Customer Engagement Software",
+      "feature": "顧客エンゲージメント・CPaaS市場はAIエージェント需要で再活性化。TwilioはQ1 2026に3年ぶり高水準の+20%成長を達成し通期ガイダンスを上方修正。ただしキャリアパススルー費用がグロスマージンを圧迫。",
       "rate": 3,
-      "datetime": "2026-07-15T00:42:27+09:00"
+      "datetime": "2026-07-15T04:08:12+09:00"
     },
     {
       "filename": "CRWD_20260714.html",
