@@ -1,6 +1,69 @@
 {
-  "generated_at": "2026-07-14T23:54:48+09:00",
+  "generated_at": "2026-07-15T00:43:06+09:00",
   "reports": [
+    {
+      "filename": "AXON_20260715.html",
+      "name": "Axon Enterprise, Inc.",
+      "symbol": "AXON",
+      "sector": "Public Safety Technology",
+      "feature": "公共安全(法執行機関向け)技術市場でTASER・ボディカメラ+AIソフトのエコシステムを独占的に展開。9四半期連続30%超増収。AIサブスク(AI Era Plan)が成長を加速。",
+      "rate": 4,
+      "datetime": "2026-07-15T00:42:27+09:00"
+    },
+    {
+      "filename": "DDOG_20260715.html",
+      "name": "Datadog, Inc.",
+      "symbol": "DDOG",
+      "sector": "Observability / Cloud Monitoring",
+      "feature": "クラウド監視・オブザーバビリティ市場は生成AIワークロードの拡大で追い風。一方、顧客のクラウド最適化・使用量ベース課金の変動が短期業績のブレ要因。",
+      "rate": 3,
+      "datetime": "2026-07-15T00:42:27+09:00"
+    },
+    {
+      "filename": "IOT_20260715.html",
+      "name": "Samsara Inc.",
+      "symbol": "IOT",
+      "sector": "Industrial IoT / Connected Operations",
+      "feature": "物理オペレーション(車両・現場)のデジタル化を担うConnected Operations市場は拡大中。AI駆動の新製品とARR成長が牽引する一方、景気敏感な顧客基盤が下振れ要因。",
+      "rate": 3,
+      "datetime": "2026-07-15T00:42:27+09:00"
+    },
+    {
+      "filename": "OKTA_20260715.html",
+      "name": "Okta, Inc.",
+      "symbol": "OKTA",
+      "sector": "Identity & Access Management",
+      "feature": "ID・アクセス管理市場はエージェント型AI(自律AIエージェントごとにID認証が必要)で構造的追い風。Auth0 for AI Agentsで先行。Microsoft Entraとの競合が主リスク。",
+      "rate": 4,
+      "datetime": "2026-07-15T00:42:27+09:00"
+    },
+    {
+      "filename": "PANW_20260715.html",
+      "name": "Palo Alto Networks, Inc.",
+      "symbol": "PANW",
+      "sector": "Cybersecurity (Platform)",
+      "feature": "サイバーセキュリティはAIセキュリティ需要とプラットフォーム統合(SASE)で構造成長。PANWはFY30 ARR $20B目標を掲げるが、高バリュエーションが上値を抑制。",
+      "rate": 3,
+      "datetime": "2026-07-15T00:42:27+09:00"
+    },
+    {
+      "filename": "STM_20260715.html",
+      "name": "STMicroelectronics N.V.",
+      "symbol": "STM",
+      "sector": "Semiconductors (Automotive/Industrial)",
+      "feature": "自動車・産業向け半導体は在庫調整が一巡し回復局面。SiC(EV向け)とAIデータセンター向け電源が新たな成長ドライバー。AWSとの複数年契約も追い風。",
+      "rate": 3,
+      "datetime": "2026-07-15T00:42:27+09:00"
+    },
+    {
+      "filename": "TWLO_20260715.html",
+      "name": "Twilio Inc.",
+      "symbol": "TWLO",
+      "sector": "Cloud Communications (CPaaS)",
+      "feature": "CPaaS(通信API)市場はAI音声・エージェント型通信需要で再評価局面。Stifelなど複数社が目標を引き上げ。消費量ベース課金モデルが成長を後押しするが、競争激化が課題。",
+      "rate": 3,
+      "datetime": "2026-07-15T00:42:27+09:00"
+    },
     {
       "filename": "CRWD_20260714.html",
       "name": "CrowdStrike Holdings, Inc.",
