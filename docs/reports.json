@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-07-14T17:15:47+09:00",
+  "generated_at": "2026-07-14T23:54:48+09:00",
   "reports": [
+    {
+      "filename": "CRWD_20260714.html",
+      "name": "CrowdStrike Holdings, Inc.",
+      "symbol": "CRWD",
+      "sector": "Cybersecurity / AI Security / Falcon Platform / Next-Gen SIEM",
+      "feature": "AI時代のサイバーセキュリティを牽引するFalconプラットフォーム企業。2026年7月2日に4対1株式分割を実施（現$205は分割後）。Q1 FY2027（4月末）で売上$1.39B（+26%・4四半期連続加速）・ARR $5.51B（+…",
+      "rate": 4,
+      "datetime": "2026-07-14T23:54:37+09:00"
+    },
+    {
+      "filename": "CSCO_20260714.html",
+      "name": "Cisco Systems, Inc.",
+      "symbol": "CSCO",
+      "sector": "Networking / AI Infrastructure / Silicon One / Security / Splunk",
+      "feature": "AIデータセンターの「ネットワーク配管」を担う老舗の復活劇。Q3 FY2026（4月末）で記録的売上$15.8B（+12%）・製品受注+35%・AI インフラ受注YTD $5.3B。FY2026のAIインフラ受注ガイダンスを$9B（前年の4…",
+      "rate": 4,
+      "datetime": "2026-07-14T23:54:37+09:00"
+    },
+    {
+      "filename": "DELL_20260714.html",
+      "name": "Dell Technologies Inc.",
+      "symbol": "DELL",
+      "sector": "AI Server / Infrastructure / ISG / PC / Enterprise Hardware",
+      "feature": "AIサーバー（ISG部門）の爆発的成長で株価がYTD急騰。売上成長+87.5%という驚異的な数字を叩き出し、5月に$420超へ急騰後、現在$451で高値圏を維持。NVIDIA GB200/GB300を搭載したAIサーバーの出荷が本格化し、A…",
+      "rate": 4,
+      "datetime": "2026-07-14T23:54:37+09:00"
+    },
+    {
+      "filename": "IBM_20260714.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "IT Services / Enterprise AI / Hybrid Cloud / watsonx / Quantum",
+      "feature": "前回7/2レポート（$294）から▲26%と大きく調整し$218。7月の下落局面で$300近辺から急落した。Q2決算は7月23日予定。watsonx・Red Hat・HashiCorpのハイブリッドクラウドAI戦略は不変。この調整でアナリス…",
+      "rate": 4,
+      "datetime": "2026-07-14T23:54:37+09:00"
+    },
+    {
+      "filename": "TXN_20260714.html",
+      "name": "Texas Instruments Incorporated",
+      "symbol": "TXN",
+      "sector": "Analog Semiconductors / Industrial / Data Center / Embedded",
+      "feature": "アナログ半導体・組み込みプロセッサの世界最大手。産業機器・車載・データセンター向けが主力で、Q1 2026は売上$4.83B（+19% YoY・+9% QoQ）・EPS $1.68と、産業・データセンター主導の景気回復が鮮明に。300mm生…",
+      "rate": 3,
+      "datetime": "2026-07-14T23:54:37+09:00"
+    },
     {
       "filename": "ALAB_20260714.html",
       "name": "Astera Labs, Inc.",
