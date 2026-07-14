@@ -1,6 +1,87 @@
 {
-  "generated_at": "2026-07-08T01:02:51+09:00",
+  "generated_at": "2026-07-14T17:15:47+09:00",
   "reports": [
+    {
+      "filename": "ALAB_20260714.html",
+      "name": "Astera Labs, Inc.",
+      "symbol": "ALAB",
+      "sector": "Semiconductors / AI Connectivity / PCIe CXL Retimer / Scale-up Fabric",
+      "feature": "AIデータセンター内部配線の「信号品質保証」チップ企業。Aries（PCIe Gen 6リタイマー・業界唯一の大量出荷）とScorpio X（AIファブリックスイッチ）が主力。6/22にNasdaq-100組入れ済み。6月高値$483から現…",
+      "rate": 3,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "ASML_20260714.html",
+      "name": "ASML Holding N.V.",
+      "symbol": "ASML",
+      "sector": "Semiconductor Equipment / EUV Lithography / AI Chip Enabler",
+      "feature": "EUV（極紫外線）リソグラフィの世界唯一の製造会社。TSMC・Samsung・Intelが製造するすべての最先端AIチップは必ずASMLのEUVを通る。6月高値$1,989から現在$1,726へ▲13%調整中。バックログ€38.8B・FY2…",
+      "rate": 4,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "CRWV_20260714.html",
+      "name": "CoreWeave, Inc.",
+      "symbol": "CRWV",
+      "sector": "AI Cloud Infrastructure / GPU-as-a-Service",
+      "feature": "AIファクトリー専業クラウド。前回7/2レポート（$86.74）からほぼ横ばいの$83.31。Q2決算は8/18予定。株価は$100→$83に軟化しているが、アナリスト目標$142.29は+71%の大幅上値余地を維持。バックログ$99.4B…",
+      "rate": 4,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "HON_20260714.html",
+      "name": "Honeywell Technologies (Honeywell International Inc.)",
+      "symbol": "HON",
+      "sector": "Industrial Automation / Building Controls / Quantinuum (量子) / Process Tech",
+      "feature": "2026年6月29日に航空宇宙部門（HONA）を分社化し、1対2の株式併合を実施。現在のHONは「Honeywell Technologies」=自動化専業（ビル・産業・プロセス自動化）の純粋プレイに変貌。Elliott Managemen…",
+      "rate": 3,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "NBIS_20260714.html",
+      "name": "Nebius Group N.V.",
+      "symbol": "NBIS",
+      "sector": "AI Cloud Infrastructure / GPU-as-a-Service / Europe",
+      "feature": "旧Yandex欧州AI事業継承の「欧州版CoreWeave」。Q1 2026売上+684%・バックログ$47B・Nasdaq-100組入れ済み（6/22）。6月高値$276から現在$210へ▲24%調整中。Bloom Energy（BE）と…",
+      "rate": 4,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "RKLB_20260714.html",
+      "name": "Rocket Lab Corporation",
+      "symbol": "RKLB",
+      "sector": "Space Launch / Defense / Satellites / Hard-Tech",
+      "feature": "Electronロケットで世界第2位の軌道打ち上げ実績を持つ民間宇宙企業。SpaceXのIPO（6/12）が宇宙株全体を再評価する中、Q1 2026で記録的売上$200.3M（+63.5%）・バックログ$2.2B。6/22にNasdaq-1…",
+      "rate": 3,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "SPCX_20260714.html",
+      "name": "Space Exploration Technologies Corp. (SpaceX)",
+      "symbol": "SPCX",
+      "sector": "Space Launch / Starlink Connectivity / xAI・Grok / Physical AI",
+      "feature": "2026年6月12日にNasdaq史上最大のIPO（発行価格$135・$1.77兆評価・調達額$86B）を実施。3つのエンジン=①打ち上げ（Falcon/Starship・世界の商業打ち上げの約90%）②Starlink（衛星通信・唯一の黒…",
+      "rate": 3,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "TER_20260714.html",
+      "name": "Teradyne, Inc.",
+      "symbol": "TER",
+      "sector": "Semiconductor Equipment / AI Test / HBM Test / ATE",
+      "feature": "AIチップ・HBM・GPUを出荷前に全数検査する半導体テスト装置の世界最大手。Q1 2026でAI関連需要が売上の約70%を占め+87%の記録的売上を達成。6/22にNasdaq-100組入れ済み。6月高値$484から現在$341へ▲29%…",
+      "rate": 4,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
+    {
+      "filename": "TSM_20260714.html",
+      "name": "Taiwan Semiconductor Manufacturing Co. (TSMC)",
+      "symbol": "TSM",
+      "sector": "Semiconductor Foundry / AI Chip Manufacturing / N2・N3 / CoWoS",
+      "feature": "世界最大の半導体受託製造（ファウンドリ）企業。NVIDIA・AMD・Apple・Broadcom等すべての最先端AIチップを製造する不可欠なインフラ。Q1 2026は売上$35.9B（+35.1%）・EPS +58.3%・粗利66.2%と絶…",
+      "rate": 5,
+      "datetime": "2026-07-14T17:15:32+09:00"
+    },
     {
       "filename": "AVGO_20260708.html",
       "name": "Broadcom Inc.",
