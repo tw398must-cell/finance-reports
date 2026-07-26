@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-07-15T04:08:40+09:00",
+  "generated_at": "2026-07-26T13:23:39+09:00",
   "reports": [
+    {
+      "filename": "ALAB_20260726.html",
+      "name": "Astera Labs, Inc.",
+      "symbol": "ALAB",
+      "sector": "Semiconductors / AI Connectivity",
+      "feature": "AIラックスケール接続（PCIe/CXL/イーサネット）は、推論・エージェント型ワークロードの拡大で需要が加速。Astera LabsはQ1 2026に売上+93%と急伸し、PCIe Gen6が売上の3分の1超を占めるまでに拡大。一方でバリ…",
+      "rate": 3,
+      "datetime": "2026-07-26T13:23:18+09:00"
+    },
+    {
+      "filename": "CRDO_20260726.html",
+      "name": "Credo Technology Group Holding Ltd",
+      "symbol": "CRDO",
+      "sector": "Semiconductors / High-Speed Connectivity",
+      "feature": "AIクラスタの大規模化により、高速・低消費電力の接続需要が急拡大。CredoはFY2026に売上が3倍超の13.4億ドルへ拡大し、非GAAP純利益は5倍以上に増加。AEC（アクティブ電気ケーブル）に加え、光分野への展開が次の成長軸となる。",
+      "rate": 4,
+      "datetime": "2026-07-26T13:23:18+09:00"
+    },
+    {
+      "filename": "PENG_20260726.html",
+      "name": "Penguin Solutions, Inc.",
+      "symbol": "PENG",
+      "sector": "AI Infrastructure / Integrated Memory",
+      "feature": "エージェント型AIと推論の拡大がメモリ容量需要を押し上げ、非ハイパースケール向けAIインフラ市場が拡大。Penguin SolutionsはQ3 FY2026に売上+48%、AI関連事業が売上の74%（+104%成長）に達し、通期見通しを大…",
+      "rate": 3,
+      "datetime": "2026-07-26T13:23:18+09:00"
+    },
     {
       "filename": "AXON_20260715.html",
       "name": "Axon Enterprise, Inc.",
