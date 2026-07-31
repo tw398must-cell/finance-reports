@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-07-26T13:23:39+09:00",
+  "generated_at": "2026-07-31T13:12:03+09:00",
   "reports": [
+    {
+      "filename": "CORZ_20260731.html",
+      "name": "Core Scientific, Inc.",
+      "symbol": "CORZ",
+      "sector": "High-Density Colocation / Data Center",
+      "feature": "高密度コロケーション市場は、AI事業者の電力・容量確保競争で急拡大。Core Scientificは2025年10月にCoreWeaveによる買収が株主否決で終了し独立を維持、以後AMDとの大型契約を獲得してビットコイン採掘からの転換を加速…",
+      "rate": 2,
+      "datetime": "2026-07-31T13:11:38+09:00"
+    },
+    {
+      "filename": "GLXY_20260731.html",
+      "name": "Galaxy Digital Inc.",
+      "symbol": "GLXY",
+      "sector": "Digital Assets / Data Center Infrastructure",
+      "feature": "暗号資産金融とAIデータセンターの二本柱を志向する事業体が現れている。Galaxy Digitalは2026年Q1に暗号資産価格の約20%下落を受け純損失$216Mを計上する一方、テキサスのHeliosキャンパスでCoreWeave向け初号…",
+      "rate": 2,
+      "datetime": "2026-07-31T13:11:38+09:00"
+    },
+    {
+      "filename": "HOOD_20260731.html",
+      "name": "Robinhood Markets, Inc.",
+      "symbol": "HOOD",
+      "sector": "Capital Markets / Retail Brokerage",
+      "feature": "リテール証券・暗号資産取引は、2025年の活況から2026年に入り局面が変化。暗号資産取引が大きく減速する一方、予測市場（イベント契約）が急伸し、収益源の多様化が進む。Robinhoodは金利収入とサブスクリプションで安定収益を積み上げる段…",
+      "rate": 3,
+      "datetime": "2026-07-31T13:11:38+09:00"
+    },
+    {
+      "filename": "IREN_20260731.html",
+      "name": "IREN Limited",
+      "symbol": "IREN",
+      "sector": "AI Cloud / Data Center Infrastructure",
+      "feature": "再エネ豊富な地域の電力・土地を押さえたデータセンター事業者が、ビットコイン採掘からAIクラウドへ転換する動きが加速。IRENはNVIDIAとの5年契約とMicrosoft契約を軸に、2028年までに5GW規模を目指す。移行期ゆえ足元の売上は…",
+      "rate": 3,
+      "datetime": "2026-07-31T13:11:38+09:00"
+    },
     {
       "filename": "ALAB_20260726.html",
       "name": "Astera Labs, Inc.",
