@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-07-31T13:12:03+09:00",
+  "generated_at": "2026-08-01T06:55:32+09:00",
   "reports": [
+    {
+      "filename": "IONQ_20260801.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "Quantum Computing",
+      "feature": "量子コンピューティングは商用化の初期段階にあり、市場規模は2024年時点で約14億ドル、2030年頃に約42億ドルとの推計もある（Grand View Research）。IonQはイオントラップ方式でQ1 2026に売上+755%と急伸し…",
+      "rate": 3,
+      "datetime": "2026-08-01T06:55:10+09:00"
+    },
+    {
+      "filename": "QBTS_20260801.html",
+      "name": "D-Wave Quantum Inc.",
+      "symbol": "QBTS",
+      "sector": "Quantum Computing",
+      "feature": "量子コンピューティングの商用化初期において、D-Waveはアニーリングとゲートモデルの二方式を持つ唯一の企業。Q1 2026は前年の大型システム売上の反動で減収となる一方、受注が前年比約2,000%増と急伸し、収益認識のタイミング差が業績を…",
+      "rate": 2,
+      "datetime": "2026-08-01T06:55:10+09:00"
+    },
+    {
+      "filename": "RGTI_20260801.html",
+      "name": "Rigetti Computing, Inc.",
+      "symbol": "RGTI",
+      "sector": "Quantum Computing",
+      "feature": "超伝導方式のフルスタック量子企業。Q1 2026に108量子ビット機Cepheus-1-108Qを一般提供開始し売上は+193%増となったが、四半期売上は$4.4Mと絶対額は小さい。2025年通期では約34%の減収であり、業績の一貫性はまだ…",
+      "rate": 2,
+      "datetime": "2026-08-01T06:55:10+09:00"
+    },
     {
       "filename": "CORZ_20260731.html",
       "name": "Core Scientific, Inc.",
