@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-08-01T06:55:32+09:00",
+  "generated_at": "2026-08-01T07:13:11+09:00",
   "reports": [
+    {
+      "filename": "9008T_20260801.html",
+      "name": "京王電鉄株式会社",
+      "symbol": "9008T",
+      "sector": "陸運業 / 大手私鉄・コングロマリット",
+      "feature": "大手私鉄は運輸事業の回復が一巡し、不動産・生活サービスへの多角化が業績を左右する局面。京王電鉄は2026年3月期に営業収益4,969億円と過去最高を更新したが、鉄道安全投資の増加で営業利益は減益。2027年3月期も減価償却費増で減益予想と、…",
+      "rate": 3,
+      "datetime": "2026-08-01T07:12:53+09:00"
+    },
+    {
+      "filename": "SPCX_20260801.html",
+      "name": "Space Exploration Technologies Corp. (SpaceX)",
+      "symbol": "SPCX",
+      "sector": "Aerospace & Defense / Satellite Communications",
+      "feature": "SpaceXは2026年6月12日にNasdaqへ上場（公開価格$135、調達額約$757億で史上最大のIPO）。初値$150、初日終値$160.95と好調な滑り出しの後、$225.64の高値をつけたが、その後は下落が続き現在は公開価格を約…",
+      "rate": 3,
+      "datetime": "2026-08-01T07:12:53+09:00"
+    },
     {
       "filename": "IONQ_20260801.html",
       "name": "IonQ, Inc.",
