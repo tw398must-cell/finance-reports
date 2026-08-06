@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-08-01T07:13:11+09:00",
+  "generated_at": "2026-08-07T02:28:08+09:00",
   "reports": [
+    {
+      "filename": "DERM_20260807.html",
+      "name": "Journey Medical Corporation",
+      "symbol": "DERM",
+      "sector": "Healthcare / Specialty Pharmaceuticals (Dermatology)",
+      "feature": "皮膚科領域の商業ステージ製薬企業。主力の酒さ治療薬Emrosiが売上を牽引し、Q1 2026は増収・調整後EBITDA黒字化を達成した。ただし、GAAPベースでは赤字が続き、決算書には継続企業の前提に関する重要な疑義（going conce…",
+      "rate": 2,
+      "datetime": "2026-08-07T02:23:25+09:00"
+    },
+    {
+      "filename": "PNC_20260807.html",
+      "name": "The PNC Financial Services Group, Inc.",
+      "symbol": "PNC",
+      "sector": "Financial Services / Regional Banks",
+      "feature": "米地方銀行は、預金コスト低下と商業貸出の伸びで純金利収入が回復局面。PNCは2026年1月に完了したFirstBank買収($41億)が寄与し、Q2に売上・純利益とも過去最高を記録。資本市場業務の急伸も追い風となり、通期見通しを上方修正した…",
+      "rate": 4,
+      "datetime": "2026-08-07T02:23:25+09:00"
+    },
+    {
+      "filename": "PSX_20260807.html",
+      "name": "Phillips 66",
+      "symbol": "PSX",
+      "sector": "Energy / Oil & Gas Refining & Marketing",
+      "feature": "石油精製は2026年に入り市況が急転。製油能力の停止と低在庫という供給要因からクラックスプレッドが急拡大し、精製マージンは2022年並みの高水準へ。Phillips 66は2026年8月5日発表のQ2決算で純利益$38.5億と、前四半期の$…",
+      "rate": 3,
+      "datetime": "2026-08-07T02:23:25+09:00"
+    },
+    {
+      "filename": "RLJ_20260807.html",
+      "name": "RLJ Lodging Trust",
+      "symbol": "RLJ",
+      "sector": "Real Estate / Hotel REIT",
+      "feature": "ホテルREITは都市部の出張・レジャー需要が緩やかに回復する局面。RLJはQ1 2026にRevPAR +4.8%と業界を上回る伸びを示し通期見通しを引き上げた。なおQ2決算は2026年8月6日引け後に発表予定で、本レポート作成時点では内容…",
+      "rate": 2,
+      "datetime": "2026-08-07T02:23:25+09:00"
+    },
+    {
+      "filename": "XBI_20260807.html",
+      "name": "State Street SPDR S&P Biotech ETF (XBI)",
+      "symbol": "XBI",
+      "sector": "ETF / Biotechnology (Equal-Weighted)",
+      "feature": "バイオテクノロジーは2025年後半から力強い回復局面にある。利下げ観測による資金調達コストの低下、大手製薬のパテントクリフを背景としたM&A活発化、AIによる創薬期間の短縮が追い風。XBIは均等加重のため中小型バイオの比率が高く、この局面で…",
+      "rate": 3,
+      "datetime": "2026-08-07T02:23:25+09:00"
+    },
     {
       "filename": "9008T_20260801.html",
       "name": "京王電鉄株式会社",
