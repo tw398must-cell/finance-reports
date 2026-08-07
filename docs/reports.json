@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-08-07T02:28:08+09:00",
+  "generated_at": "2026-08-07T13:58:28+09:00",
   "reports": [
+    {
+      "filename": "NET_20260807.html",
+      "name": "Cloudflare, Inc.",
+      "symbol": "NET",
+      "sector": "Software - Infrastructure / CDN・セキュリティ",
+      "feature": "CDN・エッジセキュリティ市場は、AIエージェントによる機械間トラフィックの急増で構造が変わりつつある。Cloudflareは2026年8月6日引け後に発表したQ2決算で売上+36%と加速し、通期ガイダンスを大幅上方修正。ただしAIファース…",
+      "rate": 3,
+      "datetime": "2026-08-07T13:58:11+09:00"
+    },
     {
       "filename": "DERM_20260807.html",
       "name": "Journey Medical Corporation",
