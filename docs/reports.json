@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-08-07T13:58:28+09:00",
+  "generated_at": "2026-08-08T20:33:59+09:00",
   "reports": [
+    {
+      "filename": "AKAM_20260808.html",
+      "name": "Akamai Technologies, Inc.",
+      "symbol": "AKAM",
+      "sector": "Software - Infrastructure / CDN・セキュリティ・クラウド",
+      "feature": "CDNの老舗が事業構造の転換期にある。Akamaiは2026年8月6日発表のQ2決算で売上+5%と低成長ながら、クラウドインフラサービス(CIS)が+39%、セキュリティが+10%と伸長。ロボティクス企業との$6億契約を獲得し2027年に二…",
+      "rate": 3,
+      "datetime": "2026-08-08T20:33:42+09:00"
+    },
+    {
+      "filename": "DDOG_20260808.html",
+      "name": "Datadog, Inc.",
+      "symbol": "DDOG",
+      "sector": "Software / オブザーバビリティ",
+      "feature": "オブザーバビリティ市場はAIワークロードの拡大で加速局面。Datadogは2026年8月6日発表のQ2決算で売上+36%と成長が加速し通期ガイダンスも上方修正したが、最大顧客の利用削減とQ3の減速見通しを嫌気し株価は同日約19%急落した。典…",
+      "rate": 3,
+      "datetime": "2026-08-08T20:33:42+09:00"
+    },
     {
       "filename": "NET_20260807.html",
       "name": "Cloudflare, Inc.",
