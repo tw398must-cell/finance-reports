@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-08-08T20:33:59+09:00",
+  "generated_at": "2026-08-12T02:56:58+09:00",
   "reports": [
+    {
+      "filename": "AUR_20260812.html",
+      "name": "Aurora Innovation, Inc.",
+      "symbol": "AUR",
+      "sector": "自動運転 / 物流テクノロジー",
+      "feature": "自動運転トラックは商用化の入口に立った段階。Auroraは2026年7月29日発表のQ2で、無人走行約44万マイル・衝突ゼロという実績を示し、年末までに無人トラック200台の稼働を計画する。ただし四半期売上はわずか$2Mに対し営業損失$26…",
+      "rate": 2,
+      "datetime": "2026-08-12T02:56:39+09:00"
+    },
+    {
+      "filename": "CBRS_20260812.html",
+      "name": "Cerebras Systems Inc.",
+      "symbol": "CBRS",
+      "sector": "Semiconductors / AI推論アクセラレータ",
+      "feature": "AI推論専用チップ市場は、エージェント型AIの普及で需要が急拡大。Cerebrasはウエハスケールエンジン(WSE-3)を武器に2026年5月14日、公開価格$185で半導体史上最大のIPOを実施し$64億を調達した。OpenAIとの750…",
+      "rate": 2,
+      "datetime": "2026-08-12T02:56:39+09:00"
+    },
     {
       "filename": "AKAM_20260808.html",
       "name": "Akamai Technologies, Inc.",
