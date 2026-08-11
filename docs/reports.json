@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-08-12T06:12:16+09:00",
+  "generated_at": "2026-08-12T06:17:27+09:00",
   "reports": [
+    {
+      "filename": "CMCSA_20260812.html",
+      "name": "Comcast Corporation",
+      "symbol": "CMCSA",
+      "sector": "Communication Services / ケーブル・メディア",
+      "feature": "ブロードバンドは光ファイバー・固定無線・衛星との競合が激化し、価格戦略の転換期にある。Comcastは2026年7月23日発表のQ2で売上・EPSとも予想を上回ったが、意図的な料金引き下げでEBITDAが-5%となり株価は5.2%下落。メデ…",
+      "rate": 3,
+      "datetime": "2026-08-12T06:17:09+09:00"
+    },
+    {
+      "filename": "DKNG_20260812.html",
+      "name": "DraftKings Inc.",
+      "symbol": "DKNG",
+      "sector": "Consumer Cyclical / スポーツベッティング・予測市場",
+      "feature": "予測市場の急拡大が業界の勢力図を塗り替えつつある。DraftKingsは2026年8月6日発表のQ2で市場予想を下回ったものの通期ガイダンスを据え置き、株価は翌日8%上昇した。予測市場を脅威ではなく主戦場と位置づけ、ブローカー・取引所・マー…",
+      "rate": 2,
+      "datetime": "2026-08-12T06:17:09+09:00"
+    },
+    {
+      "filename": "FLUT_20260812.html",
+      "name": "Flutter Entertainment plc",
+      "symbol": "FLUT",
+      "sector": "Consumer Cyclical / オンライン賭博・iGaming",
+      "feature": "米国スポーツベッティングは、KalshiやPolymarketなど予測市場（prediction markets）の台頭という構造変化に直面している。Flutterは2026年8月5日発表のQ2で純損失$296M・調整後EBITDA -45…",
+      "rate": 2,
+      "datetime": "2026-08-12T06:17:09+09:00"
+    },
     {
       "filename": "APP_20260812.html",
       "name": "AppLovin Corporation",
