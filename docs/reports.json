@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-08-12T02:56:58+09:00",
+  "generated_at": "2026-08-12T04:04:05+09:00",
   "reports": [
+    {
+      "filename": "AXON_20260812.html",
+      "name": "Axon Enterprise, Inc.",
+      "symbol": "AXON",
+      "sector": "公共安全テクノロジー / 航空宇宙・防衛",
+      "feature": "公共安全のAI・クラウド化が進み、対ドローン防衛が新たな成長領域として立ち上がっている。Axonは2026年8月5日発表のQ2で売上+35%（10四半期連続の30%超成長）を記録し通期ガイダンスを上方修正。対ドローンのDedroneが四半期…",
+      "rate": 4,
+      "datetime": "2026-08-12T04:03:32+09:00"
+    },
+    {
+      "filename": "FSLR_20260812.html",
+      "name": "First Solar, Inc.",
+      "symbol": "FSLR",
+      "sector": "再生可能エネルギー / 太陽光モジュール製造",
+      "feature": "米国太陽光は通商政策の行方が最大の変数となっている。First Solarは2026年7月30日発表のQ2で、減収ながらEPS $3.92と市場予想$3.01を大きく上回り粗利率57%を達成。累計モジュール販売100GWを突破し受注残高45…",
+      "rate": 3,
+      "datetime": "2026-08-12T04:03:32+09:00"
+    },
+    {
+      "filename": "NEE_20260812.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "Utilities / 再生可能エネルギー・規制電力",
+      "feature": "AIデータセンターの電力需要急増が電力会社の構造的な追い風となっている。NextEraは規制事業FPLと再エネ開発NEERの二本柱で、Q2 2026に調整後EPS +9.5%を達成し受注残高35.1GWへ拡大。2026年5月発表のDomin…",
+      "rate": 4,
+      "datetime": "2026-08-12T04:03:32+09:00"
+    },
+    {
+      "filename": "ZETA_20260812.html",
+      "name": "Zeta Global Holdings Corp.",
+      "symbol": "ZETA",
+      "sector": "Software / マーケティングAI・データプラットフォーム",
+      "feature": "マーケティングテクノロジーはAIによる意思決定基盤へと役割を広げつつある。Zeta Globalは2026年8月4日発表のQ2で売上+44%・GAAP黒字転換を達成し、20四半期連続で「beat and raise」を記録。OpenAI・S…",
+      "rate": 3,
+      "datetime": "2026-08-12T04:03:32+09:00"
+    },
     {
       "filename": "AUR_20260812.html",
       "name": "Aurora Innovation, Inc.",
