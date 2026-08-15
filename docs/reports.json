@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-14T22:33:34+09:00",
+  "generated_at": "2026-08-16T02:22:22+09:00",
   "reports": [
+    {
+      "filename": "GOOGL_20260816.html",
+      "name": "Alphabet Inc.",
+      "symbol": "GOOGL",
+      "sector": "インターネット / AI・量子コンピューティング",
+      "feature": "Alphabetは検索・クラウド・AIの本業で売上+24.2%・営業利益率34.0%を維持しながら、量子コンピューティングでは誤り訂正チップWillowで先行する。手元現金$2,424億は量子研究を事実上無期限に継続できる規模で、純粋量子株…",
+      "rate": 4,
+      "datetime": "2026-08-16T02:22:04+09:00"
+    },
+    {
+      "filename": "HON_20260816.html",
+      "name": "Honeywell International Inc.",
+      "symbol": "HON",
+      "sector": "複合企業 / 航空宇宙・自動化",
+      "feature": "Honeywellは航空宇宙・産業自動化を中核とする複合企業でありながら、量子企業Quantinuumの約48.1%を保有する。2026年6月のQuantinuum上場はスピンオフではなくIPOであったため、Honeywell株主にQNT株…",
+      "rate": 3,
+      "datetime": "2026-08-16T02:22:04+09:00"
+    },
+    {
+      "filename": "IBM_20260816.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "IT サービス / 量子コンピューティング",
+      "feature": "IBMは超伝導方式の量子コンピューティングで最大手の一角を占めつつ、本業のITサービス・ソフトウェアで安定した収益を上げている。純粋量子株が赤字を垂れ流す中、営業利益率16.5%・ROE 34.5%・FCF $120億という本業が量子投資を…",
+      "rate": 3,
+      "datetime": "2026-08-16T02:22:04+09:00"
+    },
+    {
+      "filename": "IONQ_20260816.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "量子コンピューティング",
+      "feature": "量子コンピューティングは商用転換の検証段階に入り、投資家は技術的マイルストーンより商業化の実績を重視し始めている。IonQは2026年8月5日のQ2決算で売上$80.1M（+287%）と5四半期連続の記録を更新し通期見通しを引き上げた。ただ…",
+      "rate": 3,
+      "datetime": "2026-08-16T02:22:04+09:00"
+    },
+    {
+      "filename": "QBTS_20260816.html",
+      "name": "D-Wave Quantum Inc.",
+      "symbol": "QBTS",
+      "sector": "量子コンピューティング",
+      "feature": "投資家が技術的マイルストーンより商業転換の実績を求める局面で、D-Waveは2026年8月6日のQ2決算で売上$310万と横ばい、上半期では前年比67%減となった。アニーリングとゲートモデルの二方式を持つ独自性はあるが、商業化のペースで他社…",
+      "rate": 2,
+      "datetime": "2026-08-16T02:22:04+09:00"
+    },
+    {
+      "filename": "QNT_20260816.html",
+      "name": "Quantinuum Inc.",
+      "symbol": "QNT",
+      "sector": "量子コンピューティング",
+      "feature": "Quantinuumは2021年にHoneywellの量子部門とCambridge Quantumの統合で発足し、2026年6月4日に公開価格$60でNasdaq上場（調達$16.8億）。Honeywellが約48.1%を保持する。8月11…",
+      "rate": 2,
+      "datetime": "2026-08-16T02:22:04+09:00"
+    },
     {
       "filename": "186AT_20260814.html",
       "name": "株式会社アストロスケールホールディングス",
