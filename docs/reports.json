@@ -1,6 +1,69 @@
 {
-  "generated_at": "2026-08-16T02:22:22+09:00",
+  "generated_at": "2026-08-17T23:20:58+09:00",
   "reports": [
+    {
+      "filename": "AMD_20260817.html",
+      "name": "Advanced Micro Devices, Inc.",
+      "symbol": "AMD",
+      "sector": "半導体 / AI加速器・CPU",
+      "feature": "AMDは2026年8月4日のQ2決算で売上$115億（+50%）と過去最高を記録し、データセンタ売上は+107%の$67億へ倍増した。NVIDIAへの挑戦が数字で進展する一方、市場はさらに強いAI成長を求め、決算後の時間外で株価は8%超下落…",
+      "rate": 3,
+      "datetime": "2026-08-17T23:20:39+09:00"
+    },
+    {
+      "filename": "AVGO_20260817.html",
+      "name": "Broadcom Inc.",
+      "symbol": "AVGO",
+      "sector": "半導体 / カスタムASIC・ネットワーク",
+      "feature": "ハイパースケーラーの自社設計AIチップ需要がBroadcomの成長を牽引している。直近四半期の売上は+29%、半導体部門は+52%と加速。AI売上は次四半期に+76%の$148億を見込み、上位5顧客のカスタムAIチップだけで2027会計年度…",
+      "rate": 4,
+      "datetime": "2026-08-17T23:20:39+09:00"
+    },
+    {
+      "filename": "MU_20260817.html",
+      "name": "Micron Technology, Inc.",
+      "symbol": "MU",
+      "sector": "半導体 / DRAM・HBM",
+      "feature": "DRAM需給は15年ぶりの深刻な逼迫にある。Goldman Sachsは2026年の需給ギャップを約4.9%と試算し、DRAM契約価格はQ1だけで約90%上昇した。MicronはHBM4の量産に入り、Q3売上$415億（+345%）を記録。…",
+      "rate": 4,
+      "datetime": "2026-08-17T23:20:39+09:00"
+    },
+    {
+      "filename": "NVDA_20260817.html",
+      "name": "NVIDIA Corporation",
+      "symbol": "NVDA",
+      "sector": "半導体 / AI加速器",
+      "feature": "NVIDIAはAI加速器で約80%のシェアを持ち、Q1 FY27は売上$816億（+85%）と過去最高を更新。Q2 FY27ガイダンスは$910億で前年比約+96%を示唆する。2026年8月26日に決算を控えており、本レポートは決算発表前の…",
+      "rate": 4,
+      "datetime": "2026-08-17T23:20:39+09:00"
+    },
+    {
+      "filename": "QCOM_20260817.html",
+      "name": "QUALCOMM Incorporated",
+      "symbol": "QCOM",
+      "sector": "半導体 / モバイル・通信",
+      "feature": "AI半導体が沸騰する一方、Qualcommはスマートフォン向けが主力のため売上が-4%と減収局面にある。加えてTSMCの先端プロセス5-10%値上げにより、薄いマージンで事業を営むスマホ・PC向けチップメーカーは端末メーカーへの価格転嫁を迫…",
+      "rate": 3,
+      "datetime": "2026-08-17T23:20:39+09:00"
+    },
+    {
+      "filename": "SNDK_20260817.html",
+      "name": "Sandisk Corporation",
+      "symbol": "SNDK",
+      "sector": "半導体 / NANDフラッシュ",
+      "feature": "AI起因のメモリ・スーパーサイクルが進行中。NANDフラッシュ価格は数か月で2倍以上に上昇し、SanDiskの株価は52週安値$43.20から$1,783へ急騰した。AIハイパースケーラーがエンタープライズ向けストレージを高値で確保する動き…",
+      "rate": 3,
+      "datetime": "2026-08-17T23:20:39+09:00"
+    },
+    {
+      "filename": "TSM_20260817.html",
+      "name": "Taiwan Semiconductor Manufacturing (TSMC)",
+      "symbol": "TSM",
+      "sector": "半導体 / 先端ファウンドリ",
+      "feature": "TSMCは2026年7月16日のQ2決算で売上$402億（+36%）・粗利率67.7%と過去最高を更新し、通期成長率見通しを40%超へ引き上げた。設備投資も$600-640億へ増額。7nm以下の先端プロセスで5-10%の値上げを通知しており…",
+      "rate": 4,
+      "datetime": "2026-08-17T23:20:39+09:00"
+    },
     {
       "filename": "GOOGL_20260816.html",
       "name": "Alphabet Inc.",
