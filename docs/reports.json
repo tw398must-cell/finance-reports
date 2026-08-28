@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-08-21T01:58:39+09:00",
+  "generated_at": "2026-08-29T05:22:23+09:00",
   "reports": [
+    {
+      "filename": "4118T_20260829.html",
+      "name": "カネカ",
+      "symbol": "4118T",
+      "sector": "Perovskite Solar / Specialty Chemicals",
+      "feature": "東芝と並行してシリコン+ペロブスカイトのタンデム型技術を開発するスペシャルティケミカルメーカー。2025年に経産省の総額246億円規模の支援対象に選定。日本勢3社の中では時価総額が最も小さく、ペロブスカイトが将来的な業績インパクトを持つ場合…",
+      "rate": 3,
+      "datetime": "2026-08-29T05:21:57+09:00"
+    },
+    {
+      "filename": "4204T_20260829.html",
+      "name": "積水化学工業",
+      "symbol": "4204T",
+      "sector": "Perovskite Solar / Specialty Materials",
+      "feature": "フィルム型ペロブスカイト太陽電池「SOLAFIL」で国内量産を先行させる化学メーカー。2026年3月に事業を開始し、2027年4月には大阪・堺の新工場で100MWの量産ラインが稼働予定。政府から最大1,572.5億円（補助率50%）の巨額補…",
+      "rate": 3,
+      "datetime": "2026-08-29T05:21:57+09:00"
+    },
+    {
+      "filename": "6752T_20260829.html",
+      "name": "パナソニックホールディングス",
+      "symbol": "6752T",
+      "sector": "Perovskite Solar / Consumer Electronics",
+      "feature": "ガラス建材一体型ペロブスカイト太陽電池を開発中の総合電機大手。積水化学・カネカとは用途で棲み分けており、2025年に経産省の総額246億円規模の支援対象にも選定された。ただし全社売上（8兆円超）に占めるペロブスカイト事業の比率は現時点でごく…",
+      "rate": 2,
+      "datetime": "2026-08-29T05:21:57+09:00"
+    },
+    {
+      "filename": "FSLR_20260829.html",
+      "name": "First Solar, Inc.",
+      "symbol": "FSLR",
+      "sector": "Perovskite Solar / Solar Technology",
+      "feature": "北米最大の薄膜太陽電池メーカーで、2026年2月に英Oxford PVと特許ライセンス契約を締結し米国向けペロブスカイト製品開発を加速。ペロブスカイト分野で株式市場から直接投資できる数少ない上場企業だが、商用出荷はまだ先。CubicPV・C…",
+      "rate": 3,
+      "datetime": "2026-08-29T05:21:57+09:00"
+    },
     {
       "filename": "6965T_20260821.html",
       "name": "浜松ホトニクス株式会社",
