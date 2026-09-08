@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-09-09T04:07:38+09:00",
+  "generated_at": "2026-09-09T04:12:34+09:00",
   "reports": [
+    {
+      "filename": "CORZ_20260909.html",
+      "name": "Core Scientific, Inc.",
+      "symbol": "CORZ",
+      "sector": "高密度コロケーション / データセンター",
+      "feature": "Core ScientificはCoreWeave買収破談後、独立企業としてビットコイン採掘から高密度コロケーション（HDC）への転換を加速している。2026年Q2はコロケーション収益が前年比13倍の$136.7Mへ急拡大し、H1の売上構成…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:12:09+09:00"
+    },
+    {
+      "filename": "HYPD_20260909.html",
+      "name": "Hyperion DeFi, Inc.",
+      "symbol": "HYPD",
+      "sector": "暗号資産財務会社 / DeFi（Hyperliquid）",
+      "feature": "眼科医療機器企業Eyenovia社が2025年7月にHyperion DeFiへ社名変更し、Hyperliquidブロックチェーンのネイティブトークン「HYPE」を保有する財務会社へ転換した。時価総額約$5,500万に対しHYPE保有評価額…",
+      "rate": 2,
+      "datetime": "2026-09-09T04:12:09+09:00"
+    },
+    {
+      "filename": "IREN_20260909.html",
+      "name": "IREN Limited",
+      "symbol": "IREN",
+      "sector": "AI Cloud / データセンターインフラ",
+      "feature": "IRENは2026年8月27日発表のFY26決算で、Q4にAI Cloud収益がビットコイン採掘収益を初めて上回るという転換点を迎えた。通期売上は+41%の$707.0Mだが、$638.8Mの非現金減損により純損失$702.6Mを計上。前回…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:12:09+09:00"
+    },
+    {
+      "filename": "MARA_20260909.html",
+      "name": "MARA Holdings, Inc.",
+      "symbol": "MARA",
+      "sector": "デジタルインフラ / ビットコイン採掘・エネルギー",
+      "feature": "MARAはビットコイン採掘専業から、エネルギー・AIインフラの垂直統合企業への転換を進めている。2026年Q2はビットコイン価格下落（-28%）により減収・大幅純損失となったが、電力ポートフォリオを4.8GWへ拡大しStarwood Cap…",
+      "rate": 2,
+      "datetime": "2026-09-09T04:12:09+09:00"
+    },
+    {
+      "filename": "SPCX_20260909.html",
+      "name": "Space Exploration Technologies Corp. (SpaceX)",
+      "symbol": "SPCX",
+      "sector": "航空宇宙・防衛 / 衛星通信・AI",
+      "feature": "SpaceXは2026年6月のIPO後、8月4日に上場企業として初の四半期決算を発表し売上$78.1億（+92%）と市場予想を大きく上回った。前回8月時点の$141から現在$154へ回復しているが、依然として高値$225.64からは約32%…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:12:09+09:00"
+    },
     {
       "filename": "CBRS_20260909.html",
       "name": "Cerebras Systems Inc.",
