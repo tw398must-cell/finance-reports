@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-09-09T04:12:34+09:00",
+  "generated_at": "2026-09-09T04:20:29+09:00",
   "reports": [
+    {
+      "filename": "AVGO_20260909.html",
+      "name": "Broadcom Inc.",
+      "symbol": "AVGO",
+      "sector": "半導体 / カスタムASIC・ネットワーク",
+      "feature": "Broadcomは9月2日発表のQ3決算でAI半導体売上+221%・総売上+86%という記録的な成長を示し、Q4もAI半導体+236%を見込むガイダンスを提示した。だが決算後の株価反応は強気一辺倒ではなく、複数の証券会社が「素晴らしい内容だ…",
+      "rate": 4,
+      "datetime": "2026-09-09T04:20:04+09:00"
+    },
+    {
+      "filename": "IONQ_20260909.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "量子コンピューティング",
+      "feature": "IonQは9月8日にSkyWater統合後初の統合ガイダンス（通期売上$450-460M）を発表し、次世代機Superion 256も投入した。9月に入り量子computing株全体が金利動向や規制ニュースに敏感に反応する中、IBM・Mic…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:20:04+09:00"
+    },
+    {
+      "filename": "NEE_20260909.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "公益 / 再生可能エネルギー・規制電力",
+      "feature": "NextEraはDominion Energyとの合併規模が$668億と判明し、買収案件の全容がより明確になった。加えてDOEから$19億の融資を確保し、Duane Arnold原子力発電所の再稼働を進めるなど、原子力回帰の動きも具体化して…",
+      "rate": 4,
+      "datetime": "2026-09-09T04:20:04+09:00"
+    },
     {
       "filename": "CORZ_20260909.html",
       "name": "Core Scientific, Inc.",
