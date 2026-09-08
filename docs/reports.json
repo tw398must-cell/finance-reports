@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-09-09T04:20:29+09:00",
+  "generated_at": "2026-09-09T04:47:02+09:00",
   "reports": [
+    {
+      "filename": "AMZN_20260909.html",
+      "name": "Amazon.com, Inc.",
+      "symbol": "AMZN",
+      "sector": "インターネット小売 / クラウド・AI",
+      "feature": "AmazonはQ2 2026決算でAWS成長率が18四半期ぶりの+37%へ加速し、株価が時間外で+9%上昇した。GAAP純利益にはAnthropicへの投資評価益$534億という非現金項目が含まれており、実態はこれを除いた営業指標で判断する…",
+      "rate": 4,
+      "datetime": "2026-09-09T04:46:38+09:00"
+    },
+    {
+      "filename": "CLSK_20260909.html",
+      "name": "CleanSpark, Inc.",
+      "symbol": "CLSK",
+      "sector": "デジタルインフラ / ビットコイン採掘・AI/HPC転換",
+      "feature": "CleanSparkはビットコイン採掘専業からAI/HPC対応データセンターへの転換を進める。FY26 Q2（3月末）は減収・大幅純損失となったが、ERCOT承認済み容量を585MWへ倍増させ、AI/HPC資産の商業化を明言している。ビット…",
+      "rate": 2,
+      "datetime": "2026-09-09T04:46:38+09:00"
+    },
+    {
+      "filename": "IBM_20260909.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "IT サービス / 量子コンピューティング",
+      "feature": "IBMは2026年に入り株価が年初来約-30%と苦戦している。Q2決算は売上+1%と伸びが緩やかで、主力の高マージン事業ソフトウェアが+5%成長する一方、メインフレーム売上は前世代機z17サイクル終了により-42%の急減。量子コンピューティ…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:46:38+09:00"
+    },
+    {
+      "filename": "TSM_20260909.html",
+      "name": "Taiwan Semiconductor Manufacturing (TSMC)",
+      "symbol": "TSM",
+      "sector": "半導体 / 先端ファウンドリ",
+      "feature": "TSMCはQ2に売上$402億（+36%）・粗利率67.7%と過去最高を更新し通期成長率見通しを40%超へ引き上げた。前回8月時点からバリュエーションは概ね横ばいで推移しており、NVIDIA・AMD・Broadcomという主要AI半導体企業…",
+      "rate": 4,
+      "datetime": "2026-09-09T04:46:38+09:00"
+    },
     {
       "filename": "AVGO_20260909.html",
       "name": "Broadcom Inc.",
