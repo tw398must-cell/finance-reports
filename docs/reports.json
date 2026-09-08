@@ -1,6 +1,51 @@
 {
-  "generated_at": "2026-08-30T04:53:59+09:00",
+  "generated_at": "2026-09-09T04:07:38+09:00",
   "reports": [
+    {
+      "filename": "CBRS_20260909.html",
+      "name": "Cerebras Systems Inc.",
+      "symbol": "CBRS",
+      "sector": "半導体 / AI推論アクセラレータ",
+      "feature": "Cerebrasは9月4日にフィンランド165MWのAIデータセンター案件を発表し株価が12.8%上昇するなど、事業拡大のニュースフローが続く。8月12日のQ2決算はコア売上+103%と好調だったが、Q3ガイダンスの鈍化を受けて一時12%下…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:07:11+09:00"
+    },
+    {
+      "filename": "EXPE_20260909.html",
+      "name": "Expedia Group, Inc.",
+      "symbol": "EXPE",
+      "sector": "Consumer Cyclical / オンライン旅行代理店",
+      "feature": "オンライン旅行はB2B（他社への在庫・技術提供）が収益の柱として台頭している。Expediaは2026年8月5日のQ2決算で売上+14%・調整後EPS +36%と5四半期連続でガイダンスを上回り、通期見通しを上方修正した。B2B事業が20四…",
+      "rate": 4,
+      "datetime": "2026-09-09T04:07:11+09:00"
+    },
+    {
+      "filename": "NET_20260909.html",
+      "name": "Cloudflare, Inc.",
+      "symbol": "NET",
+      "sector": "Software / CDN・セキュリティ",
+      "feature": "Cloudflareは8月6日のQ2決算で売上+36%と成長が加速し株価は一時急落したが、その後アナリストの目標株価引き上げが相次ぎ回復基調にある。8月には量子耐性を持つAdaptive Intelligenceの発表や役員の大口株式売却も…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:07:11+09:00"
+    },
+    {
+      "filename": "SNDK_20260909.html",
+      "name": "Sandisk Corporation",
+      "symbol": "SNDK",
+      "sector": "半導体 / NANDフラッシュ",
+      "feature": "NANDフラッシュのスーパーサイクルにより、Sandiskは2026年に年初来+726%という驚異的な上昇を記録しS&P500の首位となった。9月にはS&P100指数への採用も決定し9月4日に11.9%急伸。ただし52週高値$2,354.3…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:07:11+09:00"
+    },
+    {
+      "filename": "TSLA_20260909.html",
+      "name": "Tesla, Inc.",
+      "symbol": "TSLA",
+      "sector": "自動車 / EV・自動運転・ロボティクス",
+      "feature": "TeslaはQ2 2026に納車48万126台（+25%、過去最高のQ2）を記録し前年比プラスへ転換したが、収益性は低下が続く。営業利益率はわずか1.4%で、企業価値の大部分はFSD・Robotaxi・Optimusという未確立事業への期待…",
+      "rate": 3,
+      "datetime": "2026-09-09T04:07:11+09:00"
+    },
     {
       "filename": "5269T_20260830.html",
       "name": "日本コンクリート工業株式会社",
