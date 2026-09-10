@@ -1,6 +1,78 @@
 {
-  "generated_at": "2026-09-09T04:47:02+09:00",
+  "generated_at": "2026-09-11T01:27:28+09:00",
   "reports": [
+    {
+      "filename": "AKAM_20260911.html",
+      "name": "Akamai Technologies, Inc.",
+      "symbol": "AKAM",
+      "sector": "Software / CDN・クラウドインフラ",
+      "feature": "Akamaiは前回8月の決算後急落から緩やかに回復し、$110.54から$109.84とほぼ横ばいで推移している。CDNからクラウド・セキュリティへの転換が進む中、予想PER 15.3倍・P/S 3.65倍という同業で最も低いバリュエーショ…",
+      "rate": 3,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
+    {
+      "filename": "BWXT_20260911.html",
+      "name": "BWX Technologies, Inc.",
+      "symbol": "BWXT",
+      "sector": "航空宇宙・防衛 / 原子力",
+      "feature": "BWXTは前回8月時点からほぼ横ばいで52週安値圏に留まっている。受注残高$84億（+40%）・book-to-bill 1.7倍という強い需要指標は変わらず、目標株価乖離は約+48%と依然として8銘柄中で最大級。株価とファンダメンタルズの…",
+      "rate": 4,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
+    {
+      "filename": "CRWD_20260911.html",
+      "name": "CrowdStrike Holdings, Inc.",
+      "symbol": "CRWD",
+      "sector": "Software / サイバーセキュリティ・エンドポイント",
+      "feature": "CrowdStrikeは8月26日発表のQ2で売上$14.7億（+26%）と過去最高を記録し、8四半期連続で決算予想を上回った。純新規ARRは$3.33億（+51%）で通期ガイダンスを上方修正。株価は年初来+45%超と好調だが、時価総額に対…",
+      "rate": 3,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
+    {
+      "filename": "GOOGL_20260911.html",
+      "name": "Alphabet Inc.",
+      "symbol": "GOOGL",
+      "sector": "インターネット / AI・量子コンピューティング",
+      "feature": "Alphabetは本業の検索・クラウド・AIで売上+24.2%・営業利益率34.0%を維持し、前回9月時点から株価はほぼ横ばい（$345.90→$330.66）で推移している。PER 16.6倍は大手テック中で引き続き最も低く、目標株価乖離…",
+      "rate": 4,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
+    {
+      "filename": "NEE_20260911.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "公益 / 再生可能エネルギー・規制電力",
+      "feature": "NextEraは前回9月時点からほぼ横ばいで推移しており、Dominion Energyとの$668億規模の合併とDuane Arnold原発再稼働への$19億融資という材料はすでに織り込まれつつある。PBR 3.01倍は同業で引き続き最も…",
+      "rate": 4,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
+    {
+      "filename": "NET_20260911.html",
+      "name": "Cloudflare, Inc.",
+      "symbol": "NET",
+      "sector": "Software / CDN・セキュリティ",
+      "feature": "Cloudflareは前回8月のQ2決算（売上+36%）後の急落から回復し、株価は52週高値$332.22に迫る水準まで戻している。P/S 44.4倍・PBR 68.9倍という極端なバリュエーションは変わらないが、アナリストの目標株価引き上…",
+      "rate": 3,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
+    {
+      "filename": "PANW_20260911.html",
+      "name": "Palo Alto Networks, Inc.",
+      "symbol": "PANW",
+      "sector": "Software / サイバーセキュリティ・AI",
+      "feature": "Palo Alto Networksは9月1日発表のFQ4で売上$34.1億（+34%）・EPS $1.02（予想超過）と好決算を記録し、次世代セキュリティARRは$91億（+63%）へ拡大した。しかしCyberArk統合コストによりGAA…",
+      "rate": 4,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
+    {
+      "filename": "TSLA_20260911.html",
+      "name": "Tesla, Inc.",
+      "symbol": "TSLA",
+      "sector": "自動車 / EV・自動運転・ロボティクス",
+      "feature": "Teslaは前回9月時点からほぼ横ばいで推移しており、営業利益率1.41%という低収益性とPER 342倍という極端なバリュエーションの組み合わせは変わっていない。BYDとの世界EV販売差が縮小する一方、企業価値の大半はFSD・Robota…",
+      "rate": 3,
+      "datetime": "2026-09-11T01:27:04+09:00"
+    },
     {
       "filename": "AMZN_20260909.html",
       "name": "Amazon.com, Inc.",
