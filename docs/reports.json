@@ -1,6 +1,24 @@
 {
-  "generated_at": "2026-09-11T01:27:28+09:00",
+  "generated_at": "2026-09-11T06:23:23+09:00",
   "reports": [
+    {
+      "filename": "CRDO_20260911.html",
+      "name": "Credo Technology Group Holding Ltd",
+      "symbol": "CRDO",
+      "sector": "半導体 / 高速接続（AEC・光）",
+      "feature": "Credoは9月1日発表のFQ1で売上$479M（+115%）・EPS $1.20と市場予想を上回るbeat and raiseを記録したが、GAAP粗利率が68.2%→64.5%へ低下し光製品の通期ガイダンス$6億超が期待未達と受け止めら…",
+      "rate": 3,
+      "datetime": "2026-09-11T06:23:00+09:00"
+    },
+    {
+      "filename": "GLW_20260911.html",
+      "name": "Corning Incorporated",
+      "symbol": "GLW",
+      "sector": "素材 / 光通信・ガラス技術",
+      "feature": "Corningは光ファイバー・ガラス技術の老舗企業でありながら、AIデータセンター需要の波に乗り事業を再加速させている。Q2 2026はコア売上$47.4億（+17%）・光通信事業が+32%と伸長し、Amazon・NVIDIA・Metaと相…",
+      "rate": 4,
+      "datetime": "2026-09-11T06:23:00+09:00"
+    },
     {
       "filename": "AKAM_20260911.html",
       "name": "Akamai Technologies, Inc.",
