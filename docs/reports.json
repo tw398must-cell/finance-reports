@@ -1,6 +1,69 @@
 {
-  "generated_at": "2026-09-11T06:23:23+09:00",
+  "generated_at": "2026-09-16T08:08:52+09:00",
   "reports": [
+    {
+      "filename": "ACHR_20260916.html",
+      "name": "Archer Aviation Inc.",
+      "symbol": "ACHR",
+      "sector": "航空宇宙・防衛 / eVTOL・自律航空機",
+      "feature": "Archer AviationはQ2に売上$5M（前四半期比+213%）を計上し、FAA Type Certificationの第4フェーズに唯一到達したOEMとしての地位を維持している。BoeingからWisk Aero・Insitu・S…",
+      "rate": 2,
+      "datetime": "2026-09-16T08:08:28+09:00"
+    },
+    {
+      "filename": "BEAM_20260916.html",
+      "name": "Beam Therapeutics Inc.",
+      "symbol": "BEAM",
+      "sector": "バイオテクノロジー / 塩基編集（ベースエディティング）",
+      "feature": "Beam Therapeuticsは塩基編集技術を用いた遺伝子医療の開発企業で、上半期に$2.17億の純損失を計上する典型的な創薬期の財務状況にある。BEAM-302（AATD）とristo-cel（鎌状赤血球症）の2つの主要プログラムでF…",
+      "rate": 2,
+      "datetime": "2026-09-16T08:08:28+09:00"
+    },
+    {
+      "filename": "CBRS_20260916.html",
+      "name": "Cerebras Systems Inc.",
+      "symbol": "CBRS",
+      "sector": "半導体 / AI推論アクセラレータ",
+      "feature": "CerebrasはQ2決算でコア売上が過去最高の$209.9M（+103%）を記録したが、総売上$180Mは市場予想$194Mを下回り通期見通しを引き上げたにもかかわらず株価が時間外で約14%下落した。IPO高値$350から現在$184.0…",
+      "rate": 3,
+      "datetime": "2026-09-16T08:08:28+09:00"
+    },
+    {
+      "filename": "CRSP_20260916.html",
+      "name": "CRISPR Therapeutics AG",
+      "symbol": "CRSP",
+      "sector": "バイオテクノロジー / 遺伝子編集",
+      "feature": "CRISPR Therapeuticsは、遺伝子編集技術を用いた世界初の承認製品Casgevy（鎌状赤血球症・βサラセミア治療薬）を持つ企業で、Q2はCasgevy売上が前年比78%増と伸長した。ただし全社売上は依然として小規模で、Q2の売…",
+      "rate": 3,
+      "datetime": "2026-09-16T08:08:28+09:00"
+    },
+    {
+      "filename": "HOOD_20260916.html",
+      "name": "Robinhood Markets, Inc.",
+      "symbol": "HOOD",
+      "sector": "金融サービス / リテール証券",
+      "feature": "Robinhoodは株価が52週高値$153.86から約28%下落し$110.45で推移している。前回7月時点で確認した暗号資産収益の落ち込み（-47%）に対し、株式・イベント契約・金利収入が補う収益多様化のトレンドが続いているとみられ、P…",
+      "rate": 3,
+      "datetime": "2026-09-16T08:08:28+09:00"
+    },
+    {
+      "filename": "PLTR_20260916.html",
+      "name": "Palantir Technologies Inc.",
+      "symbol": "PLTR",
+      "sector": "Software / AI分析プラットフォーム",
+      "feature": "Palantirは8月3日のQ2決算で売上+93%・米商業事業+149%と記録的な成長を示し、決算後に株価は+12%上昇、その後の1週間で約+40%上昇する場面もあった。CEO Alex Karp氏は「コンセンサスを忘れろ」と発言するなど強…",
+      "rate": 3,
+      "datetime": "2026-09-16T08:08:28+09:00"
+    },
+    {
+      "filename": "TWST_20260916.html",
+      "name": "Twist Bioscience Corporation",
+      "symbol": "TWST",
+      "sector": "バイオテクノロジー / 合成DNA・遺伝子合成",
+      "feature": "Twist Bioscienceは合成DNA・遺伝子合成のツール企業で、遺伝子編集や創薬研究向けのオリゴプール・遺伝子断片を製造販売する。株価は52週安値$23.30から$138.10へ約5.9倍に急騰しており、AI創薬・遺伝子編集需要の拡…",
+      "rate": 2,
+      "datetime": "2026-09-16T08:08:28+09:00"
+    },
     {
       "filename": "CRDO_20260911.html",
       "name": "Credo Technology Group Holding Ltd",
