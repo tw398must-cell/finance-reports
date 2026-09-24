@@ -1,6 +1,96 @@
 {
-  "generated_at": "2026-09-16T08:08:52+09:00",
+  "generated_at": "2026-09-24T23:46:43+09:00",
   "reports": [
+    {
+      "filename": "6702T_20260924.html",
+      "name": "富士通株式会社",
+      "symbol": "6702T",
+      "sector": "情報・通信 / 総合ICT・DX",
+      "feature": "富士通はDX事業を軸とする総合ICT企業で、2026年3月期は純利益4,494億円（+104.5%）と大幅増益を達成した。ハードウェア事業から撤退しソフトウェア・サービスへの構造転換を進めており、生成AI関連製品Fujitsu Kozuch…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "6965T_20260924.html",
+      "name": "浜松ホトニクス株式会社",
+      "symbol": "6965T",
+      "sector": "電気機器 / 光技術・光半導体",
+      "feature": "浜松ホトニクスは前回8月時点の2,335円からやや下落し2,316円で推移している。8月の3Q決算で通期経常を255億円へ再上方修正した内容に変化はなく、生成AI向け半導体検査需要という業績反転の構図も継続している。PBR 2.11倍は同業…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "BE_20260924.html",
+      "name": "Bloom Energy Corporation",
+      "symbol": "BE",
+      "sector": "産業機器 / 固体酸化物燃料電池",
+      "feature": "Bloom Energyは固体酸化物燃料電池でAIデータセンター向けオンサイト電源需要を取り込み、Q2売上$10.65億（+166%）と初めて四半期10億ドルを突破した。BrookfieldとのAIハイパースケーラー向け提携を$50億から$…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "BWXT_20260924.html",
+      "name": "BWX Technologies, Inc.",
+      "symbol": "BWXT",
+      "sector": "航空宇宙・防衛 / 原子力",
+      "feature": "BWXTは前回9月時点の$154.61から$140.24へさらに下落し、52週安値$139.35に迫っている。受注残高$84億（+40%）・book-to-bill 1.7倍という強い需要指標は変わらないが、株価との乖離は縮小するどころかむ…",
+      "rate": 4,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "CBRS_20260924.html",
+      "name": "Cerebras Systems Inc.",
+      "symbol": "CBRS",
+      "sector": "半導体 / AI推論アクセラレータ",
+      "feature": "Cerebrasは前回9月時点からやや上昇し$202.80で推移している。8月12日Q2決算での総売上未達による急落から回復基調にあり、コア売上の急拡大とクラウド事業の伸びが引き続き評価されている。IPO高値$350からは約42%下の水準で…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "CRDO_20260924.html",
+      "name": "Credo Technology Group Holding Ltd",
+      "symbol": "CRDO",
+      "sector": "半導体 / 高速接続（AEC・光）",
+      "feature": "Credoは9月1日の急落（-20%）から回復しつつあり、$160.31から$191.13へ約19%戻している。ただし52週高値$308.67からは依然として約38%下の水準。GAAP粗利率の低下傾向という論点は残るが、CalSTRS等の長…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "IBM_20260924.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "IT サービス / 量子コンピューティング",
+      "feature": "IBMは前回9月時点の$232.74から$227.45へやや下落しているが、PER 20.2倍・PBR 6.22倍という評価水準に大きな変化はない。年初来のパフォーマンスは引き続きS&P500に劣後する状態が続いており、メインフレームサイク…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "ION_20260924.html",
+      "name": "ProShares S&P Global Core Battery Metals ETF",
+      "symbol": "ION",
+      "sector": "ETF / 電池金属（リチウム・コバルト・ニッケル）",
+      "feature": "ION（ProShares S&P Global Core Battery Metals ETF）は、EV・蓄電池の生産に不可欠なリチウム・コバルト・ニッケル等の電池金属関連銘柄に投資するETF。株価は52週安値$36.70から$47.47…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "NEE_20260924.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "公益 / 再生可能エネルギー・規制電力",
+      "feature": "NextEraは9月8日のQ2決算でEPS $1.15が予想$1.11を上回ったが売上は予想を下回り、株価は前回9月時点の$82.44から$76.67へ約7%下落している。Dominion Energyとの$668億規模の合併は9月中旬に株…",
+      "rate": 4,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
+    {
+      "filename": "NET_20260924.html",
+      "name": "Cloudflare, Inc.",
+      "symbol": "NET",
+      "sector": "Software / CDN・セキュリティ",
+      "feature": "Cloudflareは52週高値$364.23に迫る$360.32まで上昇し、9月11日時点からさらに評価が改善している。P/S 51.1倍・PBR 79.2倍という極端な評価は継続しているが、AIエージェント経済の基盤としての位置づけが市…",
+      "rate": 3,
+      "datetime": "2026-09-24T23:46:15+09:00"
+    },
     {
       "filename": "ACHR_20260916.html",
       "name": "Archer Aviation Inc.",
