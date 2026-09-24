@@ -1,6 +1,15 @@
 {
-  "generated_at": "2026-09-24T23:46:43+09:00",
+  "generated_at": "2026-09-25T01:01:32+09:00",
   "reports": [
+    {
+      "filename": "IONQ_20260925.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "量子コンピューティング",
+      "feature": "IonQは9月8日のInvestor DayでSkyWater統合後の通期売上見通しを$4.5-4.6億へ引き上げ、その後もIEEE Quantum Weekでの4件のBest Paper受賞、リアルタイム量子誤り訂正デコーダの実証、韓国S…",
+      "rate": 3,
+      "datetime": "2026-09-25T01:01:08+09:00"
+    },
     {
       "filename": "6702T_20260924.html",
       "name": "富士通株式会社",
@@ -61,15 +70,6 @@
       "symbol": "IBM",
       "sector": "IT サービス / 量子コンピューティング",
       "feature": "IBMは前回9月時点の$232.74から$227.45へやや下落しているが、PER 20.2倍・PBR 6.22倍という評価水準に大きな変化はない。年初来のパフォーマンスは引き続きS&P500に劣後する状態が続いており、メインフレームサイク…",
-      "rate": 3,
-      "datetime": "2026-09-24T23:46:15+09:00"
-    },
-    {
-      "filename": "ION_20260924.html",
-      "name": "ProShares S&P Global Core Battery Metals ETF",
-      "symbol": "ION",
-      "sector": "ETF / 電池金属（リチウム・コバルト・ニッケル）",
-      "feature": "ION（ProShares S&P Global Core Battery Metals ETF）は、EV・蓄電池の生産に不可欠なリチウム・コバルト・ニッケル等の電池金属関連銘柄に投資するETF。株価は52週安値$36.70から$47.47…",
       "rate": 3,
       "datetime": "2026-09-24T23:46:15+09:00"
     },
