@@ -1,6 +1,132 @@
 {
-  "generated_at": "2026-09-25T01:01:32+09:00",
+  "generated_at": "2026-10-08T01:11:22+09:00",
   "reports": [
+    {
+      "filename": "5333T_20261008.html",
+      "name": "日本ガイシ (NGK Insulators, Ltd.)",
+      "symbol": "5333T",
+      "sector": "Industrial Ceramics / 半導体製造装置部材・電力",
+      "feature": "AI半導体の増産で、製造装置向けセラミック部材の需要が拡大しています。一方で、自動車排ガス浄化部材はEV化の影響を受けやすく、事業構成の転換が各社の課題です。",
+      "rate": 3,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "6752T_20261008.html",
+      "name": "パナソニック ホールディングス (Panasonic Holdings Corporation)",
+      "symbol": "6752T",
+      "sector": "Consumer Electronics / 電池・データセンター電源",
+      "feature": "AIデータセンター投資の拡大で、サーバー用電源・バックアップ電池・電子部品の需要が急増しています。総合電機各社は事業の選択と集中を進め、AIインフラ関連の比重を高めています。",
+      "rate": 4,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "6981T_20261008.html",
+      "name": "村田製作所 (Murata Manufacturing Co., Ltd.)",
+      "symbol": "6981T",
+      "sector": "Electronic Components / MLCC・AIサーバー",
+      "feature": "AIサーバーは1台あたりのMLCC（積層セラミックコンデンサ）使用量が一般サーバーの数倍とされ、受注が急増しています。日韓の大手で受注出荷比（BB値）が高まり、下半期の供給逼迫リスクも指摘されています。",
+      "rate": 4,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "7012T_20261008.html",
+      "name": "川崎重工業 (Kawasaki Heavy Industries, Ltd.)",
+      "symbol": "7012T",
+      "sector": "Industrials / 防衛・航空宇宙・水素",
+      "feature": "国内重工業は防衛予算の増額、民間航空機需要の回復、エネルギー転換（水素・原子力）を追い風に受注を伸ばしています。一方で、大型案件の採算管理と財務負担が各社の課題です。",
+      "rate": 3,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "7203T_20261008.html",
+      "name": "トヨタ自動車 (Toyota Motor Corporation)",
+      "symbol": "7203T",
+      "sector": "Auto Manufacturers / ハイブリッド・全方位",
+      "feature": "自動車業界は米国関税とEV補助金縮小を受け、ハイブリッド需要が再評価されています。円安は日本勢の採算を押し上げる一方、関税コストと北米の販売動向が利益の変動要因です。",
+      "rate": 3,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "7267T_20261008.html",
+      "name": "本田技研工業 (Honda Motor Co., Ltd.)",
+      "symbol": "7267T",
+      "sector": "Auto Manufacturers / 二輪・四輪",
+      "feature": "自動車業界は米国の15%関税とEV補助金縮小を受け、EV計画の見直しとハイブリッド回帰が進んでいます。円安が日本勢の採算を支える一方、中国市場では現地勢との価格競争が続いています。",
+      "rate": 3,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "BWXT_20261008.html",
+      "name": "BWX Technologies, Inc.",
+      "symbol": "BWXT",
+      "sector": "Aerospace & Defense / 原子力（海軍炉・燃料）",
+      "feature": "米国では海軍艦艇の増強と原子力回帰を受け、原子炉部品・核燃料の需要が拡大しています。国内のウラン濃縮能力の強化も政策課題となっており、関連企業の受注は過去最高水準です。",
+      "rate": 4,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "FSLR_20261008.html",
+      "name": "First Solar, Inc.",
+      "symbol": "FSLR",
+      "sector": "Solar / 薄膜太陽電池（米国製造）",
+      "feature": "米国の太陽光業界は、金利高止まりによる案件ファイナンスの悪化と、税控除など政策の不透明感が重しです。一方、関税と国内製造優遇で米国製モジュールの価格は下支えされています。",
+      "rate": 3,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "GLW_20261008.html",
+      "name": "Corning Incorporated",
+      "symbol": "GLW",
+      "sector": "Electronic Components / 光ファイバー・特殊ガラス",
+      "feature": "AIデータセンターでは、GPU同士をつなぐ光ファイバー・光接続部材の需要が急増しています。一方で、AI関連株は期待先行の反動で大きく調整する局面もあり、値動きは荒くなっています。",
+      "rate": 4,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "NEE_20261008.html",
+      "name": "NextEra Energy, Inc.",
+      "symbol": "NEE",
+      "sector": "Utilities / 再生可能エネルギー・規制電力",
+      "feature": "米国電力業界は、AIデータセンター向けの電力需要拡大で設備投資が増えています。一方で、金利高止まりは電力株の評価を抑え、再エネの税控除を巡る政策の不透明感も残っています。",
+      "rate": 4,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "QS_20261008.html",
+      "name": "QuantumScape Corporation",
+      "symbol": "QS",
+      "sector": "Auto Parts / 全固体電池",
+      "feature": "全固体電池は、EVの航続距離と充電速度を大きく高める次世代技術として期待されています。ただし量産はまだ試作ライン段階で、EV需要の減速もあり、商業化の時期が株価を左右しています。",
+      "rate": 2,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "XE_20261008.html",
+      "name": "X-Energy, Inc.",
+      "symbol": "XE",
+      "sector": "Nuclear / 小型モジュール炉（SMR）・TRISO燃料",
+      "feature": "AIデータセンターの電力需要を背景に、小型モジュール炉（SMR）への期待が高まっています。ただし商業運転は2030年前後が中心で、各社は赤字のまま開発・許認可を進める段階です。",
+      "rate": 2,
+      "datetime": "2026-10-08T01:06:08+09:00"
+    },
+    {
+      "filename": "6701T_20261008.html",
+      "name": "日本電気 (NEC Corporation)",
+      "symbol": "6701T",
+      "sector": "Information Technology Services / 防衛・宇宙・AI",
+      "feature": "国内ITサービスはモダナイゼーションとDX需要が堅調で、防衛予算の増額により航空宇宙・防衛向けも急拡大しています。生成AIの本格的な収益化はこれからで、各社はAI人材・開発体制の整備を急いでいます。",
+      "rate": 4,
+      "datetime": "2026-10-08T01:06:07+09:00"
+    },
+    {
+      "filename": "6702T_20261008.html",
+      "name": "富士通 (Fujitsu Limited)",
+      "symbol": "6702T",
+      "sector": "Information Technology Services / DX・防衛IT",
+      "feature": "国内ITサービス市場は、レガシー刷新（モダナイゼーション）とDX投資が続き、防衛・公共向け需要も拡大しています。一方、生成AIによる業務変革（AX）は「始まったばかり」と各社が語る段階で、収益化は2026年度後半以降と見られます。",
+      "rate": 4,
+      "datetime": "2026-10-08T01:06:07+09:00"
+    },
     {
       "filename": "IONQ_20260925.html",
       "name": "IonQ, Inc.",
