@@ -1,6 +1,69 @@
 {
-  "generated_at": "2026-10-08T01:11:22+09:00",
+  "generated_at": "2026-10-08T02:09:39+09:00",
   "reports": [
+    {
+      "filename": "6324T_20261008.html",
+      "name": "ハーモニック・ドライブ・システムズ (Harmonic Drive Systems Inc.)",
+      "symbol": "6324T",
+      "sector": "Specialty Industrial Machinery / ロボット用精密減速機",
+      "feature": "産業用ロボットの需要回復に加え、人型ロボット（ヒューマノイド）の量産期待で、関節に使う精密減速機への注目が高まっています。一方で、中国の減速機メーカーが低価格と生産能力の拡大で急速に追い上げています。",
+      "rate": 3,
+      "datetime": "2026-10-08T02:09:20+09:00"
+    },
+    {
+      "filename": "6965T_20261008.html",
+      "name": "浜松ホトニクス (Hamamatsu Photonics K.K.)",
+      "symbol": "6965T",
+      "sector": "Electronic Components / 光センサー・光源",
+      "feature": "光センサーや光源は、医療機器・半導体検査装置・分析機器などに幅広く使われます。半導体投資の回復と医療用途の拡大が追い風で、一方では中国向け需要の変動が利益を左右しています。",
+      "rate": 3,
+      "datetime": "2026-10-08T02:09:20+09:00"
+    },
+    {
+      "filename": "7013T_20261008.html",
+      "name": "IHI (IHI Corporation)",
+      "symbol": "7013T",
+      "sector": "Industrials / 航空エンジン・防衛・エネルギー",
+      "feature": "国内重工業は防衛予算の増額と民間航空機需要の回復で受注を伸ばしています。特に航空エンジンは、部品の販売や整備（アフターマーケット）が長期にわたり稼ぐ収益源になっています。",
+      "rate": 4,
+      "datetime": "2026-10-08T02:09:20+09:00"
+    },
+    {
+      "filename": "9449T_20261008.html",
+      "name": "GMOインターネットグループ (GMO Internet Group, Inc.)",
+      "symbol": "9449T",
+      "sector": "Internet Services / 決済・ネット証券・暗号資産",
+      "feature": "国内のネット関連企業は、キャッシュレス決済の拡大とネット証券の取引活況が追い風です。一方で暗号資産の取引は市場全体の低調で減少しており、事業ごとに明暗が分かれています。",
+      "rate": 3,
+      "datetime": "2026-10-08T02:09:20+09:00"
+    },
+    {
+      "filename": "AVGO_20261008.html",
+      "name": "Broadcom Inc.",
+      "symbol": "AVGO",
+      "sector": "Semiconductors / カスタムAIチップ・ネットワーク・インフラソフト",
+      "feature": "AI半導体市場では、大手クラウドが自社専用のAIチップ（カスタムASIC）を増やしており、その設計・製造を担う企業の売上が急拡大しています。ネットワーク用の半導体もAIデータセンター向けに需要が伸びています。",
+      "rate": 5,
+      "datetime": "2026-10-08T02:09:20+09:00"
+    },
+    {
+      "filename": "CBRS_20261008.html",
+      "name": "Cerebras Systems Inc.",
+      "symbol": "CBRS",
+      "sector": "Semiconductors / ウェハースケールAIチップ・AIクラウド",
+      "feature": "AIの推論（学習済みモデルの実行）需要が急拡大し、GPU以外の専用チップにも資金が集まっています。一方、AI関連株は期待先行の反動で値動きが大きく、上場したばかりの銘柄ほど振れ幅が大きくなっています。",
+      "rate": 3,
+      "datetime": "2026-10-08T02:09:20+09:00"
+    },
+    {
+      "filename": "CRDO_20261008.html",
+      "name": "Credo Technology Group Holding Ltd",
+      "symbol": "CRDO",
+      "sector": "Semiconductors / AECケーブル・SerDes・光DSP",
+      "feature": "AIデータセンターでは、GPUやサーバーをつなぐ高速接続の部品が不足気味で、関連企業の売上が急拡大しています。ただし期待が高い分、少しでも利益率や見通しが弱いと株価が大きく反応します。",
+      "rate": 4,
+      "datetime": "2026-10-08T02:09:20+09:00"
+    },
     {
       "filename": "5333T_20261008.html",
       "name": "日本ガイシ (NGK Insulators, Ltd.)",
