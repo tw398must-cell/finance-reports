@@ -1,6 +1,42 @@
 {
-  "generated_at": "2026-10-08T02:09:39+09:00",
+  "generated_at": "2026-11-04T06:45:10+09:00",
   "reports": [
+    {
+      "filename": "IBM_20261104.html",
+      "name": "International Business Machines Corporation",
+      "symbol": "IBM",
+      "sector": "Information Technology Services / ハイブリッドクラウド・AI・量子",
+      "feature": "企業のIT投資は、生成AIとハイブリッドクラウドへの移行が中心です。ソフトウェアの比率が高い企業ほど利益率と株価の評価が高く、IBMも量子コンピュータを長期の成長分野に位置づけています。",
+      "rate": 4,
+      "datetime": "2026-11-04T06:44:34+09:00"
+    },
+    {
+      "filename": "IONQ_20261104.html",
+      "name": "IonQ, Inc.",
+      "symbol": "IONQ",
+      "sector": "Computer Hardware / イオントラップ方式・量子ネットワーク",
+      "feature": "量子コンピュータ関連株は10月に業界全体で急落しました。各社の大型増資や買収による株式の希薄化が警戒され、11/2にはB. Rileyが主要銘柄の目標株価を引き下げています（買い推奨は維持）。",
+      "rate": 3,
+      "datetime": "2026-11-04T06:44:34+09:00"
+    },
+    {
+      "filename": "PSQL_20261104.html",
+      "name": "Pasqal Holding SA",
+      "symbol": "PSQL",
+      "sector": "Computer Hardware / 中性原子方式の量子コンピュータ",
+      "feature": "量子コンピュータ関連株は、10月に業界全体で急落しました。資金調達による株式の希薄化や、高すぎる評価への警戒が広がり、11/2にはB. Rileyが主要銘柄の目標株価を引き下げています。",
+      "rate": 2,
+      "datetime": "2026-11-04T06:44:34+09:00"
+    },
+    {
+      "filename": "RGTI_20261104.html",
+      "name": "Rigetti Computing, Inc.",
+      "symbol": "RGTI",
+      "sector": "Computer Hardware / 超伝導方式",
+      "feature": "量子コンピュータ関連株は10月に業界全体で急落しました。各社の資金需要と株式の希薄化への警戒が強まり、11/2にはB. Rileyが主要銘柄の目標株価を引き下げています（買い推奨は維持）。",
+      "rate": 2,
+      "datetime": "2026-11-04T06:44:34+09:00"
+    },
     {
       "filename": "6324T_20261008.html",
       "name": "ハーモニック・ドライブ・システムズ (Harmonic Drive Systems Inc.)",
