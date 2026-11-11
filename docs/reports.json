@@ -1,6 +1,33 @@
 {
-  "generated_at": "2026-11-04T06:45:10+09:00",
+  "generated_at": "2026-11-11T14:25:35+09:00",
   "reports": [
+    {
+      "filename": "7011T_20261111.html",
+      "name": "三菱重工業 (Mitsubishi Heavy Industries, Ltd.)",
+      "symbol": "7011T",
+      "sector": "Industrials / 防衛・ガスタービン・原子力",
+      "feature": "11/6に日経平均が1日で約7%下落し、防衛・重工株も大きく売られました。AI投資ブームへの不安からアジア市場全体で売りが広がったためです（Investing.com）。各社の業績は防衛予算の増額と円安で過去最高ペースですが、株価は2〜3月…",
+      "rate": 4,
+      "datetime": "2026-11-11T14:25:08+09:00"
+    },
+    {
+      "filename": "7012T_20261111.html",
+      "name": "川崎重工業 (Kawasaki Heavy Industries, Ltd.)",
+      "symbol": "7012T",
+      "sector": "Industrials / 防衛・航空宇宙・ロボット・水素",
+      "feature": "11/6に日経平均が1日で約7%下落し、防衛・重工株も大きく売られました。AI投資ブームへの不安からアジア市場全体で売りが広がったためです（Investing.com）。各社の業績は防衛予算の増額と円安で過去最高ペースですが、株価は2〜3月…",
+      "rate": 3,
+      "datetime": "2026-11-11T14:25:08+09:00"
+    },
+    {
+      "filename": "7013T_20261111.html",
+      "name": "IHI (IHI Corporation)",
+      "symbol": "7013T",
+      "sector": "Industrials / 航空エンジン・防衛・原子力",
+      "feature": "11/6に日経平均が1日で約7%下落し、防衛・重工株も大きく売られました。AI投資ブームへの不安からアジア市場全体で売りが広がったためです（Investing.com）。各社の業績は防衛予算の増額と円安で過去最高ペースですが、株価は2〜3月…",
+      "rate": 4,
+      "datetime": "2026-11-11T14:25:08+09:00"
+    },
     {
       "filename": "IBM_20261104.html",
       "name": "International Business Machines Corporation",
